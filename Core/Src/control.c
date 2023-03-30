@@ -60,6 +60,8 @@ int parexc(char *str, uint16_t len)
         return 0;
     str[i++] = '\0';
 
+    uint8_t endline = '\n';
+
     if (strcmp(str, "MOVP") == 0 || strcmp(str, "MOVA") == 0)
     {
 
@@ -89,6 +91,9 @@ int parexc(char *str, uint16_t len)
                 USART_OUT;
                 // print result
                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+                HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+                HAL_Delay(50);
+                USART_IN;
                 // log info
                 print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
             }
@@ -97,6 +102,9 @@ int parexc(char *str, uint16_t len)
                 USART_OUT;
                 // print result
                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+                HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+                HAL_Delay(50);
+                USART_IN;
                 // log info
                 print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
             }
@@ -116,6 +124,9 @@ int parexc(char *str, uint16_t len)
                 USART_OUT;
                 // print result
                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+                HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+                HAL_Delay(50);
+                USART_IN;
                 // log info
                 print_info("Complete. point: ", endpos.x, endpos.y, endpos.z, "\n");
             }
@@ -124,6 +135,9 @@ int parexc(char *str, uint16_t len)
                 USART_OUT;
                 // print result
                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+                HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+                HAL_Delay(50);
+                USART_IN;
                 // log info
                 print_info("Cannot turn to ", r[0], r[1], r[2], ", move failed\n");
             }
@@ -166,6 +180,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
         }
@@ -174,6 +191,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
         }
@@ -206,6 +226,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             // print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
         }
@@ -214,6 +237,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             // print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
         }
@@ -227,6 +253,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             if (CURRENT_LEVEL <= INFO_LEVEL)
                 m_printf("[info] pump on%c", '\n');
@@ -238,6 +267,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             if (CURRENT_LEVEL <= INFO_LEVEL)
                 m_printf("[info] pump off%c", '\n');
@@ -249,6 +281,9 @@ int parexc(char *str, uint16_t len)
             USART_OUT;
             // print result
             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             if (CURRENT_LEVEL <= INFO_LEVEL)
             {
@@ -267,9 +302,10 @@ int parexc(char *str, uint16_t len)
         {
             USART_OUT;
             // print result
-            print_float(endpos.x);
-            print_float(endpos.y);
-            print_float(endpos.z);
+            HAL_UART_Transmit(&huart2, (uint8_t *)&endpos, sizeof(point_t), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             if (CURRENT_LEVEL <= INFO_LEVEL)
                 m_printf("[info] get position%c", '\n');
@@ -278,9 +314,10 @@ int parexc(char *str, uint16_t len)
         {
             USART_OUT;
             // print result
-            print_float(endagl.j1);
-            print_float(endagl.j2);
-            print_float(endagl.j3);
+            HAL_UART_Transmit(&huart2, (uint8_t *)&endagl, sizeof(angle_t), 0xffff);
+            HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+            HAL_Delay(50);
+            USART_IN;
             // log info
             if (CURRENT_LEVEL <= INFO_LEVEL)
                 m_printf("[info] get angle%c", '\n');
@@ -290,6 +327,5 @@ int parexc(char *str, uint16_t len)
     }
     else
         return 0;
-
     return 1;
 }

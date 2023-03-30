@@ -1,0 +1,852 @@
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"serial.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/serial.c"
+  18              		.section	.text.HAL_UART_RxCpltCallback,"ax",%progbits
+  19              		.align	1
+  20              		.global	HAL_UART_RxCpltCallback
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	HAL_UART_RxCpltCallback:
+  26              	.LVL0:
+  27              	.LFB68:
+   1:Core/Src/serial.c **** #include "serial.h"
+   2:Core/Src/serial.c **** 
+   3:Core/Src/serial.c **** uint8_t message[400]; // 接收字符串环形缓冲区
+   4:Core/Src/serial.c **** uint8_t offset;       // 接收字符串缓冲区的下标及大小
+   5:Core/Src/serial.c **** uint8_t mesg;         // 用于中断时，接收单个字符
+   6:Core/Src/serial.c **** uint8_t RX_Flag;      // 发生中断的标志
+   7:Core/Src/serial.c **** uint8_t GAIN_F;       // 接受完整语句的标志
+   8:Core/Src/serial.c **** uint8_t seekp = 0;
+   9:Core/Src/serial.c **** 
+  10:Core/Src/serial.c **** /**
+  11:Core/Src/serial.c ****  * @brief 重写串口中断
+  12:Core/Src/serial.c ****  */
+  13:Core/Src/serial.c **** void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+  14:Core/Src/serial.c **** {
+  28              		.loc 1 14 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 14 1 is_stmt 0 view .LVU1
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  15:Core/Src/serial.c ****     if (offset == 400)
+  37              		.loc 1 15 5 is_stmt 1 view .LVU2
+  16:Core/Src/serial.c ****         offset = 0;
+  17:Core/Src/serial.c ****     if (mesg != '\r' && mesg != '\n' && mesg != 255) // 忽略这些字符,反正本来也没用
+  38              		.loc 1 17 5 view .LVU3
+  39              		.loc 1 17 14 is_stmt 0 view .LVU4
+  40 0002 0E4B     		ldr	r3, .L6
+  41 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 2
+
+
+  42              		.loc 1 17 8 view .LVU5
+  43 0006 0D2B     		cmp	r3, #13
+  44 0008 0BD0     		beq	.L2
+  45              		.loc 1 17 22 discriminator 1 view .LVU6
+  46 000a 0A2B     		cmp	r3, #10
+  47 000c 09D0     		beq	.L2
+  48              		.loc 1 17 38 discriminator 2 view .LVU7
+  49 000e FF2B     		cmp	r3, #255
+  50 0010 07D0     		beq	.L2
+  18:Core/Src/serial.c ****         message[offset++] = mesg;
+  51              		.loc 1 18 9 is_stmt 1 view .LVU8
+  52              		.loc 1 18 23 is_stmt 0 view .LVU9
+  53 0012 0B49     		ldr	r1, .L6+4
+  54 0014 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+  55 0016 02F1010C 		add	ip, r2, #1
+  56 001a 81F800C0 		strb	ip, [r1]
+  57              		.loc 1 18 27 view .LVU10
+  58 001e 0949     		ldr	r1, .L6+8
+  59 0020 8B54     		strb	r3, [r1, r2]
+  60              	.L2:
+  19:Core/Src/serial.c ****     RX_Flag = 1;
+  61              		.loc 1 19 5 is_stmt 1 view .LVU11
+  62              		.loc 1 19 13 is_stmt 0 view .LVU12
+  63 0022 094A     		ldr	r2, .L6+12
+  64 0024 0121     		movs	r1, #1
+  65 0026 1170     		strb	r1, [r2]
+  20:Core/Src/serial.c ****     if (mesg == ';') // 读到;说明已到达完整语句结尾
+  66              		.loc 1 20 5 is_stmt 1 view .LVU13
+  67              		.loc 1 20 8 is_stmt 0 view .LVU14
+  68 0028 3B2B     		cmp	r3, #59
+  69 002a 04D0     		beq	.L5
+  70              	.L3:
+  21:Core/Src/serial.c ****         GAIN_F = 1;
+  22:Core/Src/serial.c ****     HAL_UART_Receive_IT(huart, (uint8_t *)&mesg, 1);
+  71              		.loc 1 22 5 is_stmt 1 view .LVU15
+  72 002c 0122     		movs	r2, #1
+  73 002e 0349     		ldr	r1, .L6
+  74 0030 FFF7FEFF 		bl	HAL_UART_Receive_IT
+  75              	.LVL1:
+  23:Core/Src/serial.c **** }
+  76              		.loc 1 23 1 is_stmt 0 view .LVU16
+  77 0034 08BD     		pop	{r3, pc}
+  78              	.LVL2:
+  79              	.L5:
+  21:Core/Src/serial.c ****         GAIN_F = 1;
+  80              		.loc 1 21 9 is_stmt 1 view .LVU17
+  21:Core/Src/serial.c ****         GAIN_F = 1;
+  81              		.loc 1 21 16 is_stmt 0 view .LVU18
+  82 0036 054B     		ldr	r3, .L6+16
+  83 0038 1970     		strb	r1, [r3]
+  84 003a F7E7     		b	.L3
+  85              	.L7:
+  86              		.align	2
+  87              	.L6:
+  88 003c 00000000 		.word	mesg
+  89 0040 00000000 		.word	offset
+  90 0044 00000000 		.word	message
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 3
+
+
+  91 0048 00000000 		.word	RX_Flag
+  92 004c 00000000 		.word	GAIN_F
+  93              		.cfi_endproc
+  94              	.LFE68:
+  96              		.section	.text.readStr,"ax",%progbits
+  97              		.align	1
+  98              		.global	readStr
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 103              	readStr:
+ 104              	.LVL3:
+ 105              	.LFB69:
+  24:Core/Src/serial.c **** /**
+  25:Core/Src/serial.c ****  * @brief 从缓冲区读取字符串
+  26:Core/Src/serial.c ****  * @param buf 接收的字符串
+  27:Core/Src/serial.c ****  * @retval 读取的字符串长度
+  28:Core/Src/serial.c ****  */
+  29:Core/Src/serial.c **** int readStr(uint8_t *buf)
+  30:Core/Src/serial.c **** {
+ 106              		.loc 1 30 1 is_stmt 1 view -0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              		.loc 1 30 1 is_stmt 0 view .LVU20
+ 111 0000 70B5     		push	{r4, r5, r6, lr}
+ 112              		.cfi_def_cfa_offset 16
+ 113              		.cfi_offset 4, -16
+ 114              		.cfi_offset 5, -12
+ 115              		.cfi_offset 6, -8
+ 116              		.cfi_offset 14, -4
+ 117 0002 0646     		mov	r6, r0
+  31:Core/Src/serial.c ****     uint8_t tail = seekp;
+ 118              		.loc 1 31 5 is_stmt 1 view .LVU21
+ 119              		.loc 1 31 13 is_stmt 0 view .LVU22
+ 120 0004 114B     		ldr	r3, .L13
+ 121 0006 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 122              	.LVL4:
+  32:Core/Src/serial.c ****     uint8_t flag = 0;
+ 123              		.loc 1 32 5 is_stmt 1 view .LVU23
+  33:Core/Src/serial.c ****     while (message[tail++] != ';')
+ 124              		.loc 1 33 5 view .LVU24
+  31:Core/Src/serial.c ****     uint8_t tail = seekp;
+ 125              		.loc 1 31 13 is_stmt 0 view .LVU25
+ 126 0008 0C46     		mov	r4, r1
+ 127              	.LVL5:
+ 128              	.L9:
+ 129              		.loc 1 33 28 is_stmt 1 view .LVU26
+ 130 000a 2546     		mov	r5, r4
+ 131              		.loc 1 33 24 is_stmt 0 view .LVU27
+ 132 000c 0134     		adds	r4, r4, #1
+ 133              	.LVL6:
+ 134              		.loc 1 33 24 view .LVU28
+ 135 000e E4B2     		uxtb	r4, r4
+ 136              	.LVL7:
+ 137              		.loc 1 33 19 view .LVU29
+ 138 0010 0F4B     		ldr	r3, .L13+4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 4
+
+
+ 139 0012 5B5D     		ldrb	r3, [r3, r5]	@ zero_extendqisi2
+ 140              		.loc 1 33 28 view .LVU30
+ 141 0014 3B2B     		cmp	r3, #59
+ 142 0016 F8D1     		bne	.L9
+  34:Core/Src/serial.c ****     {
+  35:Core/Src/serial.c ****         if (tail == 400)
+  36:Core/Src/serial.c ****         {
+  37:Core/Src/serial.c ****             tail = 0;
+  38:Core/Src/serial.c ****             if (flag == 1) // 都没有;则直接返回空
+  39:Core/Src/serial.c ****                 buf = NULL;
+  40:Core/Src/serial.c ****             flag = 1;
+  41:Core/Src/serial.c ****         }
+  42:Core/Src/serial.c ****     }
+  43:Core/Src/serial.c ****     tail--; // 形如123;的返回123'\0'，去掉;
+ 143              		.loc 1 43 5 is_stmt 1 view .LVU31
+ 144              	.LVL8:
+  44:Core/Src/serial.c ****     if (flag == 0)
+ 145              		.loc 1 44 5 view .LVU32
+  45:Core/Src/serial.c ****     {
+  46:Core/Src/serial.c ****         memcpy(buf, message + seekp, tail - seekp);
+ 146              		.loc 1 46 9 view .LVU33
+ 147 0018 6A1A     		subs	r2, r5, r1
+ 148 001a 0D4B     		ldr	r3, .L13+4
+ 149 001c 1944     		add	r1, r1, r3
+ 150 001e 3046     		mov	r0, r6
+ 151              	.LVL9:
+ 152              		.loc 1 46 9 is_stmt 0 view .LVU34
+ 153 0020 FFF7FEFF 		bl	memcpy
+ 154              	.LVL10:
+  47:Core/Src/serial.c ****         buf[tail - seekp] = '\0';
+ 155              		.loc 1 47 9 is_stmt 1 view .LVU35
+ 156              		.loc 1 47 18 is_stmt 0 view .LVU36
+ 157 0024 094B     		ldr	r3, .L13
+ 158 0026 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 159 0028 EB1A     		subs	r3, r5, r3
+ 160              		.loc 1 47 27 view .LVU37
+ 161 002a 0022     		movs	r2, #0
+ 162 002c F254     		strb	r2, [r6, r3]
+  48:Core/Src/serial.c ****     }
+  49:Core/Src/serial.c ****     else
+  50:Core/Src/serial.c ****     {
+  51:Core/Src/serial.c ****         memcpy(buf, message + seekp, 400 - seekp);
+  52:Core/Src/serial.c ****         memcpy(buf + (400 - seekp), message, tail);
+  53:Core/Src/serial.c ****         buf[tail] = '\0';
+  54:Core/Src/serial.c ****     }
+  55:Core/Src/serial.c ****     if (tail + 1 == offset) // 若已经读完缓冲区,清除GAIN_F标志
+ 163              		.loc 1 55 5 is_stmt 1 view .LVU38
+ 164              		.loc 1 55 14 is_stmt 0 view .LVU39
+ 165 002e 6B1C     		adds	r3, r5, #1
+ 166              		.loc 1 55 18 view .LVU40
+ 167 0030 084A     		ldr	r2, .L13+8
+ 168 0032 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 169              		.loc 1 55 8 view .LVU41
+ 170 0034 9342     		cmp	r3, r2
+ 171 0036 05D0     		beq	.L12
+ 172              	.L10:
+  56:Core/Src/serial.c ****         GAIN_F = 0;
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 5
+
+
+  57:Core/Src/serial.c ****     int len = tail - seekp + 1;
+ 173              		.loc 1 57 5 is_stmt 1 view .LVU42
+ 174              		.loc 1 57 20 is_stmt 0 view .LVU43
+ 175 0038 044B     		ldr	r3, .L13
+ 176 003a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 177 003c A81A     		subs	r0, r5, r2
+ 178              	.LVL11:
+  58:Core/Src/serial.c ****     seekp = tail + 1;
+ 179              		.loc 1 58 5 is_stmt 1 view .LVU44
+ 180              		.loc 1 58 11 is_stmt 0 view .LVU45
+ 181 003e 1C70     		strb	r4, [r3]
+  59:Core/Src/serial.c ****     return len;
+ 182              		.loc 1 59 5 is_stmt 1 view .LVU46
+  60:Core/Src/serial.c **** }
+ 183              		.loc 1 60 1 is_stmt 0 view .LVU47
+ 184 0040 0130     		adds	r0, r0, #1
+ 185              	.LVL12:
+ 186              		.loc 1 60 1 view .LVU48
+ 187 0042 70BD     		pop	{r4, r5, r6, pc}
+ 188              	.LVL13:
+ 189              	.L12:
+  56:Core/Src/serial.c ****     int len = tail - seekp + 1;
+ 190              		.loc 1 56 9 is_stmt 1 view .LVU49
+  56:Core/Src/serial.c ****     int len = tail - seekp + 1;
+ 191              		.loc 1 56 16 is_stmt 0 view .LVU50
+ 192 0044 044B     		ldr	r3, .L13+12
+ 193 0046 0022     		movs	r2, #0
+ 194 0048 1A70     		strb	r2, [r3]
+ 195 004a F5E7     		b	.L10
+ 196              	.L14:
+ 197              		.align	2
+ 198              	.L13:
+ 199 004c 00000000 		.word	seekp
+ 200 0050 00000000 		.word	message
+ 201 0054 00000000 		.word	offset
+ 202 0058 00000000 		.word	GAIN_F
+ 203              		.cfi_endproc
+ 204              	.LFE69:
+ 206              		.section	.text.UART_available,"ax",%progbits
+ 207              		.align	1
+ 208              		.global	UART_available
+ 209              		.syntax unified
+ 210              		.thumb
+ 211              		.thumb_func
+ 213              	UART_available:
+ 214              	.LFB70:
+  61:Core/Src/serial.c **** 
+  62:Core/Src/serial.c **** /**
+  63:Core/Src/serial.c ****  * @brief 从缓冲区读取字符串
+  64:Core/Src/serial.c ****  * @retval 是否已至少读入一条完整语句
+  65:Core/Src/serial.c ****  */
+  66:Core/Src/serial.c **** uint8_t UART_available(void)
+  67:Core/Src/serial.c **** {
+ 215              		.loc 1 67 1 is_stmt 1 view -0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 6
+
+
+ 219              		@ link register save eliminated.
+  68:Core/Src/serial.c ****     return GAIN_F;
+ 220              		.loc 1 68 5 view .LVU52
+  69:Core/Src/serial.c **** }
+ 221              		.loc 1 69 1 is_stmt 0 view .LVU53
+ 222 0000 014B     		ldr	r3, .L16
+ 223 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 224 0004 7047     		bx	lr
+ 225              	.L17:
+ 226 0006 00BF     		.align	2
+ 227              	.L16:
+ 228 0008 00000000 		.word	GAIN_F
+ 229              		.cfi_endproc
+ 230              	.LFE70:
+ 232              		.global	__aeabi_d2iz
+ 233              		.global	__aeabi_i2d
+ 234              		.global	__aeabi_dsub
+ 235              		.global	__aeabi_dcmplt
+ 236              		.global	__aeabi_dmul
+ 237              		.section	.rodata.print_float.str1.4,"aMS",%progbits,1
+ 238              		.align	2
+ 239              	.LC0:
+ 240 0000 25642E25 		.ascii	"%d.%d%d%d%d%d%d \000"
+ 240      64256425 
+ 240      64256425 
+ 240      64256420 
+ 240      00
+ 241              		.section	.text.print_float,"ax",%progbits
+ 242              		.align	1
+ 243              		.global	print_float
+ 244              		.syntax unified
+ 245              		.thumb
+ 246              		.thumb_func
+ 248              	print_float:
+ 249              	.LVL14:
+ 250              	.LFB71:
+  70:Core/Src/serial.c **** 
+  71:Core/Src/serial.c **** /**
+  72:Core/Src/serial.c ****  * @brief 由于奇怪的原因，用makefile生成时sprintf无法处理小数，keil没有这个�
+  73:Core/Src/serial.c ****  */
+  74:Core/Src/serial.c **** void print_float(double value)
+  75:Core/Src/serial.c **** {
+ 251              		.loc 1 75 1 is_stmt 1 view -0
+ 252              		.cfi_startproc
+ 253              		@ args = 0, pretend = 0, frame = 8
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255              		.loc 1 75 1 is_stmt 0 view .LVU55
+ 256 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 257              		.cfi_def_cfa_offset 36
+ 258              		.cfi_offset 4, -36
+ 259              		.cfi_offset 5, -32
+ 260              		.cfi_offset 6, -28
+ 261              		.cfi_offset 7, -24
+ 262              		.cfi_offset 8, -20
+ 263              		.cfi_offset 9, -16
+ 264              		.cfi_offset 10, -12
+ 265              		.cfi_offset 11, -8
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 7
+
+
+ 266              		.cfi_offset 14, -4
+ 267 0004 87B0     		sub	sp, sp, #28
+ 268              		.cfi_def_cfa_offset 64
+ 269 0006 0446     		mov	r4, r0
+ 270 0008 0D46     		mov	r5, r1
+  76:Core/Src/serial.c ****     int z, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
+ 271              		.loc 1 76 5 is_stmt 1 view .LVU56
+  77:Core/Src/serial.c ****     z = (int)value;       // 整数部分+符号
+ 272              		.loc 1 77 5 view .LVU57
+ 273              		.loc 1 77 7 is_stmt 0 view .LVU58
+ 274 000a FFF7FEFF 		bl	__aeabi_d2iz
+ 275              	.LVL15:
+ 276              		.loc 1 77 7 view .LVU59
+ 277 000e 0590     		str	r0, [sp, #20]
+ 278              	.LVL16:
+  78:Core/Src/serial.c ****     double f = value - z; // 小数部分
+ 279              		.loc 1 78 5 is_stmt 1 view .LVU60
+ 280              		.loc 1 78 22 is_stmt 0 view .LVU61
+ 281 0010 FFF7FEFF 		bl	__aeabi_i2d
+ 282              	.LVL17:
+ 283              		.loc 1 78 22 view .LVU62
+ 284 0014 0246     		mov	r2, r0
+ 285 0016 0B46     		mov	r3, r1
+ 286              		.loc 1 78 12 view .LVU63
+ 287 0018 2046     		mov	r0, r4
+ 288 001a 2946     		mov	r1, r5
+ 289 001c FFF7FEFF 		bl	__aeabi_dsub
+ 290              	.LVL18:
+ 291 0020 0446     		mov	r4, r0
+ 292 0022 0D46     		mov	r5, r1
+ 293              	.LVL19:
+  79:Core/Src/serial.c ****     f = f < 0 ? -f : f;   // abs
+ 294              		.loc 1 79 5 is_stmt 1 view .LVU64
+ 295              		.loc 1 79 20 is_stmt 0 view .LVU65
+ 296 0024 0022     		movs	r2, #0
+ 297 0026 0023     		movs	r3, #0
+ 298 0028 FFF7FEFF 		bl	__aeabi_dcmplt
+ 299              	.LVL20:
+ 300 002c 0028     		cmp	r0, #0
+ 301 002e 7DD1     		bne	.L23
+ 302              	.L19:
+  80:Core/Src/serial.c ****     tmp1 = (int)(f * 10) % 10;
+ 303              		.loc 1 80 5 is_stmt 1 discriminator 4 view .LVU66
+ 304              		.loc 1 80 20 is_stmt 0 discriminator 4 view .LVU67
+ 305 0030 0022     		movs	r2, #0
+ 306 0032 474B     		ldr	r3, .L24+24
+ 307 0034 2046     		mov	r0, r4
+ 308 0036 2946     		mov	r1, r5
+ 309 0038 FFF7FEFF 		bl	__aeabi_dmul
+ 310              	.LVL21:
+ 311              		.loc 1 80 12 discriminator 4 view .LVU68
+ 312 003c FFF7FEFF 		bl	__aeabi_d2iz
+ 313              	.LVL22:
+ 314              		.loc 1 80 10 discriminator 4 view .LVU69
+ 315 0040 DFF810B1 		ldr	fp, .L24+28
+ 316 0044 8BFB0023 		smull	r2, r3, fp, r0
+ 317 0048 C617     		asrs	r6, r0, #31
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 8
+
+
+ 318 004a C6EBA306 		rsb	r6, r6, r3, asr #2
+ 319 004e 06EB8606 		add	r6, r6, r6, lsl #2
+ 320 0052 A0EB4606 		sub	r6, r0, r6, lsl #1
+ 321              	.LVL23:
+  81:Core/Src/serial.c ****     tmp2 = (int)(f * 100) % 10;
+ 322              		.loc 1 81 5 is_stmt 1 discriminator 4 view .LVU70
+ 323              		.loc 1 81 20 is_stmt 0 discriminator 4 view .LVU71
+ 324 0056 0022     		movs	r2, #0
+ 325 0058 3F4B     		ldr	r3, .L24+32
+ 326 005a 2046     		mov	r0, r4
+ 327 005c 2946     		mov	r1, r5
+ 328 005e FFF7FEFF 		bl	__aeabi_dmul
+ 329              	.LVL24:
+ 330              		.loc 1 81 12 discriminator 4 view .LVU72
+ 331 0062 FFF7FEFF 		bl	__aeabi_d2iz
+ 332              	.LVL25:
+ 333              		.loc 1 81 10 discriminator 4 view .LVU73
+ 334 0066 8BFB0023 		smull	r2, r3, fp, r0
+ 335 006a C717     		asrs	r7, r0, #31
+ 336 006c C7EBA307 		rsb	r7, r7, r3, asr #2
+ 337 0070 07EB8707 		add	r7, r7, r7, lsl #2
+ 338 0074 A0EB4707 		sub	r7, r0, r7, lsl #1
+ 339              	.LVL26:
+  82:Core/Src/serial.c ****     tmp3 = (int)(f * 1000) % 10;
+ 340              		.loc 1 82 5 is_stmt 1 discriminator 4 view .LVU74
+ 341              		.loc 1 82 20 is_stmt 0 discriminator 4 view .LVU75
+ 342 0078 0022     		movs	r2, #0
+ 343 007a 384B     		ldr	r3, .L24+36
+ 344 007c 2046     		mov	r0, r4
+ 345 007e 2946     		mov	r1, r5
+ 346 0080 FFF7FEFF 		bl	__aeabi_dmul
+ 347              	.LVL27:
+ 348              		.loc 1 82 12 discriminator 4 view .LVU76
+ 349 0084 FFF7FEFF 		bl	__aeabi_d2iz
+ 350              	.LVL28:
+ 351              		.loc 1 82 10 discriminator 4 view .LVU77
+ 352 0088 8BFB0023 		smull	r2, r3, fp, r0
+ 353 008c 4FEAE078 		asr	r8, r0, #31
+ 354 0090 C8EBA308 		rsb	r8, r8, r3, asr #2
+ 355 0094 08EB8808 		add	r8, r8, r8, lsl #2
+ 356 0098 A0EB4808 		sub	r8, r0, r8, lsl #1
+ 357              	.LVL29:
+  83:Core/Src/serial.c ****     tmp4 = (int)(f * 10000) % 10;
+ 358              		.loc 1 83 5 is_stmt 1 discriminator 4 view .LVU78
+ 359              		.loc 1 83 20 is_stmt 0 discriminator 4 view .LVU79
+ 360 009c 26A3     		adr	r3, .L24
+ 361 009e D3E90023 		ldrd	r2, [r3]
+ 362 00a2 2046     		mov	r0, r4
+ 363 00a4 2946     		mov	r1, r5
+ 364 00a6 FFF7FEFF 		bl	__aeabi_dmul
+ 365              	.LVL30:
+ 366              		.loc 1 83 12 discriminator 4 view .LVU80
+ 367 00aa FFF7FEFF 		bl	__aeabi_d2iz
+ 368              	.LVL31:
+ 369              		.loc 1 83 10 discriminator 4 view .LVU81
+ 370 00ae 8BFB0023 		smull	r2, r3, fp, r0
+ 371 00b2 4FEAE079 		asr	r9, r0, #31
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 9
+
+
+ 372 00b6 C9EBA309 		rsb	r9, r9, r3, asr #2
+ 373 00ba 09EB8909 		add	r9, r9, r9, lsl #2
+ 374 00be A0EB4909 		sub	r9, r0, r9, lsl #1
+ 375              	.LVL32:
+  84:Core/Src/serial.c ****     tmp5 = (int)(f * 100000) % 10;
+ 376              		.loc 1 84 5 is_stmt 1 discriminator 4 view .LVU82
+ 377              		.loc 1 84 20 is_stmt 0 discriminator 4 view .LVU83
+ 378 00c2 1FA3     		adr	r3, .L24+8
+ 379 00c4 D3E90023 		ldrd	r2, [r3]
+ 380 00c8 2046     		mov	r0, r4
+ 381 00ca 2946     		mov	r1, r5
+ 382 00cc FFF7FEFF 		bl	__aeabi_dmul
+ 383              	.LVL33:
+ 384              		.loc 1 84 12 discriminator 4 view .LVU84
+ 385 00d0 FFF7FEFF 		bl	__aeabi_d2iz
+ 386              	.LVL34:
+ 387              		.loc 1 84 10 discriminator 4 view .LVU85
+ 388 00d4 8BFB0023 		smull	r2, r3, fp, r0
+ 389 00d8 4FEAE07A 		asr	r10, r0, #31
+ 390 00dc CAEBA30A 		rsb	r10, r10, r3, asr #2
+ 391 00e0 0AEB8A0A 		add	r10, r10, r10, lsl #2
+ 392 00e4 A0EB4A0A 		sub	r10, r0, r10, lsl #1
+ 393              	.LVL35:
+  85:Core/Src/serial.c ****     tmp6 = (int)(f * 1000000) % 10;
+ 394              		.loc 1 85 5 is_stmt 1 discriminator 4 view .LVU86
+ 395              		.loc 1 85 20 is_stmt 0 discriminator 4 view .LVU87
+ 396 00e8 17A3     		adr	r3, .L24+16
+ 397 00ea D3E90023 		ldrd	r2, [r3]
+ 398 00ee 2046     		mov	r0, r4
+ 399 00f0 2946     		mov	r1, r5
+ 400 00f2 FFF7FEFF 		bl	__aeabi_dmul
+ 401              	.LVL36:
+ 402              		.loc 1 85 12 discriminator 4 view .LVU88
+ 403 00f6 FFF7FEFF 		bl	__aeabi_d2iz
+ 404              	.LVL37:
+ 405              		.loc 1 85 10 discriminator 4 view .LVU89
+ 406 00fa 8BFB003B 		smull	r3, fp, fp, r0
+ 407 00fe C317     		asrs	r3, r0, #31
+ 408 0100 C3EBAB03 		rsb	r3, r3, fp, asr #2
+ 409 0104 03EB8303 		add	r3, r3, r3, lsl #2
+ 410 0108 A0EB4303 		sub	r3, r0, r3, lsl #1
+ 411              	.LVL38:
+  86:Core/Src/serial.c ****     printf("%d.%d%d%d%d%d%d ", z, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6);
+ 412              		.loc 1 86 5 is_stmt 1 discriminator 4 view .LVU90
+ 413 010c 0393     		str	r3, [sp, #12]
+ 414 010e CDF808A0 		str	r10, [sp, #8]
+ 415 0112 CDF80490 		str	r9, [sp, #4]
+ 416 0116 CDF80080 		str	r8, [sp]
+ 417 011a 3B46     		mov	r3, r7
+ 418              	.LVL39:
+ 419              		.loc 1 86 5 is_stmt 0 discriminator 4 view .LVU91
+ 420 011c 3246     		mov	r2, r6
+ 421 011e 0599     		ldr	r1, [sp, #20]
+ 422 0120 0F48     		ldr	r0, .L24+40
+ 423 0122 FFF7FEFF 		bl	printf
+ 424              	.LVL40:
+  87:Core/Src/serial.c **** }
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 10
+
+
+ 425              		.loc 1 87 1 discriminator 4 view .LVU92
+ 426 0126 07B0     		add	sp, sp, #28
+ 427              		.cfi_remember_state
+ 428              		.cfi_def_cfa_offset 36
+ 429              		@ sp needed
+ 430 0128 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 431              	.LVL41:
+ 432              	.L23:
+ 433              		.cfi_restore_state
+  79:Core/Src/serial.c ****     tmp1 = (int)(f * 10) % 10;
+ 434              		.loc 1 79 20 discriminator 1 view .LVU93
+ 435 012c 05F10043 		add	r3, r5, #-2147483648
+ 436 0130 1D46     		mov	r5, r3
+ 437 0132 7DE7     		b	.L19
+ 438              	.L25:
+ 439 0134 AFF30080 		.align	3
+ 440              	.L24:
+ 441 0138 00000000 		.word	0
+ 442 013c 0088C340 		.word	1086556160
+ 443 0140 00000000 		.word	0
+ 444 0144 006AF840 		.word	1090021888
+ 445 0148 00000000 		.word	0
+ 446 014c 80842E41 		.word	1093567616
+ 447 0150 00002440 		.word	1076101120
+ 448 0154 67666666 		.word	1717986919
+ 449 0158 00005940 		.word	1079574528
+ 450 015c 00408F40 		.word	1083129856
+ 451 0160 00000000 		.word	.LC0
+ 452              		.cfi_endproc
+ 453              	.LFE71:
+ 455              		.section	.text.print_debug,"ax",%progbits
+ 456              		.align	1
+ 457              		.global	print_debug
+ 458              		.syntax unified
+ 459              		.thumb
+ 460              		.thumb_func
+ 462              	print_debug:
+ 463              	.LVL42:
+ 464              	.LFB72:
+  88:Core/Src/serial.c **** 
+  89:Core/Src/serial.c **** /**
+  90:Core/Src/serial.c ****  * @brief 输出详细日志，由于printf无法处理小数，故用此代替
+  91:Core/Src/serial.c ****  */
+  92:Core/Src/serial.c **** void print_debug(char *str, double a, double b, double c, char *end)
+  93:Core/Src/serial.c **** {
+ 465              		.loc 1 93 1 is_stmt 1 view -0
+ 466              		.cfi_startproc
+ 467              		@ args = 20, pretend = 0, frame = 0
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469              		@ link register save eliminated.
+  94:Core/Src/serial.c ****     if (CURRENT_LEVEL <= DEBUG_LEVEL)
+ 470              		.loc 1 94 5 view .LVU95
+  95:Core/Src/serial.c ****     {
+  96:Core/Src/serial.c ****         USART_OUT;
+  97:Core/Src/serial.c ****         printf("[debug] %s", str);
+  98:Core/Src/serial.c ****         print_float(a);
+  99:Core/Src/serial.c ****         print_float(b);
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 11
+
+
+ 100:Core/Src/serial.c ****         print_float(c);
+ 101:Core/Src/serial.c ****         printf("%s", end);
+ 102:Core/Src/serial.c ****         USART_IN;
+ 103:Core/Src/serial.c ****     }
+ 104:Core/Src/serial.c **** }
+ 471              		.loc 1 104 1 is_stmt 0 view .LVU96
+ 472 0000 7047     		bx	lr
+ 473              		.cfi_endproc
+ 474              	.LFE72:
+ 476              		.section	.rodata.print_info.str1.4,"aMS",%progbits,1
+ 477              		.align	2
+ 478              	.LC1:
+ 479 0000 5B696E66 		.ascii	"[info] %s\000"
+ 479      6F5D2025 
+ 479      7300
+ 480 000a 0000     		.align	2
+ 481              	.LC2:
+ 482 000c 257300   		.ascii	"%s\000"
+ 483              		.section	.text.print_info,"ax",%progbits
+ 484              		.align	1
+ 485              		.global	print_info
+ 486              		.syntax unified
+ 487              		.thumb
+ 488              		.thumb_func
+ 490              	print_info:
+ 491              	.LVL43:
+ 492              	.LFB73:
+ 105:Core/Src/serial.c **** 
+ 106:Core/Src/serial.c **** /**
+ 107:Core/Src/serial.c ****  * @brief 输出日志，由于printf无法处理小数，故用此代替
+ 108:Core/Src/serial.c ****  */
+ 109:Core/Src/serial.c **** void print_info(char *str, double a, double b, double c, char *end)
+ 110:Core/Src/serial.c **** {
+ 493              		.loc 1 110 1 is_stmt 1 view -0
+ 494              		.cfi_startproc
+ 495              		@ args = 20, pretend = 0, frame = 0
+ 496              		@ frame_needed = 0, uses_anonymous_args = 0
+ 497              		.loc 1 110 1 is_stmt 0 view .LVU98
+ 498 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 499              		.cfi_def_cfa_offset 24
+ 500              		.cfi_offset 3, -24
+ 501              		.cfi_offset 4, -20
+ 502              		.cfi_offset 5, -16
+ 503              		.cfi_offset 6, -12
+ 504              		.cfi_offset 7, -8
+ 505              		.cfi_offset 14, -4
+ 506 0002 0646     		mov	r6, r0
+ 507 0004 1446     		mov	r4, r2
+ 508 0006 1D46     		mov	r5, r3
+ 111:Core/Src/serial.c ****     if (CURRENT_LEVEL <= INFO_LEVEL)
+ 509              		.loc 1 111 5 is_stmt 1 view .LVU99
+ 112:Core/Src/serial.c ****     {
+ 113:Core/Src/serial.c ****         USART_OUT;
+ 510              		.loc 1 113 9 view .LVU100
+ 511 0008 0F4F     		ldr	r7, .L29
+ 512 000a 0122     		movs	r2, #1
+ 513              	.LVL44:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 12
+
+
+ 514              		.loc 1 113 9 is_stmt 0 view .LVU101
+ 515 000c 1021     		movs	r1, #16
+ 516 000e 3846     		mov	r0, r7
+ 517              	.LVL45:
+ 518              		.loc 1 113 9 view .LVU102
+ 519 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 520              	.LVL46:
+ 114:Core/Src/serial.c ****         printf("[info] %s", str);
+ 521              		.loc 1 114 9 is_stmt 1 view .LVU103
+ 522 0014 3146     		mov	r1, r6
+ 523 0016 0D48     		ldr	r0, .L29+4
+ 524 0018 FFF7FEFF 		bl	printf
+ 525              	.LVL47:
+ 115:Core/Src/serial.c ****         print_float(a);
+ 526              		.loc 1 115 9 view .LVU104
+ 527 001c 2046     		mov	r0, r4
+ 528 001e 2946     		mov	r1, r5
+ 529 0020 FFF7FEFF 		bl	print_float
+ 530              	.LVL48:
+ 116:Core/Src/serial.c ****         print_float(b);
+ 531              		.loc 1 116 9 view .LVU105
+ 532 0024 DDE90601 		ldrd	r0, [sp, #24]
+ 533 0028 FFF7FEFF 		bl	print_float
+ 534              	.LVL49:
+ 117:Core/Src/serial.c ****         print_float(c);
+ 535              		.loc 1 117 9 view .LVU106
+ 536 002c DDE90801 		ldrd	r0, [sp, #32]
+ 537 0030 FFF7FEFF 		bl	print_float
+ 538              	.LVL50:
+ 118:Core/Src/serial.c ****         printf("%s", end);
+ 539              		.loc 1 118 9 view .LVU107
+ 540 0034 0A99     		ldr	r1, [sp, #40]
+ 541 0036 0648     		ldr	r0, .L29+8
+ 542 0038 FFF7FEFF 		bl	printf
+ 543              	.LVL51:
+ 119:Core/Src/serial.c ****         USART_IN;
+ 544              		.loc 1 119 9 view .LVU108
+ 545 003c 0022     		movs	r2, #0
+ 546 003e 1021     		movs	r1, #16
+ 547 0040 3846     		mov	r0, r7
+ 548 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 549              	.LVL52:
+ 120:Core/Src/serial.c ****     }
+ 121:Core/Src/serial.c **** }
+ 550              		.loc 1 121 1 is_stmt 0 view .LVU109
+ 551 0046 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 552              	.LVL53:
+ 553              	.L30:
+ 554              		.loc 1 121 1 view .LVU110
+ 555              		.align	2
+ 556              	.L29:
+ 557 0048 00080140 		.word	1073809408
+ 558 004c 00000000 		.word	.LC1
+ 559 0050 0C000000 		.word	.LC2
+ 560              		.cfi_endproc
+ 561              	.LFE73:
+ 563              		.section	.text.print_release,"ax",%progbits
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 13
+
+
+ 564              		.align	1
+ 565              		.global	print_release
+ 566              		.syntax unified
+ 567              		.thumb
+ 568              		.thumb_func
+ 570              	print_release:
+ 571              	.LVL54:
+ 572              	.LFB74:
+ 122:Core/Src/serial.c **** 
+ 123:Core/Src/serial.c **** /**
+ 124:Core/Src/serial.c ****  * @brief 返回命令结果，由于printf无法处理小数，故用此代替
+ 125:Core/Src/serial.c ****  */
+ 126:Core/Src/serial.c **** void print_release(char *str, double a, double b, double c, char *end)
+ 127:Core/Src/serial.c **** {
+ 573              		.loc 1 127 1 is_stmt 1 view -0
+ 574              		.cfi_startproc
+ 575              		@ args = 20, pretend = 0, frame = 0
+ 576              		@ frame_needed = 0, uses_anonymous_args = 0
+ 577              		@ link register save eliminated.
+ 128:Core/Src/serial.c ****     if (CURRENT_LEVEL == RELEASE_LEVEL)
+ 578              		.loc 1 128 5 view .LVU112
+ 129:Core/Src/serial.c ****     {
+ 130:Core/Src/serial.c ****         m_printf("%s", str);
+ 131:Core/Src/serial.c ****         print_float(a);
+ 132:Core/Src/serial.c ****         print_float(b);
+ 133:Core/Src/serial.c ****         print_float(c);
+ 134:Core/Src/serial.c ****         m_printf("%s", end);
+ 579              		.loc 1 134 9 view .LVU113
+ 135:Core/Src/serial.c ****     }
+ 136:Core/Src/serial.c **** }
+ 580              		.loc 1 136 1 is_stmt 0 view .LVU114
+ 581 0000 7047     		bx	lr
+ 582              		.cfi_endproc
+ 583              	.LFE74:
+ 585              		.global	seekp
+ 586              		.section	.bss.seekp,"aw",%nobits
+ 589              	seekp:
+ 590 0000 00       		.space	1
+ 591              		.global	GAIN_F
+ 592              		.section	.bss.GAIN_F,"aw",%nobits
+ 595              	GAIN_F:
+ 596 0000 00       		.space	1
+ 597              		.global	RX_Flag
+ 598              		.section	.bss.RX_Flag,"aw",%nobits
+ 601              	RX_Flag:
+ 602 0000 00       		.space	1
+ 603              		.global	mesg
+ 604              		.section	.bss.mesg,"aw",%nobits
+ 607              	mesg:
+ 608 0000 00       		.space	1
+ 609              		.global	offset
+ 610              		.section	.bss.offset,"aw",%nobits
+ 613              	offset:
+ 614 0000 00       		.space	1
+ 615              		.global	message
+ 616              		.section	.bss.message,"aw",%nobits
+ 617              		.align	2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 14
+
+
+ 620              	message:
+ 621 0000 00000000 		.space	400
+ 621      00000000 
+ 621      00000000 
+ 621      00000000 
+ 621      00000000 
+ 622              		.text
+ 623              	.Letext0:
+ 624              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 625              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 626              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 627              		.file 5 "d:\\coding\\stc\\12.2 mpacbti-bet1\\lib\\gcc\\arm-none-eabi\\12.2.0\\include\\stddef.h"
+ 628              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 629              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 630              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 631              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 632              		.file 10 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\stdio.h"
+ 633              		.file 11 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\string.h"
+ 634              		.file 12 "Core/Inc/serial.h"
+ 635              		.file 13 "<built-in>"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 serial.c
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:19     .text.HAL_UART_RxCpltCallback:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:25     .text.HAL_UART_RxCpltCallback:00000000 HAL_UART_RxCpltCallback
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:88     .text.HAL_UART_RxCpltCallback:0000003c $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:607    .bss.mesg:00000000 mesg
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:613    .bss.offset:00000000 offset
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:620    .bss.message:00000000 message
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:601    .bss.RX_Flag:00000000 RX_Flag
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:595    .bss.GAIN_F:00000000 GAIN_F
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:97     .text.readStr:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:103    .text.readStr:00000000 readStr
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:199    .text.readStr:0000004c $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:589    .bss.seekp:00000000 seekp
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:207    .text.UART_available:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:213    .text.UART_available:00000000 UART_available
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:228    .text.UART_available:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:238    .rodata.print_float.str1.4:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:242    .text.print_float:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:248    .text.print_float:00000000 print_float
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:441    .text.print_float:00000138 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:456    .text.print_debug:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:462    .text.print_debug:00000000 print_debug
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:477    .rodata.print_info.str1.4:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:484    .text.print_info:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:490    .text.print_info:00000000 print_info
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:557    .text.print_info:00000048 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:564    .text.print_release:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:570    .text.print_release:00000000 print_release
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:590    .bss.seekp:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:596    .bss.GAIN_F:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:602    .bss.RX_Flag:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:608    .bss.mesg:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:614    .bss.offset:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccic5aTi.s:617    .bss.message:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Receive_IT
+memcpy
+__aeabi_d2iz
+__aeabi_i2d
+__aeabi_dsub
+__aeabi_dcmplt
+__aeabi_dmul
+printf
+HAL_GPIO_WritePin

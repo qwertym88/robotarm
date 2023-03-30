@@ -1,0 +1,413 @@
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"syscalls.cpp"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/syscalls.cpp"
+  18              		.section	.text._fstat,"ax",%progbits
+  19              		.align	1
+  20              		.global	_fstat
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	_fstat:
+  26              		.fnstart
+  27              	.LVL0:
+  28              	.LFB66:
+   1:Core/Src/syscalls.cpp **** #include <stdio.h>
+   2:Core/Src/syscalls.cpp **** #include <sys/stat.h>
+   3:Core/Src/syscalls.cpp **** #include <usart.h>
+   4:Core/Src/syscalls.cpp **** 
+   5:Core/Src/syscalls.cpp **** extern "C"
+   6:Core/Src/syscalls.cpp **** {
+   7:Core/Src/syscalls.cpp ****     int _fstat(int fd, struct stat *pStat)
+   8:Core/Src/syscalls.cpp ****     {
+  29              		.loc 1 8 5 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   9:Core/Src/syscalls.cpp ****         pStat->st_mode = S_IFCHR;
+  34              		.loc 1 9 9 view .LVU1
+  35              		.loc 1 9 24 is_stmt 0 view .LVU2
+  36 0000 4FF40053 		mov	r3, #8192
+  37 0004 4B60     		str	r3, [r1, #4]
+  10:Core/Src/syscalls.cpp ****         return 0;
+  38              		.loc 1 10 9 is_stmt 1 view .LVU3
+  11:Core/Src/syscalls.cpp ****     }
+  39              		.loc 1 11 5 is_stmt 0 view .LVU4
+  40 0006 0020     		movs	r0, #0
+  41              	.LVL1:
+  42              		.loc 1 11 5 view .LVU5
+  43 0008 7047     		bx	lr
+  44              		.cfi_endproc
+  45              	.LFE66:
+  46              		.cantunwind
+  47              		.fnend
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 2
+
+
+  49              		.section	.text._close,"ax",%progbits
+  50              		.align	1
+  51              		.global	_close
+  52              		.syntax unified
+  53              		.thumb
+  54              		.thumb_func
+  56              	_close:
+  57              		.fnstart
+  58              	.LFB67:
+  12:Core/Src/syscalls.cpp **** 
+  13:Core/Src/syscalls.cpp ****     int _close(int)
+  14:Core/Src/syscalls.cpp ****     {
+  59              		.loc 1 14 5 is_stmt 1 view -0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+  15:Core/Src/syscalls.cpp ****         return -1;
+  64              		.loc 1 15 9 view .LVU7
+  16:Core/Src/syscalls.cpp ****     }
+  65              		.loc 1 16 5 is_stmt 0 view .LVU8
+  66 0000 4FF0FF30 		mov	r0, #-1
+  67 0004 7047     		bx	lr
+  68              		.cfi_endproc
+  69              	.LFE67:
+  70              		.cantunwind
+  71              		.fnend
+  73              		.section	.text._write,"ax",%progbits
+  74              		.align	1
+  75              		.global	_write
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  80              	_write:
+  81              		.fnstart
+  82              	.LVL2:
+  83              	.LFB68:
+  17:Core/Src/syscalls.cpp **** 
+  18:Core/Src/syscalls.cpp ****     int _write(int fd, char *pBuffer, int size)
+  19:Core/Src/syscalls.cpp ****     {
+  84              		.loc 1 19 5 is_stmt 1 view -0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		.loc 1 19 5 is_stmt 0 view .LVU10
+  89 0000 10B5     		push	{r4, lr}
+  90              		.save {r4, lr}
+  91              		.cfi_def_cfa_offset 8
+  92              		.cfi_offset 4, -8
+  93              		.cfi_offset 14, -4
+  94 0002 1446     		mov	r4, r2
+  20:Core/Src/syscalls.cpp ****         HAL_UART_Transmit(&huart2, (uint8_t *)pBuffer, size, 0xffff);
+  95              		.loc 1 20 9 is_stmt 1 view .LVU11
+  96              		.loc 1 20 26 is_stmt 0 view .LVU12
+  97 0004 4FF6FF73 		movw	r3, #65535
+  98 0008 92B2     		uxth	r2, r2
+  99              	.LVL3:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 3
+
+
+ 100              		.loc 1 20 26 view .LVU13
+ 101 000a 0248     		ldr	r0, .L5
+ 102              	.LVL4:
+ 103              		.loc 1 20 26 view .LVU14
+ 104 000c FFF7FEFF 		bl	HAL_UART_Transmit
+ 105              	.LVL5:
+  21:Core/Src/syscalls.cpp ****         return size;
+ 106              		.loc 1 21 9 is_stmt 1 view .LVU15
+  22:Core/Src/syscalls.cpp ****     }
+ 107              		.loc 1 22 5 is_stmt 0 view .LVU16
+ 108 0010 2046     		mov	r0, r4
+ 109 0012 10BD     		pop	{r4, pc}
+ 110              	.LVL6:
+ 111              	.L6:
+ 112              		.loc 1 22 5 view .LVU17
+ 113              		.align	2
+ 114              	.L5:
+ 115 0014 00000000 		.word	huart2
+ 116              		.cfi_endproc
+ 117              	.LFE68:
+ 118              		.fnend
+ 120              		.section	.text._isatty,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	_isatty
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	_isatty:
+ 128              		.fnstart
+ 129              	.LVL7:
+ 130              	.LFB69:
+  23:Core/Src/syscalls.cpp **** 
+  24:Core/Src/syscalls.cpp ****     int _isatty(int fd)
+  25:Core/Src/syscalls.cpp ****     {
+ 131              		.loc 1 25 5 is_stmt 1 view -0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135              		@ link register save eliminated.
+  26:Core/Src/syscalls.cpp ****         return 1;
+ 136              		.loc 1 26 9 view .LVU19
+  27:Core/Src/syscalls.cpp ****     }
+ 137              		.loc 1 27 5 is_stmt 0 view .LVU20
+ 138 0000 0120     		movs	r0, #1
+ 139              	.LVL8:
+ 140              		.loc 1 27 5 view .LVU21
+ 141 0002 7047     		bx	lr
+ 142              		.cfi_endproc
+ 143              	.LFE69:
+ 144              		.cantunwind
+ 145              		.fnend
+ 147              		.section	.text._lseek,"ax",%progbits
+ 148              		.align	1
+ 149              		.global	_lseek
+ 150              		.syntax unified
+ 151              		.thumb
+ 152              		.thumb_func
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 4
+
+
+ 154              	_lseek:
+ 155              		.fnstart
+ 156              	.LFB70:
+  28:Core/Src/syscalls.cpp **** 
+  29:Core/Src/syscalls.cpp ****     int _lseek(int, int, int)
+  30:Core/Src/syscalls.cpp ****     {
+ 157              		.loc 1 30 5 is_stmt 1 view -0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+  31:Core/Src/syscalls.cpp ****         return -1;
+ 162              		.loc 1 31 9 view .LVU23
+  32:Core/Src/syscalls.cpp ****     }
+ 163              		.loc 1 32 5 is_stmt 0 view .LVU24
+ 164 0000 4FF0FF30 		mov	r0, #-1
+ 165 0004 7047     		bx	lr
+ 166              		.cfi_endproc
+ 167              	.LFE70:
+ 168              		.cantunwind
+ 169              		.fnend
+ 171              		.section	.text._read,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	_read
+ 174              		.syntax unified
+ 175              		.thumb
+ 176              		.thumb_func
+ 178              	_read:
+ 179              		.fnstart
+ 180              	.LVL9:
+ 181              	.LFB71:
+  33:Core/Src/syscalls.cpp **** 
+  34:Core/Src/syscalls.cpp ****     int _read(int fd, char *pBuffer, int size)
+  35:Core/Src/syscalls.cpp ****     {
+ 182              		.loc 1 35 5 is_stmt 1 view -0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		.loc 1 35 5 is_stmt 0 view .LVU26
+ 187 0000 10B5     		push	{r4, lr}
+ 188              		.save {r4, lr}
+ 189              		.cfi_def_cfa_offset 8
+ 190              		.cfi_offset 4, -8
+ 191              		.cfi_offset 14, -4
+ 192 0002 1446     		mov	r4, r2
+  36:Core/Src/syscalls.cpp ****         HAL_UART_Receive(&huart2, (uint8_t *)pBuffer, size, 0xffff);
+ 193              		.loc 1 36 9 is_stmt 1 view .LVU27
+ 194              		.loc 1 36 25 is_stmt 0 view .LVU28
+ 195 0004 4FF6FF73 		movw	r3, #65535
+ 196 0008 92B2     		uxth	r2, r2
+ 197              	.LVL10:
+ 198              		.loc 1 36 25 view .LVU29
+ 199 000a 0248     		ldr	r0, .L11
+ 200              	.LVL11:
+ 201              		.loc 1 36 25 view .LVU30
+ 202 000c FFF7FEFF 		bl	HAL_UART_Receive
+ 203              	.LVL12:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 5
+
+
+  37:Core/Src/syscalls.cpp ****         return size;
+ 204              		.loc 1 37 9 is_stmt 1 view .LVU31
+  38:Core/Src/syscalls.cpp ****     }
+ 205              		.loc 1 38 5 is_stmt 0 view .LVU32
+ 206 0010 2046     		mov	r0, r4
+ 207 0012 10BD     		pop	{r4, pc}
+ 208              	.LVL13:
+ 209              	.L12:
+ 210              		.loc 1 38 5 view .LVU33
+ 211              		.align	2
+ 212              	.L11:
+ 213 0014 00000000 		.word	huart2
+ 214              		.cfi_endproc
+ 215              	.LFE71:
+ 216              		.fnend
+ 218              		.section	.text._sbrk,"ax",%progbits
+ 219              		.align	1
+ 220              		.global	_sbrk
+ 221              		.syntax unified
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	_sbrk:
+ 226              		.fnstart
+ 227              	.LVL14:
+ 228              	.LFB72:
+  39:Core/Src/syscalls.cpp **** 
+  40:Core/Src/syscalls.cpp ****     caddr_t _sbrk(int increment)
+  41:Core/Src/syscalls.cpp ****     {
+ 229              		.loc 1 41 5 is_stmt 1 view -0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233              		@ link register save eliminated.
+ 234              		.loc 1 41 5 is_stmt 0 view .LVU35
+ 235 0000 0346     		mov	r3, r0
+  42:Core/Src/syscalls.cpp ****         extern char end asm("end");
+ 236              		.loc 1 42 9 is_stmt 1 view .LVU36
+  43:Core/Src/syscalls.cpp ****         register char *pStack asm("sp");
+ 237              		.loc 1 43 9 view .LVU37
+  44:Core/Src/syscalls.cpp **** 
+  45:Core/Src/syscalls.cpp ****         static char *s_pHeapEnd;
+ 238              		.loc 1 45 9 view .LVU38
+  46:Core/Src/syscalls.cpp **** 
+  47:Core/Src/syscalls.cpp ****         if (!s_pHeapEnd)
+ 239              		.loc 1 47 9 view .LVU39
+ 240              		.loc 1 47 13 is_stmt 0 view .LVU40
+ 241 0002 094A     		ldr	r2, .L18
+ 242 0004 1268     		ldr	r2, [r2]
+ 243              		.loc 1 47 9 view .LVU41
+ 244 0006 42B1     		cbz	r2, .L17
+ 245              	.L14:
+  48:Core/Src/syscalls.cpp ****             s_pHeapEnd = &end;
+  49:Core/Src/syscalls.cpp **** 
+  50:Core/Src/syscalls.cpp ****         if (s_pHeapEnd + increment > pStack)
+ 246              		.loc 1 50 9 is_stmt 1 view .LVU42
+ 247              		.loc 1 50 24 is_stmt 0 view .LVU43
+ 248 0008 074A     		ldr	r2, .L18
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 6
+
+
+ 249 000a 1068     		ldr	r0, [r2]
+ 250              	.LVL15:
+ 251              		.loc 1 50 24 view .LVU44
+ 252 000c 0344     		add	r3, r3, r0
+ 253              	.LVL16:
+ 254              		.loc 1 50 9 view .LVU45
+ 255 000e 6A46     		mov	r2, sp
+ 256 0010 9342     		cmp	r3, r2
+ 257 0012 06D8     		bhi	.L16
+  51:Core/Src/syscalls.cpp ****             return (caddr_t)-1;
+  52:Core/Src/syscalls.cpp **** 
+  53:Core/Src/syscalls.cpp ****         char *pOldHeapEnd = s_pHeapEnd;
+ 258              		.loc 1 53 9 is_stmt 1 view .LVU46
+ 259              	.LVL17:
+  54:Core/Src/syscalls.cpp ****         s_pHeapEnd += increment;
+ 260              		.loc 1 54 9 view .LVU47
+ 261              		.loc 1 54 20 is_stmt 0 view .LVU48
+ 262 0014 044A     		ldr	r2, .L18
+ 263 0016 1360     		str	r3, [r2]
+  55:Core/Src/syscalls.cpp ****         return (caddr_t)pOldHeapEnd;
+ 264              		.loc 1 55 9 is_stmt 1 view .LVU49
+ 265              		.loc 1 55 25 is_stmt 0 view .LVU50
+ 266 0018 7047     		bx	lr
+ 267              	.LVL18:
+ 268              	.L17:
+  48:Core/Src/syscalls.cpp **** 
+ 269              		.loc 1 48 13 is_stmt 1 view .LVU51
+  48:Core/Src/syscalls.cpp **** 
+ 270              		.loc 1 48 24 is_stmt 0 view .LVU52
+ 271 001a 034A     		ldr	r2, .L18
+ 272 001c 0349     		ldr	r1, .L18+4
+ 273 001e 1160     		str	r1, [r2]
+ 274 0020 F2E7     		b	.L14
+ 275              	.LVL19:
+ 276              	.L16:
+  51:Core/Src/syscalls.cpp **** 
+ 277              		.loc 1 51 30 view .LVU53
+ 278 0022 4FF0FF30 		mov	r0, #-1
+  56:Core/Src/syscalls.cpp ****     }
+ 279              		.loc 1 56 5 view .LVU54
+ 280 0026 7047     		bx	lr
+ 281              	.L19:
+ 282              		.align	2
+ 283              	.L18:
+ 284 0028 00000000 		.word	_ZZ5_sbrkE10s_pHeapEnd
+ 285 002c 00000000 		.word	end
+ 286              		.cfi_endproc
+ 287              	.LFE72:
+ 288              		.cantunwind
+ 289              		.fnend
+ 291              		.section	.bss._ZZ5_sbrkE10s_pHeapEnd,"aw",%nobits
+ 292              		.align	2
+ 295              	_ZZ5_sbrkE10s_pHeapEnd:
+ 296 0000 00000000 		.space	4
+ 297              		.text
+ 298              	.Letext0:
+ 299              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 7
+
+
+ 300              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_types.h"
+ 301              		.file 4 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\stdio.h"
+ 302              		.file 5 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 303              		.file 6 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_timeval.h"
+ 304              		.file 7 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_timespec.h"
+ 305              		.file 8 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\types.h"
+ 306              		.file 9 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\stat.h"
+ 307              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 308              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 309              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 310              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 311              		.file 14 "Core/Inc/usart.h"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.cpp
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:19     .text._fstat:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:25     .text._fstat:00000000 _fstat
+           .ARM.exidx.text._fstat:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:50     .text._close:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:56     .text._close:00000000 _close
+           .ARM.exidx.text._close:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:74     .text._write:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:80     .text._write:00000000 _write
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:115    .text._write:00000014 $d
+           .ARM.exidx.text._write:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:121    .text._isatty:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:127    .text._isatty:00000000 _isatty
+          .ARM.exidx.text._isatty:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:148    .text._lseek:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:154    .text._lseek:00000000 _lseek
+           .ARM.exidx.text._lseek:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:172    .text._read:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:178    .text._read:00000000 _read
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:213    .text._read:00000014 $d
+            .ARM.exidx.text._read:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:219    .text._sbrk:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:225    .text._sbrk:00000000 _sbrk
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:284    .text._sbrk:00000028 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:295    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 _ZZ5_sbrkE10s_pHeapEnd
+            .ARM.exidx.text._sbrk:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:292    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit
+huart2
+__aeabi_unwind_cpp_pr0
+HAL_UART_Receive
+end

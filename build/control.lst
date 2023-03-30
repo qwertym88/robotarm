@@ -1,0 +1,2838 @@
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"control.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/control.c"
+  18              		.global	__aeabi_dmul
+  19              		.global	__aeabi_i2d
+  20              		.global	__aeabi_dadd
+  21              		.global	__aeabi_dsub
+  22              		.section	.text.m_atof,"ax",%progbits
+  23              		.align	1
+  24              		.global	m_atof
+  25              		.syntax unified
+  26              		.thumb
+  27              		.thumb_func
+  29              	m_atof:
+  30              	.LVL0:
+  31              	.LFB68:
+   1:Core/Src/control.c **** #include "control.h"
+   2:Core/Src/control.c **** #include <stdio.h>
+   3:Core/Src/control.c **** #include <string.h>
+   4:Core/Src/control.c **** #include <math.h>
+   5:Core/Src/control.c **** 
+   6:Core/Src/control.c **** // 当前机械臂坐标
+   7:Core/Src/control.c **** point_t endpos;
+   8:Core/Src/control.c **** // 当前机械臂角度坐标
+   9:Core/Src/control.c **** angle_t endagl;
+  10:Core/Src/control.c **** 
+  11:Core/Src/control.c **** /**
+  12:Core/Src/control.c ****  * @brief char*转double
+  13:Core/Src/control.c ****  * @param str 待处理字符串
+  14:Core/Src/control.c ****  * @param len 字符串长度
+  15:Core/Src/control.c ****  * @param res 存储结果
+  16:Core/Src/control.c ****  */
+  17:Core/Src/control.c **** int m_atof(const char *str, int len, double *res)
+  18:Core/Src/control.c **** {
+  32              		.loc 1 18 1 view -0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 24
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		.loc 1 18 1 is_stmt 0 view .LVU1
+  37 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  38              		.cfi_def_cfa_offset 36
+  39              		.cfi_offset 4, -36
+  40              		.cfi_offset 5, -32
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 2
+
+
+  41              		.cfi_offset 6, -28
+  42              		.cfi_offset 7, -24
+  43              		.cfi_offset 8, -20
+  44              		.cfi_offset 9, -16
+  45              		.cfi_offset 10, -12
+  46              		.cfi_offset 11, -8
+  47              		.cfi_offset 14, -4
+  48 0004 87B0     		sub	sp, sp, #28
+  49              		.cfi_def_cfa_offset 64
+  19:Core/Src/control.c ****     if (len <= 0)
+  50              		.loc 1 19 5 is_stmt 1 view .LVU2
+  51              		.loc 1 19 8 is_stmt 0 view .LVU3
+  52 0006 0F1E     		subs	r7, r1, #0
+  53 0008 73DD     		ble	.L10
+  54 000a 8246     		mov	r10, r0
+  55 000c 9346     		mov	fp, r2
+  20:Core/Src/control.c ****         return 0;
+  21:Core/Src/control.c **** 
+  22:Core/Src/control.c ****     double integer = 0, decimal = 0, symbol = 1, fac = 1;
+  56              		.loc 1 22 5 is_stmt 1 view .LVU4
+  57              	.LVL1:
+  23:Core/Src/control.c ****     char flg = 'i';
+  58              		.loc 1 23 5 view .LVU5
+  24:Core/Src/control.c ****     int i = 0;
+  59              		.loc 1 24 5 view .LVU6
+  25:Core/Src/control.c **** 
+  26:Core/Src/control.c ****     if (str[0] == '-')
+  60              		.loc 1 26 5 view .LVU7
+  61              		.loc 1 26 12 is_stmt 0 view .LVU8
+  62 000e 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  63              		.loc 1 26 8 view .LVU9
+  64 0010 2D2B     		cmp	r3, #45
+  65 0012 58D0     		beq	.L16
+  24:Core/Src/control.c ****     int i = 0;
+  66              		.loc 1 24 9 view .LVU10
+  67 0014 0024     		movs	r4, #0
+  22:Core/Src/control.c ****     char flg = 'i';
+  68              		.loc 1 22 38 view .LVU11
+  69 0016 0022     		movs	r2, #0
+  70              	.LVL2:
+  22:Core/Src/control.c ****     char flg = 'i';
+  71              		.loc 1 22 38 view .LVU12
+  72 0018 3B4B     		ldr	r3, .L19+8
+  73 001a CDE90423 		strd	r2, [sp, #16]
+  74              	.L3:
+  75              	.LVL3:
+  22:Core/Src/control.c ****     char flg = 'i';
+  76              		.loc 1 22 38 discriminator 1 view .LVU13
+  77 001e 6926     		movs	r6, #105
+  78 0020 4FF00008 		mov	r8, #0
+  79 0024 DFF8E090 		ldr	r9, .L19+8
+  80 0028 0022     		movs	r2, #0
+  81 002a 0023     		movs	r3, #0
+  82 002c CDE90023 		strd	r2, [sp]
+  83 0030 CDE90223 		strd	r2, [sp, #8]
+  84 0034 5B46     		mov	r3, fp
+  85 0036 B346     		mov	fp, r6
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 3
+
+
+  86              	.LVL4:
+  22:Core/Src/control.c ****     char flg = 'i';
+  87              		.loc 1 22 38 discriminator 1 view .LVU14
+  88 0038 5646     		mov	r6, r10
+  89 003a BA46     		mov	r10, r7
+  90 003c 1F46     		mov	r7, r3
+  91 003e 1DE0     		b	.L8
+  92              	.LVL5:
+  93              	.L18:
+  27:Core/Src/control.c ****         symbol = -1, ++i;
+  28:Core/Src/control.c **** 
+  29:Core/Src/control.c ****     for (; i < len; ++i)
+  30:Core/Src/control.c ****     {
+  31:Core/Src/control.c ****         if (str[i] >= '0' && str[i] <= '9')
+  32:Core/Src/control.c ****             if (flg == 'i')
+  33:Core/Src/control.c ****                 integer = integer * 10 + str[i] - '0';
+  94              		.loc 1 33 17 is_stmt 1 view .LVU15
+  95              		.loc 1 33 35 is_stmt 0 view .LVU16
+  96 0040 0022     		movs	r2, #0
+  97 0042 324B     		ldr	r3, .L19+12
+  98 0044 DDE90201 		ldrd	r0, [sp, #8]
+  99 0048 FFF7FEFF 		bl	__aeabi_dmul
+ 100              	.LVL6:
+ 101 004c CDE90201 		strd	r0, [sp, #8]
+ 102              	.LVL7:
+ 103              		.loc 1 33 40 view .LVU17
+ 104 0050 2846     		mov	r0, r5
+ 105 0052 FFF7FEFF 		bl	__aeabi_i2d
+ 106              	.LVL8:
+ 107 0056 DDE90223 		ldrd	r2, [sp, #8]
+ 108 005a FFF7FEFF 		bl	__aeabi_dadd
+ 109              	.LVL9:
+ 110              		.loc 1 33 25 view .LVU18
+ 111 005e 0022     		movs	r2, #0
+ 112 0060 2B4B     		ldr	r3, .L19+16
+ 113 0062 FFF7FEFF 		bl	__aeabi_dsub
+ 114              	.LVL10:
+ 115 0066 CDE90201 		strd	r0, [sp, #8]
+ 116              	.LVL11:
+ 117              		.loc 1 33 25 view .LVU19
+ 118 006a 06E0     		b	.L7
+ 119              	.LVL12:
+ 120              	.L5:
+  34:Core/Src/control.c ****             else
+  35:Core/Src/control.c ****                 fac *= 0.1, decimal += (str[i] - '0') * fac;
+  36:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 121              		.loc 1 36 14 is_stmt 1 view .LVU20
+ 122              		.loc 1 36 17 is_stmt 0 view .LVU21
+ 123 006c 2E2D     		cmp	r5, #46
+ 124 006e 42D1     		bne	.L12
+ 125              		.loc 1 36 32 discriminator 1 view .LVU22
+ 126 0070 BBF1690F 		cmp	fp, #105
+ 127 0074 41D1     		bne	.L13
+  37:Core/Src/control.c ****             flg = 'd';
+ 128              		.loc 1 37 17 view .LVU23
+ 129 0076 4FF0640B 		mov	fp, #100
+ 130              	.LVL13:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 4
+
+
+ 131              	.L7:
+  29:Core/Src/control.c ****     {
+ 132              		.loc 1 29 21 is_stmt 1 view .LVU24
+ 133 007a 0134     		adds	r4, r4, #1
+ 134              	.LVL14:
+ 135              	.L8:
+  29:Core/Src/control.c ****     {
+ 136              		.loc 1 29 14 discriminator 1 view .LVU25
+ 137 007c 5445     		cmp	r4, r10
+ 138 007e 28DA     		bge	.L17
+  31:Core/Src/control.c ****             if (flg == 'i')
+ 139              		.loc 1 31 9 view .LVU26
+  31:Core/Src/control.c ****             if (flg == 'i')
+ 140              		.loc 1 31 16 is_stmt 0 view .LVU27
+ 141 0080 355D     		ldrb	r5, [r6, r4]	@ zero_extendqisi2
+  31:Core/Src/control.c ****             if (flg == 'i')
+ 142              		.loc 1 31 27 view .LVU28
+ 143 0082 A5F13003 		sub	r3, r5, #48
+ 144 0086 DBB2     		uxtb	r3, r3
+  31:Core/Src/control.c ****             if (flg == 'i')
+ 145              		.loc 1 31 12 view .LVU29
+ 146 0088 092B     		cmp	r3, #9
+ 147 008a EFD8     		bhi	.L5
+  32:Core/Src/control.c ****                 integer = integer * 10 + str[i] - '0';
+ 148              		.loc 1 32 13 is_stmt 1 view .LVU30
+  32:Core/Src/control.c ****                 integer = integer * 10 + str[i] - '0';
+ 149              		.loc 1 32 16 is_stmt 0 view .LVU31
+ 150 008c BBF1690F 		cmp	fp, #105
+ 151 0090 D6D0     		beq	.L18
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 152              		.loc 1 35 17 is_stmt 1 view .LVU32
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 153              		.loc 1 35 21 is_stmt 0 view .LVU33
+ 154 0092 1BA3     		adr	r3, .L19
+ 155 0094 D3E90023 		ldrd	r2, [r3]
+ 156 0098 4046     		mov	r0, r8
+ 157 009a 4946     		mov	r1, r9
+ 158 009c FFF7FEFF 		bl	__aeabi_dmul
+ 159              	.LVL15:
+ 160 00a0 8046     		mov	r8, r0
+ 161              	.LVL16:
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 162              		.loc 1 35 21 view .LVU34
+ 163 00a2 8946     		mov	r9, r1
+ 164              	.LVL17:
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 165              		.loc 1 35 55 view .LVU35
+ 166 00a4 A5F13000 		sub	r0, r5, #48
+ 167 00a8 FFF7FEFF 		bl	__aeabi_i2d
+ 168              	.LVL18:
+ 169 00ac 4246     		mov	r2, r8
+ 170 00ae 4B46     		mov	r3, r9
+ 171 00b0 FFF7FEFF 		bl	__aeabi_dmul
+ 172              	.LVL19:
+ 173 00b4 0246     		mov	r2, r0
+ 174 00b6 0B46     		mov	r3, r1
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 5
+
+
+ 175              		.loc 1 35 37 view .LVU36
+ 176 00b8 DDE90001 		ldrd	r0, [sp]
+ 177 00bc FFF7FEFF 		bl	__aeabi_dadd
+ 178              	.LVL20:
+ 179 00c0 CDE90001 		strd	r0, [sp]
+ 180              	.LVL21:
+  35:Core/Src/control.c ****         else if (str[i] == '.' && flg == 'i')
+ 181              		.loc 1 35 37 view .LVU37
+ 182 00c4 D9E7     		b	.L7
+ 183              	.LVL22:
+ 184              	.L16:
+  27:Core/Src/control.c **** 
+ 185              		.loc 1 27 22 view .LVU38
+ 186 00c6 0124     		movs	r4, #1
+  27:Core/Src/control.c **** 
+ 187              		.loc 1 27 16 view .LVU39
+ 188 00c8 0022     		movs	r2, #0
+ 189              	.LVL23:
+  27:Core/Src/control.c **** 
+ 190              		.loc 1 27 16 view .LVU40
+ 191 00ca 124B     		ldr	r3, .L19+20
+ 192 00cc CDE90423 		strd	r2, [sp, #16]
+ 193 00d0 A5E7     		b	.L3
+ 194              	.LVL24:
+ 195              	.L17:
+  38:Core/Src/control.c ****         else
+  39:Core/Src/control.c ****             return 0;
+  40:Core/Src/control.c ****     }
+  41:Core/Src/control.c **** 
+  42:Core/Src/control.c ****     *res = (integer + decimal) * symbol;
+ 196              		.loc 1 42 5 is_stmt 1 view .LVU41
+ 197              		.loc 1 42 21 is_stmt 0 view .LVU42
+ 198 00d2 DDE90023 		ldrd	r2, [sp]
+ 199 00d6 DDE90201 		ldrd	r0, [sp, #8]
+ 200 00da FFF7FEFF 		bl	__aeabi_dadd
+ 201              	.LVL25:
+ 202              		.loc 1 42 32 view .LVU43
+ 203 00de DDE90423 		ldrd	r2, [sp, #16]
+ 204 00e2 FFF7FEFF 		bl	__aeabi_dmul
+ 205              	.LVL26:
+ 206              		.loc 1 42 10 view .LVU44
+ 207 00e6 C7E90001 		strd	r0, [r7]
+  43:Core/Src/control.c ****     return 1;
+ 208              		.loc 1 43 5 is_stmt 1 view .LVU45
+ 209              		.loc 1 43 12 is_stmt 0 view .LVU46
+ 210 00ea 0120     		movs	r0, #1
+ 211              	.LVL27:
+ 212              	.L1:
+  44:Core/Src/control.c **** }
+ 213              		.loc 1 44 1 view .LVU47
+ 214 00ec 07B0     		add	sp, sp, #28
+ 215              		.cfi_remember_state
+ 216              		.cfi_def_cfa_offset 36
+ 217              		@ sp needed
+ 218 00ee BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 219              	.LVL28:
+ 220              	.L10:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 6
+
+
+ 221              		.cfi_restore_state
+  20:Core/Src/control.c **** 
+ 222              		.loc 1 20 16 view .LVU48
+ 223 00f2 0020     		movs	r0, #0
+ 224              	.LVL29:
+  20:Core/Src/control.c **** 
+ 225              		.loc 1 20 16 view .LVU49
+ 226 00f4 FAE7     		b	.L1
+ 227              	.LVL30:
+ 228              	.L12:
+  39:Core/Src/control.c ****     }
+ 229              		.loc 1 39 20 view .LVU50
+ 230 00f6 0020     		movs	r0, #0
+ 231 00f8 F8E7     		b	.L1
+ 232              	.L13:
+ 233 00fa 0020     		movs	r0, #0
+ 234 00fc F6E7     		b	.L1
+ 235              	.L20:
+ 236 00fe 00BF     		.align	3
+ 237              	.L19:
+ 238 0100 9A999999 		.word	-1717986918
+ 239 0104 9999B93F 		.word	1069128089
+ 240 0108 0000F03F 		.word	1072693248
+ 241 010c 00002440 		.word	1076101120
+ 242 0110 00004840 		.word	1078460416
+ 243 0114 0000F0BF 		.word	-1074790400
+ 244              		.cfi_endproc
+ 245              	.LFE68:
+ 247              		.section	.rodata.parexc.str1.4,"aMS",%progbits,1
+ 248              		.align	2
+ 249              	.LC0:
+ 250 0000 4D4F5650 		.ascii	"MOVP\000"
+ 250      00
+ 251 0005 000000   		.align	2
+ 252              	.LC1:
+ 253 0008 4D4F5641 		.ascii	"MOVA\000"
+ 253      00
+ 254 000d 000000   		.align	2
+ 255              	.LC2:
+ 256 0010 65786563 		.ascii	"execute: MOVP \000"
+ 256      7574653A 
+ 256      204D4F56 
+ 256      502000
+ 257 001f 00       		.align	2
+ 258              	.LC3:
+ 259 0020 3B0A00   		.ascii	";\012\000"
+ 260 0023 00       		.align	2
+ 261              	.LC4:
+ 262 0024 436F6D70 		.ascii	"Complete. joint angle: \000"
+ 262      6C657465 
+ 262      2E206A6F 
+ 262      696E7420 
+ 262      616E676C 
+ 263              		.align	2
+ 264              	.LC5:
+ 265 003c 0A00     		.ascii	"\012\000"
+ 266 003e 0000     		.align	2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 7
+
+
+ 267              	.LC6:
+ 268 0040 43616E6E 		.ascii	"Cannot reach \000"
+ 268      6F742072 
+ 268      65616368 
+ 268      2000
+ 269 004e 0000     		.align	2
+ 270              	.LC7:
+ 271 0050 2C206D6F 		.ascii	", move failed\012\000"
+ 271      76652066 
+ 271      61696C65 
+ 271      640A00
+ 272 005f 00       		.align	2
+ 273              	.LC8:
+ 274 0060 65786563 		.ascii	"execute: MOVEA \000"
+ 274      7574653A 
+ 274      204D4F56 
+ 274      45412000 
+ 275              		.align	2
+ 276              	.LC9:
+ 277 0070 436F6D70 		.ascii	"Complete. point: \000"
+ 277      6C657465 
+ 277      2E20706F 
+ 277      696E743A 
+ 277      2000
+ 278 0082 0000     		.align	2
+ 279              	.LC10:
+ 280 0084 43616E6E 		.ascii	"Cannot turn to \000"
+ 280      6F742074 
+ 280      75726E20 
+ 280      746F2000 
+ 281              		.align	2
+ 282              	.LC11:
+ 283 0094 4D4F5645 		.ascii	"MOVE\000"
+ 283      00
+ 284 0099 000000   		.align	2
+ 285              	.LC12:
+ 286 009c 5B696E66 		.ascii	"[info] execute: MOVE \000"
+ 286      6F5D2065 
+ 286      78656375 
+ 286      74653A20 
+ 286      4D4F5645 
+ 287 00b2 0000     		.align	2
+ 288              	.LC13:
+ 289 00b4 3B00     		.ascii	";\000"
+ 290 00b6 0000     		.align	2
+ 291              	.LC14:
+ 292 00b8 43555256 		.ascii	"CURVE\000"
+ 292      4500
+ 293 00be 0000     		.align	2
+ 294              	.LC15:
+ 295 00c0 50554D50 		.ascii	"PUMP\000"
+ 295      00
+ 296 00c5 000000   		.align	2
+ 297              	.LC16:
+ 298 00c8 4F4E00   		.ascii	"ON\000"
+ 299 00cb 00       		.align	2
+ 300              	.LC17:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 8
+
+
+ 301 00cc 5B696E66 		.ascii	"[info] pump on%c\000"
+ 301      6F5D2070 
+ 301      756D7020 
+ 301      6F6E2563 
+ 301      00
+ 302 00dd 000000   		.align	2
+ 303              	.LC18:
+ 304 00e0 4F464600 		.ascii	"OFF\000"
+ 305              		.align	2
+ 306              	.LC19:
+ 307 00e4 5B696E66 		.ascii	"[info] pump off%c\000"
+ 307      6F5D2070 
+ 307      756D7020 
+ 307      6F666625 
+ 307      6300
+ 308 00f6 0000     		.align	2
+ 309              	.LC20:
+ 310 00f8 3F00     		.ascii	"?\000"
+ 311 00fa 0000     		.align	2
+ 312              	.LC21:
+ 313 00fc 5B696E66 		.ascii	"[info] pump is working%c\000"
+ 313      6F5D2070 
+ 313      756D7020 
+ 313      69732077 
+ 313      6F726B69 
+ 314 0115 000000   		.align	2
+ 315              	.LC22:
+ 316 0118 5B696E66 		.ascii	"[info] pump is turned off%c\000"
+ 316      6F5D2070 
+ 316      756D7020 
+ 316      69732074 
+ 316      75726E65 
+ 317              		.align	2
+ 318              	.LC23:
+ 319 0134 47455400 		.ascii	"GET\000"
+ 320              		.align	2
+ 321              	.LC24:
+ 322 0138 504F5300 		.ascii	"POS\000"
+ 323              		.align	2
+ 324              	.LC25:
+ 325 013c 5B696E66 		.ascii	"[info] get position%c\000"
+ 325      6F5D2067 
+ 325      65742070 
+ 325      6F736974 
+ 325      696F6E25 
+ 326 0152 0000     		.align	2
+ 327              	.LC26:
+ 328 0154 41474C00 		.ascii	"AGL\000"
+ 329              		.align	2
+ 330              	.LC27:
+ 331 0158 5B696E66 		.ascii	"[info] get angle%c\000"
+ 331      6F5D2067 
+ 331      65742061 
+ 331      6E676C65 
+ 331      256300
+ 332              		.section	.text.parexc,"ax",%progbits
+ 333              		.align	1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 9
+
+
+ 334              		.global	parexc
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 339              	parexc:
+ 340              	.LVL31:
+ 341              	.LFB69:
+  45:Core/Src/control.c **** 
+  46:Core/Src/control.c **** /**
+  47:Core/Src/control.c ****  * @brief 解析命令并执行
+  48:Core/Src/control.c ****  * @param str 输入字符串
+  49:Core/Src/control.c ****  * @param len 字符串长度
+  50:Core/Src/control.c ****  */
+  51:Core/Src/control.c **** int parexc(char *str, uint16_t len)
+  52:Core/Src/control.c **** {
+ 342              		.loc 1 52 1 is_stmt 1 view -0
+ 343              		.cfi_startproc
+ 344              		@ args = 0, pretend = 0, frame = 240
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		.loc 1 52 1 is_stmt 0 view .LVU52
+ 347 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 348              		.cfi_def_cfa_offset 24
+ 349              		.cfi_offset 4, -24
+ 350              		.cfi_offset 5, -20
+ 351              		.cfi_offset 6, -16
+ 352              		.cfi_offset 7, -12
+ 353              		.cfi_offset 8, -8
+ 354              		.cfi_offset 14, -4
+ 355 0004 D2B0     		sub	sp, sp, #328
+ 356              		.cfi_def_cfa_offset 352
+ 357 0006 0546     		mov	r5, r0
+  53:Core/Src/control.c ****     // 调试信息统一在这里输出，所以可能看着挺乱
+  54:Core/Src/control.c ****     // 预留了一个log等级，万一有用呢？
+  55:Core/Src/control.c **** 
+  56:Core/Src/control.c ****     int i = 0, j = 0;
+ 358              		.loc 1 56 5 is_stmt 1 view .LVU53
+ 359              	.LVL32:
+  57:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 360              		.loc 1 57 5 view .LVU54
+  56:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 361              		.loc 1 56 9 is_stmt 0 view .LVU55
+ 362 0008 0023     		movs	r3, #0
+ 363              		.loc 1 57 11 view .LVU56
+ 364 000a 00E0     		b	.L22
+ 365              	.LVL33:
+ 366              	.L24:
+  58:Core/Src/control.c ****         ++i;
+ 367              		.loc 1 58 9 is_stmt 1 view .LVU57
+ 368 000c 0133     		adds	r3, r3, #1
+ 369              	.LVL34:
+ 370              	.L22:
+  57:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 371              		.loc 1 57 27 view .LVU58
+  57:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 372              		.loc 1 57 15 is_stmt 0 view .LVU59
+ 373 000e E918     		adds	r1, r5, r3
+ 374 0010 EA5C     		ldrb	r2, [r5, r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 10
+
+
+  57:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 375              		.loc 1 57 27 view .LVU60
+ 376 0012 0AB1     		cbz	r2, .L23
+  57:Core/Src/control.c ****     while (str[i] != '\0' && str[i] != ' ')
+ 377              		.loc 1 57 27 discriminator 1 view .LVU61
+ 378 0014 202A     		cmp	r2, #32
+ 379 0016 F9D1     		bne	.L24
+ 380              	.L23:
+  59:Core/Src/control.c ****     if (str[i] == '\0')
+ 381              		.loc 1 59 5 is_stmt 1 view .LVU62
+ 382              		.loc 1 59 8 is_stmt 0 view .LVU63
+ 383 0018 002A     		cmp	r2, #0
+ 384 001a 00F0C784 		beq	.L61
+  60:Core/Src/control.c ****         return 0;
+  61:Core/Src/control.c ****     str[i++] = '\0';
+ 385              		.loc 1 61 5 is_stmt 1 view .LVU64
+ 386              		.loc 1 61 10 is_stmt 0 view .LVU65
+ 387 001e 5C1C     		adds	r4, r3, #1
+ 388              	.LVL35:
+ 389              		.loc 1 61 14 view .LVU66
+ 390 0020 0023     		movs	r3, #0
+ 391 0022 0B70     		strb	r3, [r1]
+  62:Core/Src/control.c **** 
+  63:Core/Src/control.c ****     uint8_t endline = '\n';
+ 392              		.loc 1 63 5 is_stmt 1 view .LVU67
+ 393              		.loc 1 63 13 is_stmt 0 view .LVU68
+ 394 0024 0A23     		movs	r3, #10
+ 395 0026 8DF84731 		strb	r3, [sp, #327]
+  64:Core/Src/control.c **** 
+  65:Core/Src/control.c ****     if (strcmp(str, "MOVP") == 0 || strcmp(str, "MOVA") == 0)
+ 396              		.loc 1 65 5 is_stmt 1 view .LVU69
+ 397              		.loc 1 65 9 is_stmt 0 view .LVU70
+ 398 002a 9D49     		ldr	r1, .L80
+ 399 002c 2846     		mov	r0, r5
+ 400              	.LVL36:
+ 401              		.loc 1 65 9 view .LVU71
+ 402 002e FFF7FEFF 		bl	strcmp
+ 403              	.LVL37:
+ 404              		.loc 1 65 8 view .LVU72
+ 405 0032 30B1     		cbz	r0, .L26
+ 406              		.loc 1 65 37 discriminator 1 view .LVU73
+ 407 0034 9B49     		ldr	r1, .L80+4
+ 408 0036 2846     		mov	r0, r5
+ 409 0038 FFF7FEFF 		bl	strcmp
+ 410              	.LVL38:
+ 411              		.loc 1 65 34 discriminator 1 view .LVU74
+ 412 003c 0028     		cmp	r0, #0
+ 413 003e 40F09581 		bne	.L27
+ 414              	.L26:
+ 415              	.LBB2:
+  66:Core/Src/control.c ****     {
+  67:Core/Src/control.c **** 
+  68:Core/Src/control.c ****         double r[3] = {0, 0, 0};
+ 416              		.loc 1 68 9 is_stmt 1 view .LVU75
+ 417              		.loc 1 68 16 is_stmt 0 view .LVU76
+ 418 0042 0022     		movs	r2, #0
+ 419 0044 0023     		movs	r3, #0
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 11
+
+
+ 420 0046 CDE93023 		strd	r2, [sp, #192]
+ 421 004a CDE93223 		strd	r2, [sp, #200]
+ 422 004e CDE93423 		strd	r2, [sp, #208]
+  69:Core/Src/control.c ****         j = i;
+ 423              		.loc 1 69 9 is_stmt 1 view .LVU77
+ 424              	.LVL39:
+  70:Core/Src/control.c ****         for (int index = 0; index < 3; index++)
+ 425              		.loc 1 70 9 view .LVU78
+ 426              	.LBB3:
+ 427              		.loc 1 70 14 view .LVU79
+ 428              		.loc 1 70 18 is_stmt 0 view .LVU80
+ 429 0052 0027     		movs	r7, #0
+ 430              		.loc 1 70 9 view .LVU81
+ 431 0054 0EE0     		b	.L28
+ 432              	.LVL40:
+ 433              	.L30:
+  71:Core/Src/control.c ****         {
+  72:Core/Src/control.c ****             while (str[j] != '\0' && str[j] != ' ')
+  73:Core/Src/control.c ****                 ++j;
+ 434              		.loc 1 73 17 is_stmt 1 view .LVU82
+ 435 0056 0136     		adds	r6, r6, #1
+ 436              	.LVL41:
+ 437              	.L32:
+  72:Core/Src/control.c ****                 ++j;
+ 438              		.loc 1 72 35 view .LVU83
+  72:Core/Src/control.c ****                 ++j;
+ 439              		.loc 1 72 23 is_stmt 0 view .LVU84
+ 440 0058 AB5D     		ldrb	r3, [r5, r6]	@ zero_extendqisi2
+  72:Core/Src/control.c ****                 ++j;
+ 441              		.loc 1 72 35 view .LVU85
+ 442 005a 0BB1     		cbz	r3, .L29
+  72:Core/Src/control.c ****                 ++j;
+ 443              		.loc 1 72 35 discriminator 1 view .LVU86
+ 444 005c 202B     		cmp	r3, #32
+ 445 005e FAD1     		bne	.L30
+ 446              	.L29:
+  74:Core/Src/control.c ****             if (!m_atof(str + i, j - i, r + index))
+ 447              		.loc 1 74 13 is_stmt 1 view .LVU87
+ 448              		.loc 1 74 18 is_stmt 0 view .LVU88
+ 449 0060 30AB     		add	r3, sp, #192
+ 450 0062 03EBC702 		add	r2, r3, r7, lsl #3
+ 451 0066 311B     		subs	r1, r6, r4
+ 452 0068 2819     		adds	r0, r5, r4
+ 453 006a FFF7FEFF 		bl	m_atof
+ 454              	.LVL42:
+ 455              		.loc 1 74 16 view .LVU89
+ 456 006e 88B1     		cbz	r0, .L31
+  75:Core/Src/control.c ****                 return 0;
+  76:Core/Src/control.c ****             i = ++j;
+ 457              		.loc 1 76 13 is_stmt 1 discriminator 2 view .LVU90
+ 458              		.loc 1 76 15 is_stmt 0 discriminator 2 view .LVU91
+ 459 0070 741C     		adds	r4, r6, #1
+ 460              	.LVL43:
+  70:Core/Src/control.c ****         {
+ 461              		.loc 1 70 45 is_stmt 1 discriminator 2 view .LVU92
+ 462 0072 0137     		adds	r7, r7, #1
+ 463              	.LVL44:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 12
+
+
+ 464              	.L28:
+  70:Core/Src/control.c ****         {
+ 465              		.loc 1 70 35 discriminator 1 view .LVU93
+ 466 0074 022F     		cmp	r7, #2
+ 467 0076 01DC     		bgt	.L67
+  70:Core/Src/control.c ****         {
+ 468              		.loc 1 70 35 is_stmt 0 discriminator 1 view .LVU94
+ 469 0078 2646     		mov	r6, r4
+ 470 007a EDE7     		b	.L32
+ 471              	.L67:
+  70:Core/Src/control.c ****         {
+ 472              		.loc 1 70 35 discriminator 1 view .LVU95
+ 473              	.LBE3:
+  77:Core/Src/control.c ****         }
+  78:Core/Src/control.c **** 
+  79:Core/Src/control.c ****         if (strcmp(str, "MOVP") == 0)
+ 474              		.loc 1 79 9 is_stmt 1 view .LVU96
+ 475              		.loc 1 79 13 is_stmt 0 view .LVU97
+ 476 007c 8849     		ldr	r1, .L80
+ 477 007e 2846     		mov	r0, r5
+ 478 0080 FFF7FEFF 		bl	strcmp
+ 479              	.LVL45:
+ 480              		.loc 1 79 12 view .LVU98
+ 481 0084 48B1     		cbz	r0, .L68
+  80:Core/Src/control.c ****         {
+  81:Core/Src/control.c ****             point_t dst = {r[0], r[1], r[2]};
+  82:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+  83:Core/Src/control.c **** 
+  84:Core/Src/control.c ****             uint8_t result = move(endpos, dst, 60);
+  85:Core/Src/control.c ****             if (result == 1)
+  86:Core/Src/control.c ****             {
+  87:Core/Src/control.c ****                 // 若移动，更新末端点位置
+  88:Core/Src/control.c ****                 endpos = dst;
+  89:Core/Src/control.c ****                 endagl = pointToAngle(dst);
+  90:Core/Src/control.c **** 
+  91:Core/Src/control.c ****                 USART_OUT;
+  92:Core/Src/control.c ****                 // print result
+  93:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+  94:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+  95:Core/Src/control.c ****                 HAL_Delay(50);
+  96:Core/Src/control.c ****                 USART_IN;
+  97:Core/Src/control.c ****                 // log info
+  98:Core/Src/control.c ****                 print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
+  99:Core/Src/control.c ****             }
+ 100:Core/Src/control.c ****             else
+ 101:Core/Src/control.c ****             {
+ 102:Core/Src/control.c ****                 USART_OUT;
+ 103:Core/Src/control.c ****                 // print result
+ 104:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 105:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 106:Core/Src/control.c ****                 HAL_Delay(50);
+ 107:Core/Src/control.c ****                 USART_IN;
+ 108:Core/Src/control.c ****                 // log info
+ 109:Core/Src/control.c ****                 print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
+ 110:Core/Src/control.c ****             }
+ 111:Core/Src/control.c ****         }
+ 112:Core/Src/control.c ****         else if (strcmp(str, "MOVA") == 0)
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 13
+
+
+ 482              		.loc 1 112 14 is_stmt 1 view .LVU99
+ 483              		.loc 1 112 18 is_stmt 0 view .LVU100
+ 484 0086 8749     		ldr	r1, .L80+4
+ 485 0088 2846     		mov	r0, r5
+ 486 008a FFF7FEFF 		bl	strcmp
+ 487              	.LVL46:
+ 488              		.loc 1 112 17 view .LVU101
+ 489 008e 0028     		cmp	r0, #0
+ 490 0090 00F0AB80 		beq	.L69
+ 491              	.LVL47:
+ 492              	.L31:
+  75:Core/Src/control.c ****             i = ++j;
+ 493              		.loc 1 75 24 discriminator 1 view .LVU102
+ 494 0094 0027     		movs	r7, #0
+ 495              	.LVL48:
+  75:Core/Src/control.c ****             i = ++j;
+ 496              		.loc 1 75 24 discriminator 1 view .LVU103
+ 497 0096 00F08ABC 		b	.L21
+ 498              	.LVL49:
+ 499              	.L68:
+ 500              	.LBB4:
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 501              		.loc 1 81 13 is_stmt 1 view .LVU104
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 502              		.loc 1 81 29 is_stmt 0 view .LVU105
+ 503 009a DDE93023 		ldrd	r2, [sp, #192]
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 504              		.loc 1 81 21 view .LVU106
+ 505 009e CDE93623 		strd	r2, [sp, #216]
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 506              		.loc 1 81 35 view .LVU107
+ 507 00a2 DDE93201 		ldrd	r0, [sp, #200]
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 508              		.loc 1 81 21 view .LVU108
+ 509 00a6 CDE93801 		strd	r0, [sp, #224]
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 510              		.loc 1 81 41 view .LVU109
+ 511 00aa DDE93445 		ldrd	r4, [sp, #208]
+ 512              	.LVL50:
+  81:Core/Src/control.c ****             print_info("execute: MOVP ", r[0], r[1], r[2], ";\n");
+ 513              		.loc 1 81 21 view .LVU110
+ 514 00ae CDE93A45 		strd	r4, [sp, #232]
+  82:Core/Src/control.c **** 
+ 515              		.loc 1 82 13 is_stmt 1 view .LVU111
+ 516 00b2 7D4E     		ldr	r6, .L80+8
+ 517 00b4 0496     		str	r6, [sp, #16]
+ 518 00b6 CDE90245 		strd	r4, [sp, #8]
+ 519 00ba CDE90001 		strd	r0, [sp]
+ 520 00be 7B48     		ldr	r0, .L80+12
+ 521 00c0 FFF7FEFF 		bl	print_info
+ 522              	.LVL51:
+  84:Core/Src/control.c ****             if (result == 1)
+ 523              		.loc 1 84 13 view .LVU112
+  84:Core/Src/control.c ****             if (result == 1)
+ 524              		.loc 1 84 30 is_stmt 0 view .LVU113
+ 525 00c4 7A4E     		ldr	r6, .L80+16
+ 526 00c6 0022     		movs	r2, #0
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 14
+
+
+ 527 00c8 7A4B     		ldr	r3, .L80+20
+ 528 00ca CDE90823 		strd	r2, [sp, #32]
+ 529 00ce 02AC     		add	r4, sp, #8
+ 530 00d0 36AD     		add	r5, sp, #216
+ 531              	.LVL52:
+  84:Core/Src/control.c ****             if (result == 1)
+ 532              		.loc 1 84 30 view .LVU114
+ 533 00d2 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 534 00d4 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 535 00d6 95E80300 		ldm	r5, {r0, r1}
+ 536 00da 84E80300 		stm	r4, {r0, r1}
+ 537 00de 06F11003 		add	r3, r6, #16
+ 538 00e2 93E80300 		ldm	r3, {r0, r1}
+ 539 00e6 8DE80300 		stm	sp, {r0, r1}
+ 540 00ea 96E80F00 		ldm	r6, {r0, r1, r2, r3}
+ 541 00ee FFF7FEFF 		bl	move
+ 542              	.LVL53:
+  84:Core/Src/control.c ****             if (result == 1)
+ 543              		.loc 1 84 21 view .LVU115
+ 544 00f2 8DF8A800 		strb	r0, [sp, #168]
+  85:Core/Src/control.c ****             {
+ 545              		.loc 1 85 13 is_stmt 1 view .LVU116
+  85:Core/Src/control.c ****             {
+ 546              		.loc 1 85 16 is_stmt 0 view .LVU117
+ 547 00f6 0128     		cmp	r0, #1
+ 548 00f8 2FD0     		beq	.L70
+ 102:Core/Src/control.c ****                 // print result
+ 549              		.loc 1 102 17 is_stmt 1 view .LVU118
+ 550 00fa 6F4C     		ldr	r4, .L80+24
+ 551 00fc 0122     		movs	r2, #1
+ 552 00fe 1021     		movs	r1, #16
+ 553 0100 2046     		mov	r0, r4
+ 554 0102 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 555              	.LVL54:
+ 104:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 556              		.loc 1 104 17 view .LVU119
+ 557 0106 6D4D     		ldr	r5, .L80+28
+ 558 0108 4FF6FF73 		movw	r3, #65535
+ 559 010c 0122     		movs	r2, #1
+ 560 010e 2AA9     		add	r1, sp, #168
+ 561 0110 2846     		mov	r0, r5
+ 562 0112 FFF7FEFF 		bl	HAL_UART_Transmit
+ 563              	.LVL55:
+ 105:Core/Src/control.c ****                 HAL_Delay(50);
+ 564              		.loc 1 105 17 view .LVU120
+ 565 0116 4FF6FF73 		movw	r3, #65535
+ 566 011a 0122     		movs	r2, #1
+ 567 011c 0DF24711 		addw	r1, sp, #327
+ 568 0120 2846     		mov	r0, r5
+ 569 0122 FFF7FEFF 		bl	HAL_UART_Transmit
+ 570              	.LVL56:
+ 106:Core/Src/control.c ****                 USART_IN;
+ 571              		.loc 1 106 17 view .LVU121
+ 572 0126 3220     		movs	r0, #50
+ 573 0128 FFF7FEFF 		bl	HAL_Delay
+ 574              	.LVL57:
+ 107:Core/Src/control.c ****                 // log info
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 15
+
+
+ 575              		.loc 1 107 17 view .LVU122
+ 576 012c 0022     		movs	r2, #0
+ 577 012e 1021     		movs	r1, #16
+ 578 0130 2046     		mov	r0, r4
+ 579 0132 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 580              	.LVL58:
+ 109:Core/Src/control.c ****             }
+ 581              		.loc 1 109 17 view .LVU123
+ 582 0136 624B     		ldr	r3, .L80+32
+ 583 0138 0493     		str	r3, [sp, #16]
+ 584 013a DDE93423 		ldrd	r2, [sp, #208]
+ 585 013e CDE90223 		strd	r2, [sp, #8]
+ 586 0142 DDE93223 		ldrd	r2, [sp, #200]
+ 587 0146 CDE90023 		strd	r2, [sp]
+ 588 014a DDE93023 		ldrd	r2, [sp, #192]
+ 589 014e 5D48     		ldr	r0, .L80+36
+ 590 0150 FFF7FEFF 		bl	print_info
+ 591              	.LVL59:
+ 592              	.L36:
+ 109:Core/Src/control.c ****             }
+ 593              		.loc 1 109 17 is_stmt 0 view .LVU124
+ 594              	.LBE4:
+ 595              	.LBE2:
+ 113:Core/Src/control.c ****         {
+ 114:Core/Src/control.c ****             angle_t dst = {r[0], r[1], r[2]};
+ 115:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 116:Core/Src/control.c **** 
+ 117:Core/Src/control.c ****             uint8_t result = movea_s(endagl, dst);
+ 118:Core/Src/control.c ****             if (result == 1)
+ 119:Core/Src/control.c ****             {
+ 120:Core/Src/control.c ****                 // 若移动，更新末端点位置
+ 121:Core/Src/control.c ****                 endpos = angleToPoint(dst);
+ 122:Core/Src/control.c ****                 endagl = dst;
+ 123:Core/Src/control.c **** 
+ 124:Core/Src/control.c ****                 USART_OUT;
+ 125:Core/Src/control.c ****                 // print result
+ 126:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 127:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 128:Core/Src/control.c ****                 HAL_Delay(50);
+ 129:Core/Src/control.c ****                 USART_IN;
+ 130:Core/Src/control.c ****                 // log info
+ 131:Core/Src/control.c ****                 print_info("Complete. point: ", endpos.x, endpos.y, endpos.z, "\n");
+ 132:Core/Src/control.c ****             }
+ 133:Core/Src/control.c ****             else
+ 134:Core/Src/control.c ****             {
+ 135:Core/Src/control.c ****                 USART_OUT;
+ 136:Core/Src/control.c ****                 // print result
+ 137:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 138:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 139:Core/Src/control.c ****                 HAL_Delay(50);
+ 140:Core/Src/control.c ****                 USART_IN;
+ 141:Core/Src/control.c ****                 // log info
+ 142:Core/Src/control.c ****                 print_info("Cannot turn to ", r[0], r[1], r[2], ", move failed\n");
+ 143:Core/Src/control.c ****             }
+ 144:Core/Src/control.c ****         }
+ 145:Core/Src/control.c ****         else
+ 146:Core/Src/control.c ****             return 0;
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 16
+
+
+ 147:Core/Src/control.c ****     }
+ 148:Core/Src/control.c ****     else if (strcmp(str, "MOVE") == 0)
+ 149:Core/Src/control.c ****     {
+ 150:Core/Src/control.c ****         double r[4] = {0, 0, 0, 0};
+ 151:Core/Src/control.c ****         j = i;
+ 152:Core/Src/control.c ****         for (int index = 0; index < 4; index++)
+ 153:Core/Src/control.c ****         {
+ 154:Core/Src/control.c ****             while (str[j] != '\0' && str[j] != ' ')
+ 155:Core/Src/control.c ****                 ++j;
+ 156:Core/Src/control.c ****             if (!m_atof(str + i, j - i, r + index))
+ 157:Core/Src/control.c ****                 return 0;
+ 158:Core/Src/control.c ****             i = ++j;
+ 159:Core/Src/control.c ****         }
+ 160:Core/Src/control.c **** 
+ 161:Core/Src/control.c ****         point_t dst = {r[0], r[1], r[2]};
+ 162:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 163:Core/Src/control.c ****         {
+ 164:Core/Src/control.c ****             USART_OUT;
+ 165:Core/Src/control.c ****             printf("[info] execute: MOVE ");
+ 166:Core/Src/control.c ****             print_float(r[0]);
+ 167:Core/Src/control.c ****             print_float(r[1]);
+ 168:Core/Src/control.c ****             print_float(r[2]);
+ 169:Core/Src/control.c ****             print_float(r[3]);
+ 170:Core/Src/control.c ****             printf(";\n");
+ 171:Core/Src/control.c ****             USART_IN;
+ 172:Core/Src/control.c ****         }
+ 173:Core/Src/control.c ****         uint8_t result = move(endpos, dst, r[3]);
+ 174:Core/Src/control.c ****         if (result == 1)
+ 175:Core/Src/control.c ****         {
+ 176:Core/Src/control.c ****             // 若移动，更新末端点位置
+ 177:Core/Src/control.c ****             endpos = dst;
+ 178:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 179:Core/Src/control.c **** 
+ 180:Core/Src/control.c ****             USART_OUT;
+ 181:Core/Src/control.c ****             // print result
+ 182:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 183:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 184:Core/Src/control.c ****             HAL_Delay(50);
+ 185:Core/Src/control.c ****             USART_IN;
+ 186:Core/Src/control.c ****             // log info
+ 187:Core/Src/control.c ****             print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
+ 188:Core/Src/control.c ****         }
+ 189:Core/Src/control.c ****         else
+ 190:Core/Src/control.c ****         {
+ 191:Core/Src/control.c ****             USART_OUT;
+ 192:Core/Src/control.c ****             // print result
+ 193:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 194:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 195:Core/Src/control.c ****             HAL_Delay(50);
+ 196:Core/Src/control.c ****             USART_IN;
+ 197:Core/Src/control.c ****             // log info
+ 198:Core/Src/control.c ****             print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
+ 199:Core/Src/control.c ****         }
+ 200:Core/Src/control.c ****     }
+ 201:Core/Src/control.c ****     else if (strcmp(str, "CURVE") == 0)
+ 202:Core/Src/control.c ****     {
+ 203:Core/Src/control.c ****         double r[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 17
+
+
+ 204:Core/Src/control.c ****         j = i;
+ 205:Core/Src/control.c ****         for (int index = 0; index < 13; index++)
+ 206:Core/Src/control.c ****         {
+ 207:Core/Src/control.c ****             while (str[j] != '\0' && str[j] != ' ')
+ 208:Core/Src/control.c ****                 ++j;
+ 209:Core/Src/control.c ****             if (!m_atof(str + i, j - i, r + index))
+ 210:Core/Src/control.c ****                 return 0;
+ 211:Core/Src/control.c ****             i = ++j;
+ 212:Core/Src/control.c ****         }
+ 213:Core/Src/control.c **** 
+ 214:Core/Src/control.c ****         point_t ori = {r[0], r[1], r[2]};
+ 215:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 216:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 217:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 218:Core/Src/control.c **** 
+ 219:Core/Src/control.c ****         uint8_t result = curve(ori, dst, op, dp, r[12]);
+ 220:Core/Src/control.c ****         if (result == 1)
+ 221:Core/Src/control.c ****         {
+ 222:Core/Src/control.c ****             // 若移动，更新末端点位置
+ 223:Core/Src/control.c ****             endpos = dst;
+ 224:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 225:Core/Src/control.c **** 
+ 226:Core/Src/control.c ****             USART_OUT;
+ 227:Core/Src/control.c ****             // print result
+ 228:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 229:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 230:Core/Src/control.c ****             HAL_Delay(50);
+ 231:Core/Src/control.c ****             USART_IN;
+ 232:Core/Src/control.c ****             // log info
+ 233:Core/Src/control.c ****             // print_info("Complete. joint angle: ", endagl.j1, endagl.j2, endagl.j3, "\n");
+ 234:Core/Src/control.c ****         }
+ 235:Core/Src/control.c ****         else
+ 236:Core/Src/control.c ****         {
+ 237:Core/Src/control.c ****             USART_OUT;
+ 238:Core/Src/control.c ****             // print result
+ 239:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 240:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 241:Core/Src/control.c ****             HAL_Delay(50);
+ 242:Core/Src/control.c ****             USART_IN;
+ 243:Core/Src/control.c ****             // log info
+ 244:Core/Src/control.c ****             // print_info("Cannot reach ", r[0], r[1], r[2], ", move failed\n");
+ 245:Core/Src/control.c ****         }
+ 246:Core/Src/control.c ****     }
+ 247:Core/Src/control.c ****     else if (strcmp(str, "PUMP") == 0)
+ 248:Core/Src/control.c ****     {
+ 249:Core/Src/control.c ****         if (strcmp(str + i, "ON") == 0)
+ 250:Core/Src/control.c ****         {
+ 251:Core/Src/control.c ****             uint8_t result = pump_on();
+ 252:Core/Src/control.c **** 
+ 253:Core/Src/control.c ****             USART_OUT;
+ 254:Core/Src/control.c ****             // print result
+ 255:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 256:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 257:Core/Src/control.c ****             HAL_Delay(50);
+ 258:Core/Src/control.c ****             USART_IN;
+ 259:Core/Src/control.c ****             // log info
+ 260:Core/Src/control.c ****             if (CURRENT_LEVEL <= INFO_LEVEL)
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 18
+
+
+ 261:Core/Src/control.c ****                 m_printf("[info] pump on%c", '\n');
+ 262:Core/Src/control.c ****         }
+ 263:Core/Src/control.c ****         else if (strcmp(str + i, "OFF") == 0)
+ 264:Core/Src/control.c ****         {
+ 265:Core/Src/control.c ****             uint8_t result = pump_off();
+ 266:Core/Src/control.c **** 
+ 267:Core/Src/control.c ****             USART_OUT;
+ 268:Core/Src/control.c ****             // print result
+ 269:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 270:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 271:Core/Src/control.c ****             HAL_Delay(50);
+ 272:Core/Src/control.c ****             USART_IN;
+ 273:Core/Src/control.c ****             // log info
+ 274:Core/Src/control.c ****             if (CURRENT_LEVEL <= INFO_LEVEL)
+ 275:Core/Src/control.c ****                 m_printf("[info] pump off%c", '\n');
+ 276:Core/Src/control.c ****         }
+ 277:Core/Src/control.c ****         else if (strcmp(str + i, "?") == 0)
+ 278:Core/Src/control.c ****         {
+ 279:Core/Src/control.c ****             uint8_t result = pump_status();
+ 280:Core/Src/control.c **** 
+ 281:Core/Src/control.c ****             USART_OUT;
+ 282:Core/Src/control.c ****             // print result
+ 283:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &result, sizeof(result), 0xffff);
+ 284:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 285:Core/Src/control.c ****             HAL_Delay(50);
+ 286:Core/Src/control.c ****             USART_IN;
+ 287:Core/Src/control.c ****             // log info
+ 288:Core/Src/control.c ****             if (CURRENT_LEVEL <= INFO_LEVEL)
+ 289:Core/Src/control.c ****             {
+ 290:Core/Src/control.c ****                 if (result == 1)
+ 291:Core/Src/control.c ****                     m_printf("[info] pump is working%c", '\n');
+ 292:Core/Src/control.c ****                 else
+ 293:Core/Src/control.c ****                     m_printf("[info] pump is turned off%c", '\n');
+ 294:Core/Src/control.c ****             }
+ 295:Core/Src/control.c ****         }
+ 296:Core/Src/control.c ****         else
+ 297:Core/Src/control.c ****             return 0;
+ 298:Core/Src/control.c ****     }
+ 299:Core/Src/control.c ****     else if (strcmp(str, "GET") == 0)
+ 300:Core/Src/control.c ****     {
+ 301:Core/Src/control.c ****         if (strcmp(str + i, "POS") == 0)
+ 302:Core/Src/control.c ****         {
+ 303:Core/Src/control.c ****             USART_OUT;
+ 304:Core/Src/control.c ****             // print result
+ 305:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, (uint8_t *)&endpos, sizeof(point_t), 0xffff);
+ 306:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 307:Core/Src/control.c ****             HAL_Delay(50);
+ 308:Core/Src/control.c ****             USART_IN;
+ 309:Core/Src/control.c ****             // log info
+ 310:Core/Src/control.c ****             if (CURRENT_LEVEL <= INFO_LEVEL)
+ 311:Core/Src/control.c ****                 m_printf("[info] get position%c", '\n');
+ 312:Core/Src/control.c ****         }
+ 313:Core/Src/control.c ****         else if (strcmp(str + i, "AGL") == 0)
+ 314:Core/Src/control.c ****         {
+ 315:Core/Src/control.c ****             USART_OUT;
+ 316:Core/Src/control.c ****             // print result
+ 317:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, (uint8_t *)&endagl, sizeof(angle_t), 0xffff);
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 19
+
+
+ 318:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 319:Core/Src/control.c ****             HAL_Delay(50);
+ 320:Core/Src/control.c ****             USART_IN;
+ 321:Core/Src/control.c ****             // log info
+ 322:Core/Src/control.c ****             if (CURRENT_LEVEL <= INFO_LEVEL)
+ 323:Core/Src/control.c ****                 m_printf("[info] get angle%c", '\n');
+ 324:Core/Src/control.c ****         }
+ 325:Core/Src/control.c ****         else
+ 326:Core/Src/control.c ****             return 0;
+ 327:Core/Src/control.c ****     }
+ 328:Core/Src/control.c ****     else
+ 329:Core/Src/control.c ****         return 0;
+ 330:Core/Src/control.c ****     return 1;
+ 596              		.loc 1 330 12 discriminator 1 view .LVU125
+ 597 0154 0127     		movs	r7, #1
+  66:Core/Src/control.c **** 
+ 598              		.loc 1 66 5 discriminator 1 view .LVU126
+ 599 0156 00F02ABC 		b	.L21
+ 600              	.LVL60:
+ 601              	.L70:
+ 602              	.LBB7:
+ 603              	.LBB5:
+  88:Core/Src/control.c ****                 endagl = pointToAngle(dst);
+ 604              		.loc 1 88 17 is_stmt 1 view .LVU127
+  88:Core/Src/control.c ****                 endagl = pointToAngle(dst);
+ 605              		.loc 1 88 24 is_stmt 0 view .LVU128
+ 606 015a 3446     		mov	r4, r6
+ 607 015c 36AD     		add	r5, sp, #216
+ 608 015e 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 609 0160 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 610 0162 95E80300 		ldm	r5, {r0, r1}
+ 611 0166 84E80300 		stm	r4, {r0, r1}
+  89:Core/Src/control.c **** 
+ 612              		.loc 1 89 17 is_stmt 1 view .LVU129
+  89:Core/Src/control.c **** 
+ 613              		.loc 1 89 26 is_stmt 0 view .LVU130
+ 614 016a 574E     		ldr	r6, .L80+40
+ 615 016c 38AB     		add	r3, sp, #224
+ 616 016e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 617 0170 8DE80F00 		stm	sp, {r0, r1, r2, r3}
+ 618 0174 36AB     		add	r3, sp, #216
+ 619 0176 0CCB     		ldm	r3, {r2, r3}
+ 620 0178 16A8     		add	r0, sp, #88
+ 621 017a FFF7FEFF 		bl	pointToAngle
+ 622              	.LVL61:
+ 623 017e 3546     		mov	r5, r6
+ 624 0180 16AC     		add	r4, sp, #88
+ 625 0182 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
+ 626 0184 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 627 0186 94E80300 		ldm	r4, {r0, r1}
+ 628 018a 85E80300 		stm	r5, {r0, r1}
+  91:Core/Src/control.c ****                 // print result
+ 629              		.loc 1 91 17 is_stmt 1 view .LVU131
+ 630 018e 4A4C     		ldr	r4, .L80+24
+ 631 0190 0122     		movs	r2, #1
+ 632 0192 1021     		movs	r1, #16
+ 633 0194 2046     		mov	r0, r4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 20
+
+
+ 634 0196 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 635              	.LVL62:
+  93:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 636              		.loc 1 93 17 view .LVU132
+ 637 019a 484D     		ldr	r5, .L80+28
+ 638 019c 4FF6FF73 		movw	r3, #65535
+ 639 01a0 0122     		movs	r2, #1
+ 640 01a2 2AA9     		add	r1, sp, #168
+ 641 01a4 2846     		mov	r0, r5
+ 642 01a6 FFF7FEFF 		bl	HAL_UART_Transmit
+ 643              	.LVL63:
+  94:Core/Src/control.c ****                 HAL_Delay(50);
+ 644              		.loc 1 94 17 view .LVU133
+ 645 01aa 4FF6FF73 		movw	r3, #65535
+ 646 01ae 0122     		movs	r2, #1
+ 647 01b0 0DF24711 		addw	r1, sp, #327
+ 648 01b4 2846     		mov	r0, r5
+ 649 01b6 FFF7FEFF 		bl	HAL_UART_Transmit
+ 650              	.LVL64:
+  95:Core/Src/control.c ****                 USART_IN;
+ 651              		.loc 1 95 17 view .LVU134
+ 652 01ba 3220     		movs	r0, #50
+ 653 01bc FFF7FEFF 		bl	HAL_Delay
+ 654              	.LVL65:
+  96:Core/Src/control.c ****                 // log info
+ 655              		.loc 1 96 17 view .LVU135
+ 656 01c0 0022     		movs	r2, #0
+ 657 01c2 1021     		movs	r1, #16
+ 658 01c4 2046     		mov	r0, r4
+ 659 01c6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 660              	.LVL66:
+  98:Core/Src/control.c ****             }
+ 661              		.loc 1 98 17 view .LVU136
+ 662 01ca 404B     		ldr	r3, .L80+44
+ 663 01cc 0493     		str	r3, [sp, #16]
+ 664 01ce D6E90423 		ldrd	r2, [r6, #16]
+ 665 01d2 CDE90223 		strd	r2, [sp, #8]
+ 666 01d6 D6E90223 		ldrd	r2, [r6, #8]
+ 667 01da CDE90023 		strd	r2, [sp]
+ 668 01de D6E90023 		ldrd	r2, [r6]
+ 669 01e2 3B48     		ldr	r0, .L80+48
+ 670 01e4 FFF7FEFF 		bl	print_info
+ 671              	.LVL67:
+ 672 01e8 B4E7     		b	.L36
+ 673              	.LVL68:
+ 674              	.L69:
+  98:Core/Src/control.c ****             }
+ 675              		.loc 1 98 17 is_stmt 0 view .LVU137
+ 676              	.LBE5:
+ 677              	.LBB6:
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 678              		.loc 1 114 13 is_stmt 1 view .LVU138
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 679              		.loc 1 114 29 is_stmt 0 view .LVU139
+ 680 01ea DDE93023 		ldrd	r2, [sp, #192]
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 681              		.loc 1 114 21 view .LVU140
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 21
+
+
+ 682 01ee CDE93623 		strd	r2, [sp, #216]
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 683              		.loc 1 114 35 view .LVU141
+ 684 01f2 DDE93201 		ldrd	r0, [sp, #200]
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 685              		.loc 1 114 21 view .LVU142
+ 686 01f6 CDE93801 		strd	r0, [sp, #224]
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 687              		.loc 1 114 41 view .LVU143
+ 688 01fa DDE93445 		ldrd	r4, [sp, #208]
+ 689              	.LVL69:
+ 114:Core/Src/control.c ****             print_info("execute: MOVEA ", r[0], r[1], r[2], "\n");
+ 690              		.loc 1 114 21 view .LVU144
+ 691 01fe CDE93A45 		strd	r4, [sp, #232]
+ 115:Core/Src/control.c **** 
+ 692              		.loc 1 115 13 is_stmt 1 view .LVU145
+ 693 0202 324E     		ldr	r6, .L80+44
+ 694 0204 0496     		str	r6, [sp, #16]
+ 695 0206 CDE90245 		strd	r4, [sp, #8]
+ 696 020a CDE90001 		strd	r0, [sp]
+ 697 020e 3148     		ldr	r0, .L80+52
+ 698 0210 FFF7FEFF 		bl	print_info
+ 699              	.LVL70:
+ 117:Core/Src/control.c ****             if (result == 1)
+ 700              		.loc 1 117 13 view .LVU146
+ 117:Core/Src/control.c ****             if (result == 1)
+ 701              		.loc 1 117 30 is_stmt 0 view .LVU147
+ 702 0214 2C4E     		ldr	r6, .L80+40
+ 703 0216 02AC     		add	r4, sp, #8
+ 704 0218 36AD     		add	r5, sp, #216
+ 705              	.LVL71:
+ 117:Core/Src/control.c ****             if (result == 1)
+ 706              		.loc 1 117 30 view .LVU148
+ 707 021a 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 708 021c 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 709 021e 95E80300 		ldm	r5, {r0, r1}
+ 710 0222 84E80300 		stm	r4, {r0, r1}
+ 711 0226 06F11003 		add	r3, r6, #16
+ 712 022a 93E80300 		ldm	r3, {r0, r1}
+ 713 022e 8DE80300 		stm	sp, {r0, r1}
+ 714 0232 96E80F00 		ldm	r6, {r0, r1, r2, r3}
+ 715 0236 FFF7FEFF 		bl	movea_s
+ 716              	.LVL72:
+ 117:Core/Src/control.c ****             if (result == 1)
+ 717              		.loc 1 117 21 view .LVU149
+ 718 023a 8DF8A800 		strb	r0, [sp, #168]
+ 118:Core/Src/control.c ****             {
+ 719              		.loc 1 118 13 is_stmt 1 view .LVU150
+ 118:Core/Src/control.c ****             {
+ 720              		.loc 1 118 16 is_stmt 0 view .LVU151
+ 721 023e 0128     		cmp	r0, #1
+ 722 0240 4CD0     		beq	.L71
+ 135:Core/Src/control.c ****                 // print result
+ 723              		.loc 1 135 17 is_stmt 1 view .LVU152
+ 724 0242 1D4C     		ldr	r4, .L80+24
+ 725 0244 0122     		movs	r2, #1
+ 726 0246 1021     		movs	r1, #16
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 22
+
+
+ 727 0248 2046     		mov	r0, r4
+ 728 024a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 729              	.LVL73:
+ 137:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 730              		.loc 1 137 17 view .LVU153
+ 731 024e 1B4D     		ldr	r5, .L80+28
+ 732 0250 4FF6FF73 		movw	r3, #65535
+ 733 0254 0122     		movs	r2, #1
+ 734 0256 2AA9     		add	r1, sp, #168
+ 735 0258 2846     		mov	r0, r5
+ 736 025a FFF7FEFF 		bl	HAL_UART_Transmit
+ 737              	.LVL74:
+ 138:Core/Src/control.c ****                 HAL_Delay(50);
+ 738              		.loc 1 138 17 view .LVU154
+ 739 025e 4FF6FF73 		movw	r3, #65535
+ 740 0262 0122     		movs	r2, #1
+ 741 0264 0DF24711 		addw	r1, sp, #327
+ 742 0268 2846     		mov	r0, r5
+ 743 026a FFF7FEFF 		bl	HAL_UART_Transmit
+ 744              	.LVL75:
+ 139:Core/Src/control.c ****                 USART_IN;
+ 745              		.loc 1 139 17 view .LVU155
+ 746 026e 3220     		movs	r0, #50
+ 747 0270 FFF7FEFF 		bl	HAL_Delay
+ 748              	.LVL76:
+ 140:Core/Src/control.c ****                 // log info
+ 749              		.loc 1 140 17 view .LVU156
+ 750 0274 0022     		movs	r2, #0
+ 751 0276 1021     		movs	r1, #16
+ 752 0278 2046     		mov	r0, r4
+ 753 027a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 754              	.LVL77:
+ 142:Core/Src/control.c ****             }
+ 755              		.loc 1 142 17 view .LVU157
+ 756 027e 104B     		ldr	r3, .L80+32
+ 757 0280 0493     		str	r3, [sp, #16]
+ 758 0282 DDE93423 		ldrd	r2, [sp, #208]
+ 759 0286 CDE90223 		strd	r2, [sp, #8]
+ 760 028a DDE93223 		ldrd	r2, [sp, #200]
+ 761 028e CDE90023 		strd	r2, [sp]
+ 762 0292 DDE93023 		ldrd	r2, [sp, #192]
+ 763 0296 1048     		ldr	r0, .L80+56
+ 764 0298 FFF7FEFF 		bl	print_info
+ 765              	.LVL78:
+ 766 029c 5AE7     		b	.L36
+ 767              	.L81:
+ 768 029e 00BF     		.align	2
+ 769              	.L80:
+ 770 02a0 00000000 		.word	.LC0
+ 771 02a4 08000000 		.word	.LC1
+ 772 02a8 20000000 		.word	.LC3
+ 773 02ac 10000000 		.word	.LC2
+ 774 02b0 00000000 		.word	endpos
+ 775 02b4 00004E40 		.word	1078853632
+ 776 02b8 00080140 		.word	1073809408
+ 777 02bc 00000000 		.word	huart2
+ 778 02c0 50000000 		.word	.LC7
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 23
+
+
+ 779 02c4 40000000 		.word	.LC6
+ 780 02c8 00000000 		.word	endagl
+ 781 02cc 3C000000 		.word	.LC5
+ 782 02d0 24000000 		.word	.LC4
+ 783 02d4 60000000 		.word	.LC8
+ 784 02d8 84000000 		.word	.LC10
+ 785              	.L71:
+ 121:Core/Src/control.c ****                 endagl = dst;
+ 786              		.loc 1 121 17 view .LVU158
+ 121:Core/Src/control.c ****                 endagl = dst;
+ 787              		.loc 1 121 26 is_stmt 0 view .LVU159
+ 788 02dc A94F     		ldr	r7, .L82
+ 789              	.LVL79:
+ 121:Core/Src/control.c ****                 endagl = dst;
+ 790              		.loc 1 121 26 view .LVU160
+ 791 02de 38AB     		add	r3, sp, #224
+ 792 02e0 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 793 02e2 8DE80F00 		stm	sp, {r0, r1, r2, r3}
+ 794 02e6 36AC     		add	r4, sp, #216
+ 795 02e8 94E80C00 		ldm	r4, {r2, r3}
+ 796 02ec 16A8     		add	r0, sp, #88
+ 797 02ee FFF7FEFF 		bl	angleToPoint
+ 798              	.LVL80:
+ 799 02f2 3E46     		mov	r6, r7
+ 800 02f4 16AD     		add	r5, sp, #88
+ 801 02f6 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 802 02f8 0FC6     		stmia	r6!, {r0, r1, r2, r3}
+ 803 02fa 95E80300 		ldm	r5, {r0, r1}
+ 804 02fe 86E80300 		stm	r6, {r0, r1}
+ 122:Core/Src/control.c **** 
+ 805              		.loc 1 122 17 is_stmt 1 view .LVU161
+ 122:Core/Src/control.c **** 
+ 806              		.loc 1 122 24 is_stmt 0 view .LVU162
+ 807 0302 A14D     		ldr	r5, .L82+4
+ 808 0304 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
+ 809 0306 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 810 0308 94E80300 		ldm	r4, {r0, r1}
+ 811 030c 85E80300 		stm	r5, {r0, r1}
+ 124:Core/Src/control.c ****                 // print result
+ 812              		.loc 1 124 17 is_stmt 1 view .LVU163
+ 813 0310 9E4C     		ldr	r4, .L82+8
+ 814 0312 0122     		movs	r2, #1
+ 815 0314 1021     		movs	r1, #16
+ 816 0316 2046     		mov	r0, r4
+ 817 0318 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 818              	.LVL81:
+ 126:Core/Src/control.c ****                 HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 819              		.loc 1 126 17 view .LVU164
+ 820 031c 9C4D     		ldr	r5, .L82+12
+ 821 031e 4FF6FF73 		movw	r3, #65535
+ 822 0322 0122     		movs	r2, #1
+ 823 0324 2AA9     		add	r1, sp, #168
+ 824 0326 2846     		mov	r0, r5
+ 825 0328 FFF7FEFF 		bl	HAL_UART_Transmit
+ 826              	.LVL82:
+ 127:Core/Src/control.c ****                 HAL_Delay(50);
+ 827              		.loc 1 127 17 view .LVU165
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 24
+
+
+ 828 032c 4FF6FF73 		movw	r3, #65535
+ 829 0330 0122     		movs	r2, #1
+ 830 0332 0DF24711 		addw	r1, sp, #327
+ 831 0336 2846     		mov	r0, r5
+ 832 0338 FFF7FEFF 		bl	HAL_UART_Transmit
+ 833              	.LVL83:
+ 128:Core/Src/control.c ****                 USART_IN;
+ 834              		.loc 1 128 17 view .LVU166
+ 835 033c 3220     		movs	r0, #50
+ 836 033e FFF7FEFF 		bl	HAL_Delay
+ 837              	.LVL84:
+ 129:Core/Src/control.c ****                 // log info
+ 838              		.loc 1 129 17 view .LVU167
+ 839 0342 0022     		movs	r2, #0
+ 840 0344 1021     		movs	r1, #16
+ 841 0346 2046     		mov	r0, r4
+ 842 0348 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 843              	.LVL85:
+ 131:Core/Src/control.c ****             }
+ 844              		.loc 1 131 17 view .LVU168
+ 845 034c 914B     		ldr	r3, .L82+16
+ 846 034e 0493     		str	r3, [sp, #16]
+ 847 0350 D7E90423 		ldrd	r2, [r7, #16]
+ 848 0354 CDE90223 		strd	r2, [sp, #8]
+ 849 0358 D7E90223 		ldrd	r2, [r7, #8]
+ 850 035c CDE90023 		strd	r2, [sp]
+ 851 0360 D7E90023 		ldrd	r2, [r7]
+ 852 0364 8C48     		ldr	r0, .L82+20
+ 853 0366 FFF7FEFF 		bl	print_info
+ 854              	.LVL86:
+ 855 036a F3E6     		b	.L36
+ 856              	.LVL87:
+ 857              	.L27:
+ 131:Core/Src/control.c ****             }
+ 858              		.loc 1 131 17 is_stmt 0 view .LVU169
+ 859              	.LBE6:
+ 860              	.LBE7:
+ 148:Core/Src/control.c ****     {
+ 861              		.loc 1 148 10 is_stmt 1 view .LVU170
+ 148:Core/Src/control.c ****     {
+ 862              		.loc 1 148 14 is_stmt 0 view .LVU171
+ 863 036c 8B49     		ldr	r1, .L82+24
+ 864 036e 2846     		mov	r0, r5
+ 865 0370 FFF7FEFF 		bl	strcmp
+ 866              	.LVL88:
+ 148:Core/Src/control.c ****     {
+ 867              		.loc 1 148 13 view .LVU172
+ 868 0374 8046     		mov	r8, r0
+ 869 0376 0028     		cmp	r0, #0
+ 870 0378 40F0DD80 		bne	.L39
+ 871              	.LBB8:
+ 150:Core/Src/control.c ****         j = i;
+ 872              		.loc 1 150 9 is_stmt 1 view .LVU173
+ 150:Core/Src/control.c ****         j = i;
+ 873              		.loc 1 150 16 is_stmt 0 view .LVU174
+ 874 037c 2022     		movs	r2, #32
+ 875 037e 0021     		movs	r1, #0
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 25
+
+
+ 876 0380 36A8     		add	r0, sp, #216
+ 877 0382 FFF7FEFF 		bl	memset
+ 878              	.LVL89:
+ 151:Core/Src/control.c ****         for (int index = 0; index < 4; index++)
+ 879              		.loc 1 151 9 is_stmt 1 view .LVU175
+ 152:Core/Src/control.c ****         {
+ 880              		.loc 1 152 9 view .LVU176
+ 881              	.LBB9:
+ 152:Core/Src/control.c ****         {
+ 882              		.loc 1 152 14 view .LVU177
+ 152:Core/Src/control.c ****         {
+ 883              		.loc 1 152 9 is_stmt 0 view .LVU178
+ 884 0386 12E0     		b	.L40
+ 885              	.LVL90:
+ 886              	.L42:
+ 155:Core/Src/control.c ****             if (!m_atof(str + i, j - i, r + index))
+ 887              		.loc 1 155 17 is_stmt 1 view .LVU179
+ 888 0388 0136     		adds	r6, r6, #1
+ 889              	.LVL91:
+ 890              	.L44:
+ 154:Core/Src/control.c ****                 ++j;
+ 891              		.loc 1 154 35 view .LVU180
+ 154:Core/Src/control.c ****                 ++j;
+ 892              		.loc 1 154 23 is_stmt 0 view .LVU181
+ 893 038a AB5D     		ldrb	r3, [r5, r6]	@ zero_extendqisi2
+ 154:Core/Src/control.c ****                 ++j;
+ 894              		.loc 1 154 35 view .LVU182
+ 895 038c 0BB1     		cbz	r3, .L41
+ 154:Core/Src/control.c ****                 ++j;
+ 896              		.loc 1 154 35 discriminator 1 view .LVU183
+ 897 038e 202B     		cmp	r3, #32
+ 898 0390 FAD1     		bne	.L42
+ 899              	.L41:
+ 156:Core/Src/control.c ****                 return 0;
+ 900              		.loc 1 156 13 is_stmt 1 view .LVU184
+ 156:Core/Src/control.c ****                 return 0;
+ 901              		.loc 1 156 18 is_stmt 0 view .LVU185
+ 902 0392 36AB     		add	r3, sp, #216
+ 903 0394 03EBC802 		add	r2, r3, r8, lsl #3
+ 904 0398 311B     		subs	r1, r6, r4
+ 905 039a 2819     		adds	r0, r5, r4
+ 906 039c FFF7FEFF 		bl	m_atof
+ 907              	.LVL92:
+ 156:Core/Src/control.c ****                 return 0;
+ 908              		.loc 1 156 16 view .LVU186
+ 909 03a0 0746     		mov	r7, r0
+ 910 03a2 0028     		cmp	r0, #0
+ 911 03a4 00F00383 		beq	.L21
+ 158:Core/Src/control.c ****         }
+ 912              		.loc 1 158 13 is_stmt 1 discriminator 2 view .LVU187
+ 158:Core/Src/control.c ****         }
+ 913              		.loc 1 158 15 is_stmt 0 discriminator 2 view .LVU188
+ 914 03a8 741C     		adds	r4, r6, #1
+ 915              	.LVL93:
+ 152:Core/Src/control.c ****         {
+ 916              		.loc 1 152 45 is_stmt 1 discriminator 2 view .LVU189
+ 917 03aa 08F10108 		add	r8, r8, #1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 26
+
+
+ 918              	.LVL94:
+ 919              	.L40:
+ 152:Core/Src/control.c ****         {
+ 920              		.loc 1 152 35 discriminator 1 view .LVU190
+ 921 03ae B8F1030F 		cmp	r8, #3
+ 922 03b2 01DC     		bgt	.L72
+ 152:Core/Src/control.c ****         {
+ 923              		.loc 1 152 35 is_stmt 0 discriminator 1 view .LVU191
+ 924 03b4 2646     		mov	r6, r4
+ 925 03b6 E8E7     		b	.L44
+ 926              	.L72:
+ 152:Core/Src/control.c ****         {
+ 927              		.loc 1 152 35 discriminator 1 view .LVU192
+ 928              	.LBE9:
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 929              		.loc 1 161 9 is_stmt 1 view .LVU193
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 930              		.loc 1 161 25 is_stmt 0 view .LVU194
+ 931 03b8 DDE93623 		ldrd	r2, [sp, #216]
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 932              		.loc 1 161 17 view .LVU195
+ 933 03bc CDE93023 		strd	r2, [sp, #192]
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 934              		.loc 1 161 31 view .LVU196
+ 935 03c0 DDE93823 		ldrd	r2, [sp, #224]
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 936              		.loc 1 161 17 view .LVU197
+ 937 03c4 CDE93223 		strd	r2, [sp, #200]
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 938              		.loc 1 161 37 view .LVU198
+ 939 03c8 DDE93A23 		ldrd	r2, [sp, #232]
+ 161:Core/Src/control.c ****         if (CURRENT_LEVEL <= INFO_LEVEL)
+ 940              		.loc 1 161 17 view .LVU199
+ 941 03cc CDE93423 		strd	r2, [sp, #208]
+ 162:Core/Src/control.c ****         {
+ 942              		.loc 1 162 9 is_stmt 1 view .LVU200
+ 164:Core/Src/control.c ****             printf("[info] execute: MOVE ");
+ 943              		.loc 1 164 13 view .LVU201
+ 944 03d0 6E4C     		ldr	r4, .L82+8
+ 945              	.LVL95:
+ 164:Core/Src/control.c ****             printf("[info] execute: MOVE ");
+ 946              		.loc 1 164 13 is_stmt 0 view .LVU202
+ 947 03d2 0122     		movs	r2, #1
+ 948 03d4 1021     		movs	r1, #16
+ 949 03d6 2046     		mov	r0, r4
+ 950 03d8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 951              	.LVL96:
+ 165:Core/Src/control.c ****             print_float(r[0]);
+ 952              		.loc 1 165 13 is_stmt 1 view .LVU203
+ 953 03dc 7048     		ldr	r0, .L82+28
+ 954 03de FFF7FEFF 		bl	printf
+ 955              	.LVL97:
+ 166:Core/Src/control.c ****             print_float(r[1]);
+ 956              		.loc 1 166 13 view .LVU204
+ 957 03e2 DDE93601 		ldrd	r0, [sp, #216]
+ 958 03e6 FFF7FEFF 		bl	print_float
+ 959              	.LVL98:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 27
+
+
+ 167:Core/Src/control.c ****             print_float(r[2]);
+ 960              		.loc 1 167 13 view .LVU205
+ 961 03ea DDE93801 		ldrd	r0, [sp, #224]
+ 962 03ee FFF7FEFF 		bl	print_float
+ 963              	.LVL99:
+ 168:Core/Src/control.c ****             print_float(r[3]);
+ 964              		.loc 1 168 13 view .LVU206
+ 965 03f2 DDE93A01 		ldrd	r0, [sp, #232]
+ 966 03f6 FFF7FEFF 		bl	print_float
+ 967              	.LVL100:
+ 169:Core/Src/control.c ****             printf(";\n");
+ 968              		.loc 1 169 13 view .LVU207
+ 969 03fa DDE93C01 		ldrd	r0, [sp, #240]
+ 970 03fe FFF7FEFF 		bl	print_float
+ 971              	.LVL101:
+ 170:Core/Src/control.c ****             USART_IN;
+ 972              		.loc 1 170 13 view .LVU208
+ 973 0402 6848     		ldr	r0, .L82+32
+ 974 0404 FFF7FEFF 		bl	puts
+ 975              	.LVL102:
+ 171:Core/Src/control.c ****         }
+ 976              		.loc 1 171 13 view .LVU209
+ 977 0408 0022     		movs	r2, #0
+ 978 040a 1021     		movs	r1, #16
+ 979 040c 2046     		mov	r0, r4
+ 980 040e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 981              	.LVL103:
+ 173:Core/Src/control.c ****         if (result == 1)
+ 982              		.loc 1 173 9 view .LVU210
+ 173:Core/Src/control.c ****         if (result == 1)
+ 983              		.loc 1 173 26 is_stmt 0 view .LVU211
+ 984 0412 5C4E     		ldr	r6, .L82
+ 985 0414 DDE93C23 		ldrd	r2, [sp, #240]
+ 986 0418 CDE90823 		strd	r2, [sp, #32]
+ 987 041c 02AC     		add	r4, sp, #8
+ 988 041e 30AD     		add	r5, sp, #192
+ 989              	.LVL104:
+ 173:Core/Src/control.c ****         if (result == 1)
+ 990              		.loc 1 173 26 view .LVU212
+ 991 0420 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 992 0422 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 993 0424 95E80300 		ldm	r5, {r0, r1}
+ 994 0428 84E80300 		stm	r4, {r0, r1}
+ 995 042c 06F11003 		add	r3, r6, #16
+ 996 0430 93E80300 		ldm	r3, {r0, r1}
+ 997 0434 8DE80300 		stm	sp, {r0, r1}
+ 998 0438 96E80F00 		ldm	r6, {r0, r1, r2, r3}
+ 999 043c FFF7FEFF 		bl	move
+ 1000              	.LVL105:
+ 173:Core/Src/control.c ****         if (result == 1)
+ 1001              		.loc 1 173 17 view .LVU213
+ 1002 0440 8DF8A800 		strb	r0, [sp, #168]
+ 174:Core/Src/control.c ****         {
+ 1003              		.loc 1 174 9 is_stmt 1 view .LVU214
+ 174:Core/Src/control.c ****         {
+ 1004              		.loc 1 174 12 is_stmt 0 view .LVU215
+ 1005 0444 0128     		cmp	r0, #1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 28
+
+
+ 1006 0446 2ED0     		beq	.L73
+ 191:Core/Src/control.c ****             // print result
+ 1007              		.loc 1 191 13 is_stmt 1 view .LVU216
+ 1008 0448 504C     		ldr	r4, .L82+8
+ 1009 044a 0122     		movs	r2, #1
+ 1010 044c 1021     		movs	r1, #16
+ 1011 044e 2046     		mov	r0, r4
+ 1012 0450 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1013              	.LVL106:
+ 193:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1014              		.loc 1 193 13 view .LVU217
+ 1015 0454 4E4D     		ldr	r5, .L82+12
+ 1016 0456 4FF6FF73 		movw	r3, #65535
+ 1017 045a 0122     		movs	r2, #1
+ 1018 045c 2AA9     		add	r1, sp, #168
+ 1019 045e 2846     		mov	r0, r5
+ 1020 0460 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1021              	.LVL107:
+ 194:Core/Src/control.c ****             HAL_Delay(50);
+ 1022              		.loc 1 194 13 view .LVU218
+ 1023 0464 4FF6FF73 		movw	r3, #65535
+ 1024 0468 0122     		movs	r2, #1
+ 1025 046a 0DF24711 		addw	r1, sp, #327
+ 1026 046e 2846     		mov	r0, r5
+ 1027 0470 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1028              	.LVL108:
+ 195:Core/Src/control.c ****             USART_IN;
+ 1029              		.loc 1 195 13 view .LVU219
+ 1030 0474 3220     		movs	r0, #50
+ 1031 0476 FFF7FEFF 		bl	HAL_Delay
+ 1032              	.LVL109:
+ 196:Core/Src/control.c ****             // log info
+ 1033              		.loc 1 196 13 view .LVU220
+ 1034 047a 0022     		movs	r2, #0
+ 1035 047c 1021     		movs	r1, #16
+ 1036 047e 2046     		mov	r0, r4
+ 1037 0480 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1038              	.LVL110:
+ 198:Core/Src/control.c ****         }
+ 1039              		.loc 1 198 13 view .LVU221
+ 1040 0484 484B     		ldr	r3, .L82+36
+ 1041 0486 0493     		str	r3, [sp, #16]
+ 1042 0488 DDE93A23 		ldrd	r2, [sp, #232]
+ 1043 048c CDE90223 		strd	r2, [sp, #8]
+ 1044 0490 DDE93823 		ldrd	r2, [sp, #224]
+ 1045 0494 CDE90023 		strd	r2, [sp]
+ 1046 0498 DDE93623 		ldrd	r2, [sp, #216]
+ 1047 049c 4348     		ldr	r0, .L82+40
+ 1048 049e FFF7FEFF 		bl	print_info
+ 1049              	.LVL111:
+ 1050              	.L46:
+ 1051              	.LBE8:
+ 1052              		.loc 1 330 12 is_stmt 0 view .LVU222
+ 1053 04a2 0127     		movs	r7, #1
+ 1054 04a4 83E2     		b	.L21
+ 1055              	.L73:
+ 1056              	.LBB10:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 29
+
+
+ 177:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 1057              		.loc 1 177 13 is_stmt 1 view .LVU223
+ 177:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 1058              		.loc 1 177 20 is_stmt 0 view .LVU224
+ 1059 04a6 3446     		mov	r4, r6
+ 1060 04a8 30AD     		add	r5, sp, #192
+ 1061 04aa 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 1062 04ac 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 1063 04ae 95E80300 		ldm	r5, {r0, r1}
+ 1064 04b2 84E80300 		stm	r4, {r0, r1}
+ 178:Core/Src/control.c **** 
+ 1065              		.loc 1 178 13 is_stmt 1 view .LVU225
+ 178:Core/Src/control.c **** 
+ 1066              		.loc 1 178 22 is_stmt 0 view .LVU226
+ 1067 04b6 344E     		ldr	r6, .L82+4
+ 1068 04b8 32AB     		add	r3, sp, #200
+ 1069 04ba 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 1070 04bc 8DE80F00 		stm	sp, {r0, r1, r2, r3}
+ 1071 04c0 30AB     		add	r3, sp, #192
+ 1072 04c2 0CCB     		ldm	r3, {r2, r3}
+ 1073 04c4 16A8     		add	r0, sp, #88
+ 1074 04c6 FFF7FEFF 		bl	pointToAngle
+ 1075              	.LVL112:
+ 1076 04ca 3546     		mov	r5, r6
+ 1077 04cc 16AC     		add	r4, sp, #88
+ 1078 04ce 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
+ 1079 04d0 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 1080 04d2 94E80300 		ldm	r4, {r0, r1}
+ 1081 04d6 85E80300 		stm	r5, {r0, r1}
+ 180:Core/Src/control.c ****             // print result
+ 1082              		.loc 1 180 13 is_stmt 1 view .LVU227
+ 1083 04da 2C4C     		ldr	r4, .L82+8
+ 1084 04dc 0122     		movs	r2, #1
+ 1085 04de 1021     		movs	r1, #16
+ 1086 04e0 2046     		mov	r0, r4
+ 1087 04e2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1088              	.LVL113:
+ 182:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1089              		.loc 1 182 13 view .LVU228
+ 1090 04e6 2A4D     		ldr	r5, .L82+12
+ 1091 04e8 4FF6FF73 		movw	r3, #65535
+ 1092 04ec 0122     		movs	r2, #1
+ 1093 04ee 2AA9     		add	r1, sp, #168
+ 1094 04f0 2846     		mov	r0, r5
+ 1095 04f2 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1096              	.LVL114:
+ 183:Core/Src/control.c ****             HAL_Delay(50);
+ 1097              		.loc 1 183 13 view .LVU229
+ 1098 04f6 4FF6FF73 		movw	r3, #65535
+ 1099 04fa 0122     		movs	r2, #1
+ 1100 04fc 0DF24711 		addw	r1, sp, #327
+ 1101 0500 2846     		mov	r0, r5
+ 1102 0502 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1103              	.LVL115:
+ 184:Core/Src/control.c ****             USART_IN;
+ 1104              		.loc 1 184 13 view .LVU230
+ 1105 0506 3220     		movs	r0, #50
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 30
+
+
+ 1106 0508 FFF7FEFF 		bl	HAL_Delay
+ 1107              	.LVL116:
+ 185:Core/Src/control.c ****             // log info
+ 1108              		.loc 1 185 13 view .LVU231
+ 1109 050c 0022     		movs	r2, #0
+ 1110 050e 1021     		movs	r1, #16
+ 1111 0510 2046     		mov	r0, r4
+ 1112 0512 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1113              	.LVL117:
+ 187:Core/Src/control.c ****         }
+ 1114              		.loc 1 187 13 view .LVU232
+ 1115 0516 1F4B     		ldr	r3, .L82+16
+ 1116 0518 0493     		str	r3, [sp, #16]
+ 1117 051a D6E90423 		ldrd	r2, [r6, #16]
+ 1118 051e CDE90223 		strd	r2, [sp, #8]
+ 1119 0522 D6E90223 		ldrd	r2, [r6, #8]
+ 1120 0526 CDE90023 		strd	r2, [sp]
+ 1121 052a D6E90023 		ldrd	r2, [r6]
+ 1122 052e 2048     		ldr	r0, .L82+44
+ 1123 0530 FFF7FEFF 		bl	print_info
+ 1124              	.LVL118:
+ 1125 0534 B5E7     		b	.L46
+ 1126              	.LVL119:
+ 1127              	.L39:
+ 187:Core/Src/control.c ****         }
+ 1128              		.loc 1 187 13 is_stmt 0 view .LVU233
+ 1129              	.LBE10:
+ 201:Core/Src/control.c ****     {
+ 1130              		.loc 1 201 10 is_stmt 1 view .LVU234
+ 201:Core/Src/control.c ****     {
+ 1131              		.loc 1 201 14 is_stmt 0 view .LVU235
+ 1132 0536 1F49     		ldr	r1, .L82+48
+ 1133 0538 2846     		mov	r0, r5
+ 1134 053a FFF7FEFF 		bl	strcmp
+ 1135              	.LVL120:
+ 201:Core/Src/control.c ****     {
+ 1136              		.loc 1 201 13 view .LVU236
+ 1137 053e 8046     		mov	r8, r0
+ 1138 0540 0028     		cmp	r0, #0
+ 1139 0542 40F0EC80 		bne	.L47
+ 1140              	.LBB11:
+ 203:Core/Src/control.c ****         j = i;
+ 1141              		.loc 1 203 9 is_stmt 1 view .LVU237
+ 203:Core/Src/control.c ****         j = i;
+ 1142              		.loc 1 203 16 is_stmt 0 view .LVU238
+ 1143 0546 6822     		movs	r2, #104
+ 1144 0548 0021     		movs	r1, #0
+ 1145 054a 36A8     		add	r0, sp, #216
+ 1146 054c FFF7FEFF 		bl	memset
+ 1147              	.LVL121:
+ 204:Core/Src/control.c ****         for (int index = 0; index < 13; index++)
+ 1148              		.loc 1 204 9 is_stmt 1 view .LVU239
+ 205:Core/Src/control.c ****         {
+ 1149              		.loc 1 205 9 view .LVU240
+ 1150              	.LBB12:
+ 205:Core/Src/control.c ****         {
+ 1151              		.loc 1 205 14 view .LVU241
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 31
+
+
+ 205:Core/Src/control.c ****         {
+ 1152              		.loc 1 205 9 is_stmt 0 view .LVU242
+ 1153 0550 12E0     		b	.L48
+ 1154              	.LVL122:
+ 1155              	.L50:
+ 208:Core/Src/control.c ****             if (!m_atof(str + i, j - i, r + index))
+ 1156              		.loc 1 208 17 is_stmt 1 view .LVU243
+ 1157 0552 0136     		adds	r6, r6, #1
+ 1158              	.LVL123:
+ 1159              	.L52:
+ 207:Core/Src/control.c ****                 ++j;
+ 1160              		.loc 1 207 35 view .LVU244
+ 207:Core/Src/control.c ****                 ++j;
+ 1161              		.loc 1 207 23 is_stmt 0 view .LVU245
+ 1162 0554 AB5D     		ldrb	r3, [r5, r6]	@ zero_extendqisi2
+ 207:Core/Src/control.c ****                 ++j;
+ 1163              		.loc 1 207 35 view .LVU246
+ 1164 0556 0BB1     		cbz	r3, .L49
+ 207:Core/Src/control.c ****                 ++j;
+ 1165              		.loc 1 207 35 discriminator 1 view .LVU247
+ 1166 0558 202B     		cmp	r3, #32
+ 1167 055a FAD1     		bne	.L50
+ 1168              	.L49:
+ 209:Core/Src/control.c ****                 return 0;
+ 1169              		.loc 1 209 13 is_stmt 1 view .LVU248
+ 209:Core/Src/control.c ****                 return 0;
+ 1170              		.loc 1 209 18 is_stmt 0 view .LVU249
+ 1171 055c 36AB     		add	r3, sp, #216
+ 1172 055e 03EBC802 		add	r2, r3, r8, lsl #3
+ 1173 0562 311B     		subs	r1, r6, r4
+ 1174 0564 2819     		adds	r0, r5, r4
+ 1175 0566 FFF7FEFF 		bl	m_atof
+ 1176              	.LVL124:
+ 209:Core/Src/control.c ****                 return 0;
+ 1177              		.loc 1 209 16 view .LVU250
+ 1178 056a 0746     		mov	r7, r0
+ 1179 056c 0028     		cmp	r0, #0
+ 1180 056e 00F01E82 		beq	.L21
+ 211:Core/Src/control.c ****         }
+ 1181              		.loc 1 211 13 is_stmt 1 discriminator 2 view .LVU251
+ 211:Core/Src/control.c ****         }
+ 1182              		.loc 1 211 15 is_stmt 0 discriminator 2 view .LVU252
+ 1183 0572 741C     		adds	r4, r6, #1
+ 1184              	.LVL125:
+ 205:Core/Src/control.c ****         {
+ 1185              		.loc 1 205 46 is_stmt 1 discriminator 2 view .LVU253
+ 1186 0574 08F10108 		add	r8, r8, #1
+ 1187              	.LVL126:
+ 1188              	.L48:
+ 205:Core/Src/control.c ****         {
+ 1189              		.loc 1 205 35 discriminator 1 view .LVU254
+ 1190 0578 B8F10C0F 		cmp	r8, #12
+ 1191 057c 1CDC     		bgt	.L74
+ 205:Core/Src/control.c ****         {
+ 1192              		.loc 1 205 35 is_stmt 0 discriminator 1 view .LVU255
+ 1193 057e 2646     		mov	r6, r4
+ 1194 0580 E8E7     		b	.L52
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 32
+
+
+ 1195              	.L83:
+ 1196 0582 00BF     		.align	2
+ 1197              	.L82:
+ 1198 0584 00000000 		.word	endpos
+ 1199 0588 00000000 		.word	endagl
+ 1200 058c 00080140 		.word	1073809408
+ 1201 0590 00000000 		.word	huart2
+ 1202 0594 3C000000 		.word	.LC5
+ 1203 0598 70000000 		.word	.LC9
+ 1204 059c 94000000 		.word	.LC11
+ 1205 05a0 9C000000 		.word	.LC12
+ 1206 05a4 B4000000 		.word	.LC13
+ 1207 05a8 50000000 		.word	.LC7
+ 1208 05ac 40000000 		.word	.LC6
+ 1209 05b0 24000000 		.word	.LC4
+ 1210 05b4 B8000000 		.word	.LC14
+ 1211              	.L74:
+ 205:Core/Src/control.c ****         {
+ 1212              		.loc 1 205 35 discriminator 1 view .LVU256
+ 1213              	.LBE12:
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1214              		.loc 1 214 9 is_stmt 1 view .LVU257
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1215              		.loc 1 214 25 is_stmt 0 view .LVU258
+ 1216 05b8 DDE93623 		ldrd	r2, [sp, #216]
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1217              		.loc 1 214 17 view .LVU259
+ 1218 05bc CDE91E23 		strd	r2, [sp, #120]
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1219              		.loc 1 214 31 view .LVU260
+ 1220 05c0 DDE93823 		ldrd	r2, [sp, #224]
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1221              		.loc 1 214 17 view .LVU261
+ 1222 05c4 CDE92023 		strd	r2, [sp, #128]
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1223              		.loc 1 214 37 view .LVU262
+ 1224 05c8 DDE93A23 		ldrd	r2, [sp, #232]
+ 214:Core/Src/control.c ****         point_t dst = {r[3], r[4], r[5]};
+ 1225              		.loc 1 214 17 view .LVU263
+ 1226 05cc CDE92223 		strd	r2, [sp, #136]
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1227              		.loc 1 215 9 is_stmt 1 view .LVU264
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1228              		.loc 1 215 25 is_stmt 0 view .LVU265
+ 1229 05d0 DDE93C23 		ldrd	r2, [sp, #240]
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1230              		.loc 1 215 17 view .LVU266
+ 1231 05d4 CDE92423 		strd	r2, [sp, #144]
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1232              		.loc 1 215 31 view .LVU267
+ 1233 05d8 DDE93E23 		ldrd	r2, [sp, #248]
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1234              		.loc 1 215 17 view .LVU268
+ 1235 05dc CDE92623 		strd	r2, [sp, #152]
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1236              		.loc 1 215 37 view .LVU269
+ 1237 05e0 DDE94023 		ldrd	r2, [sp, #256]
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 33
+
+
+ 215:Core/Src/control.c ****         point_t op = {r[6], r[7], r[8]};
+ 1238              		.loc 1 215 17 view .LVU270
+ 1239 05e4 CDE92823 		strd	r2, [sp, #160]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1240              		.loc 1 216 9 is_stmt 1 view .LVU271
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1241              		.loc 1 216 24 is_stmt 0 view .LVU272
+ 1242 05e8 DDE94223 		ldrd	r2, [sp, #264]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1243              		.loc 1 216 17 view .LVU273
+ 1244 05ec CDE92A23 		strd	r2, [sp, #168]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1245              		.loc 1 216 30 view .LVU274
+ 1246 05f0 DDE94423 		ldrd	r2, [sp, #272]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1247              		.loc 1 216 17 view .LVU275
+ 1248 05f4 CDE92C23 		strd	r2, [sp, #176]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1249              		.loc 1 216 36 view .LVU276
+ 1250 05f8 DDE94623 		ldrd	r2, [sp, #280]
+ 216:Core/Src/control.c ****         point_t dp = {r[9], r[10], r[11]};
+ 1251              		.loc 1 216 17 view .LVU277
+ 1252 05fc CDE92E23 		strd	r2, [sp, #184]
+ 217:Core/Src/control.c **** 
+ 1253              		.loc 1 217 9 is_stmt 1 view .LVU278
+ 217:Core/Src/control.c **** 
+ 1254              		.loc 1 217 24 is_stmt 0 view .LVU279
+ 1255 0600 DDE94823 		ldrd	r2, [sp, #288]
+ 217:Core/Src/control.c **** 
+ 1256              		.loc 1 217 17 view .LVU280
+ 1257 0604 CDE93023 		strd	r2, [sp, #192]
+ 217:Core/Src/control.c **** 
+ 1258              		.loc 1 217 30 view .LVU281
+ 1259 0608 DDE94A23 		ldrd	r2, [sp, #296]
+ 217:Core/Src/control.c **** 
+ 1260              		.loc 1 217 17 view .LVU282
+ 1261 060c CDE93223 		strd	r2, [sp, #200]
+ 217:Core/Src/control.c **** 
+ 1262              		.loc 1 217 37 view .LVU283
+ 1263 0610 DDE94C23 		ldrd	r2, [sp, #304]
+ 217:Core/Src/control.c **** 
+ 1264              		.loc 1 217 17 view .LVU284
+ 1265 0614 CDE93423 		strd	r2, [sp, #208]
+ 219:Core/Src/control.c ****         if (result == 1)
+ 1266              		.loc 1 219 9 is_stmt 1 view .LVU285
+ 219:Core/Src/control.c ****         if (result == 1)
+ 1267              		.loc 1 219 26 is_stmt 0 view .LVU286
+ 1268 0618 DDE94E23 		ldrd	r2, [sp, #312]
+ 1269 061c CDE91423 		strd	r2, [sp, #80]
+ 1270 0620 0EAC     		add	r4, sp, #56
+ 1271              	.LVL127:
+ 219:Core/Src/control.c ****         if (result == 1)
+ 1272              		.loc 1 219 26 view .LVU287
+ 1273 0622 30AD     		add	r5, sp, #192
+ 1274              	.LVL128:
+ 219:Core/Src/control.c ****         if (result == 1)
+ 1275              		.loc 1 219 26 view .LVU288
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 34
+
+
+ 1276 0624 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 1277 0626 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 1278 0628 95E80300 		ldm	r5, {r0, r1}
+ 1279 062c 84E80300 		stm	r4, {r0, r1}
+ 1280 0630 08AC     		add	r4, sp, #32
+ 1281 0632 2AAD     		add	r5, sp, #168
+ 1282 0634 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 1283 0636 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 1284 0638 95E80300 		ldm	r5, {r0, r1}
+ 1285 063c 84E80300 		stm	r4, {r0, r1}
+ 1286 0640 02AC     		add	r4, sp, #8
+ 1287 0642 24AD     		add	r5, sp, #144
+ 1288 0644 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 1289 0646 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 1290 0648 95E80300 		ldm	r5, {r0, r1}
+ 1291 064c 84E80300 		stm	r4, {r0, r1}
+ 1292 0650 22AB     		add	r3, sp, #136
+ 1293 0652 93E80300 		ldm	r3, {r0, r1}
+ 1294 0656 8DE80300 		stm	sp, {r0, r1}
+ 1295 065a 1EAB     		add	r3, sp, #120
+ 1296 065c 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 1297 065e FFF7FEFF 		bl	curve
+ 1298              	.LVL129:
+ 219:Core/Src/control.c ****         if (result == 1)
+ 1299              		.loc 1 219 17 view .LVU289
+ 1300 0662 8DF87700 		strb	r0, [sp, #119]
+ 220:Core/Src/control.c ****         {
+ 1301              		.loc 1 220 9 is_stmt 1 view .LVU290
+ 220:Core/Src/control.c ****         {
+ 1302              		.loc 1 220 12 is_stmt 0 view .LVU291
+ 1303 0666 0128     		cmp	r0, #1
+ 1304 0668 20D0     		beq	.L75
+ 237:Core/Src/control.c ****             // print result
+ 1305              		.loc 1 237 13 is_stmt 1 view .LVU292
+ 1306 066a D44C     		ldr	r4, .L84
+ 1307 066c 0122     		movs	r2, #1
+ 1308 066e 1021     		movs	r1, #16
+ 1309 0670 2046     		mov	r0, r4
+ 1310 0672 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1311              	.LVL130:
+ 239:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1312              		.loc 1 239 13 view .LVU293
+ 1313 0676 D24D     		ldr	r5, .L84+4
+ 1314 0678 4FF6FF73 		movw	r3, #65535
+ 1315 067c 0122     		movs	r2, #1
+ 1316 067e 0DF17701 		add	r1, sp, #119
+ 1317 0682 2846     		mov	r0, r5
+ 1318 0684 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1319              	.LVL131:
+ 240:Core/Src/control.c ****             HAL_Delay(50);
+ 1320              		.loc 1 240 13 view .LVU294
+ 1321 0688 4FF6FF73 		movw	r3, #65535
+ 1322 068c 0122     		movs	r2, #1
+ 1323 068e 0DF24711 		addw	r1, sp, #327
+ 1324 0692 2846     		mov	r0, r5
+ 1325 0694 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1326              	.LVL132:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 35
+
+
+ 241:Core/Src/control.c ****             USART_IN;
+ 1327              		.loc 1 241 13 view .LVU295
+ 1328 0698 3220     		movs	r0, #50
+ 1329 069a FFF7FEFF 		bl	HAL_Delay
+ 1330              	.LVL133:
+ 242:Core/Src/control.c ****             // log info
+ 1331              		.loc 1 242 13 view .LVU296
+ 1332 069e 0022     		movs	r2, #0
+ 1333 06a0 1021     		movs	r1, #16
+ 1334 06a2 2046     		mov	r0, r4
+ 1335 06a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1336              	.LVL134:
+ 1337              	.L54:
+ 1338              	.LBE11:
+ 1339              		.loc 1 330 12 is_stmt 0 view .LVU297
+ 1340 06a8 0127     		movs	r7, #1
+ 1341 06aa 80E1     		b	.L21
+ 1342              	.L75:
+ 1343              	.LBB13:
+ 223:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 1344              		.loc 1 223 13 is_stmt 1 view .LVU298
+ 223:Core/Src/control.c ****             endagl = pointToAngle(dst);
+ 1345              		.loc 1 223 20 is_stmt 0 view .LVU299
+ 1346 06ac C54C     		ldr	r4, .L84+8
+ 1347 06ae 24AD     		add	r5, sp, #144
+ 1348 06b0 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 1349 06b2 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 1350 06b4 95E80300 		ldm	r5, {r0, r1}
+ 1351 06b8 84E80300 		stm	r4, {r0, r1}
+ 224:Core/Src/control.c **** 
+ 1352              		.loc 1 224 13 is_stmt 1 view .LVU300
+ 224:Core/Src/control.c **** 
+ 1353              		.loc 1 224 22 is_stmt 0 view .LVU301
+ 1354 06bc 26AB     		add	r3, sp, #152
+ 1355 06be 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 1356 06c0 8DE80F00 		stm	sp, {r0, r1, r2, r3}
+ 1357 06c4 24AB     		add	r3, sp, #144
+ 1358 06c6 0CCB     		ldm	r3, {r2, r3}
+ 1359 06c8 16A8     		add	r0, sp, #88
+ 1360 06ca FFF7FEFF 		bl	pointToAngle
+ 1361              	.LVL135:
+ 1362 06ce BE4D     		ldr	r5, .L84+12
+ 1363 06d0 16AC     		add	r4, sp, #88
+ 1364 06d2 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
+ 1365 06d4 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 1366 06d6 94E80300 		ldm	r4, {r0, r1}
+ 1367 06da 85E80300 		stm	r5, {r0, r1}
+ 226:Core/Src/control.c ****             // print result
+ 1368              		.loc 1 226 13 is_stmt 1 view .LVU302
+ 1369 06de B74C     		ldr	r4, .L84
+ 1370 06e0 0122     		movs	r2, #1
+ 1371 06e2 1021     		movs	r1, #16
+ 1372 06e4 2046     		mov	r0, r4
+ 1373 06e6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1374              	.LVL136:
+ 228:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1375              		.loc 1 228 13 view .LVU303
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 36
+
+
+ 1376 06ea B54D     		ldr	r5, .L84+4
+ 1377 06ec 4FF6FF73 		movw	r3, #65535
+ 1378 06f0 0122     		movs	r2, #1
+ 1379 06f2 0DF17701 		add	r1, sp, #119
+ 1380 06f6 2846     		mov	r0, r5
+ 1381 06f8 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1382              	.LVL137:
+ 229:Core/Src/control.c ****             HAL_Delay(50);
+ 1383              		.loc 1 229 13 view .LVU304
+ 1384 06fc 4FF6FF73 		movw	r3, #65535
+ 1385 0700 0122     		movs	r2, #1
+ 1386 0702 0DF24711 		addw	r1, sp, #327
+ 1387 0706 2846     		mov	r0, r5
+ 1388 0708 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1389              	.LVL138:
+ 230:Core/Src/control.c ****             USART_IN;
+ 1390              		.loc 1 230 13 view .LVU305
+ 1391 070c 3220     		movs	r0, #50
+ 1392 070e FFF7FEFF 		bl	HAL_Delay
+ 1393              	.LVL139:
+ 231:Core/Src/control.c ****             // log info
+ 1394              		.loc 1 231 13 view .LVU306
+ 1395 0712 0022     		movs	r2, #0
+ 1396 0714 1021     		movs	r1, #16
+ 1397 0716 2046     		mov	r0, r4
+ 1398 0718 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1399              	.LVL140:
+ 1400 071c C4E7     		b	.L54
+ 1401              	.LVL141:
+ 1402              	.L47:
+ 231:Core/Src/control.c ****             // log info
+ 1403              		.loc 1 231 13 is_stmt 0 view .LVU307
+ 1404              	.LBE13:
+ 247:Core/Src/control.c ****     {
+ 1405              		.loc 1 247 10 is_stmt 1 view .LVU308
+ 247:Core/Src/control.c ****     {
+ 1406              		.loc 1 247 14 is_stmt 0 view .LVU309
+ 1407 071e AB49     		ldr	r1, .L84+16
+ 1408 0720 2846     		mov	r0, r5
+ 1409 0722 FFF7FEFF 		bl	strcmp
+ 1410              	.LVL142:
+ 247:Core/Src/control.c ****     {
+ 1411              		.loc 1 247 13 view .LVU310
+ 1412 0726 0746     		mov	r7, r0
+ 1413 0728 0028     		cmp	r0, #0
+ 1414 072a 40F0CA80 		bne	.L55
+ 249:Core/Src/control.c ****         {
+ 1415              		.loc 1 249 9 is_stmt 1 view .LVU311
+ 249:Core/Src/control.c ****         {
+ 1416              		.loc 1 249 24 is_stmt 0 view .LVU312
+ 1417 072e 2C44     		add	r4, r4, r5
+ 1418              	.LVL143:
+ 249:Core/Src/control.c ****         {
+ 1419              		.loc 1 249 13 view .LVU313
+ 1420 0730 A749     		ldr	r1, .L84+20
+ 1421 0732 2046     		mov	r0, r4
+ 1422 0734 FFF7FEFF 		bl	strcmp
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 37
+
+
+ 1423              	.LVL144:
+ 249:Core/Src/control.c ****         {
+ 1424              		.loc 1 249 12 view .LVU314
+ 1425 0738 0028     		cmp	r0, #0
+ 1426 073a 46D0     		beq	.L76
+ 263:Core/Src/control.c ****         {
+ 1427              		.loc 1 263 14 is_stmt 1 view .LVU315
+ 263:Core/Src/control.c ****         {
+ 1428              		.loc 1 263 18 is_stmt 0 view .LVU316
+ 1429 073c A549     		ldr	r1, .L84+24
+ 1430 073e 2046     		mov	r0, r4
+ 1431 0740 FFF7FEFF 		bl	strcmp
+ 1432              	.LVL145:
+ 263:Core/Src/control.c ****         {
+ 1433              		.loc 1 263 17 view .LVU317
+ 1434 0744 0028     		cmp	r0, #0
+ 1435 0746 75D0     		beq	.L77
+ 277:Core/Src/control.c ****         {
+ 1436              		.loc 1 277 14 is_stmt 1 view .LVU318
+ 277:Core/Src/control.c ****         {
+ 1437              		.loc 1 277 18 is_stmt 0 view .LVU319
+ 1438 0748 A349     		ldr	r1, .L84+28
+ 1439 074a 2046     		mov	r0, r4
+ 1440 074c FFF7FEFF 		bl	strcmp
+ 1441              	.LVL146:
+ 277:Core/Src/control.c ****         {
+ 1442              		.loc 1 277 17 view .LVU320
+ 1443 0750 0028     		cmp	r0, #0
+ 1444 0752 40F02C81 		bne	.L21
+ 1445              	.LBB14:
+ 279:Core/Src/control.c **** 
+ 1446              		.loc 1 279 13 is_stmt 1 view .LVU321
+ 279:Core/Src/control.c **** 
+ 1447              		.loc 1 279 30 is_stmt 0 view .LVU322
+ 1448 0756 FFF7FEFF 		bl	pump_status
+ 1449              	.LVL147:
+ 279:Core/Src/control.c **** 
+ 1450              		.loc 1 279 21 view .LVU323
+ 1451 075a 8DF8D800 		strb	r0, [sp, #216]
+ 281:Core/Src/control.c ****             // print result
+ 1452              		.loc 1 281 13 is_stmt 1 view .LVU324
+ 1453 075e 974C     		ldr	r4, .L84
+ 1454 0760 0122     		movs	r2, #1
+ 1455 0762 1021     		movs	r1, #16
+ 1456 0764 2046     		mov	r0, r4
+ 1457 0766 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1458              	.LVL148:
+ 283:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1459              		.loc 1 283 13 view .LVU325
+ 1460 076a 954D     		ldr	r5, .L84+4
+ 1461              	.LVL149:
+ 283:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1462              		.loc 1 283 13 is_stmt 0 view .LVU326
+ 1463 076c 4FF6FF73 		movw	r3, #65535
+ 1464 0770 0122     		movs	r2, #1
+ 1465 0772 36A9     		add	r1, sp, #216
+ 1466 0774 2846     		mov	r0, r5
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 38
+
+
+ 1467 0776 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1468              	.LVL150:
+ 284:Core/Src/control.c ****             HAL_Delay(50);
+ 1469              		.loc 1 284 13 is_stmt 1 view .LVU327
+ 1470 077a 4FF6FF73 		movw	r3, #65535
+ 1471 077e 0122     		movs	r2, #1
+ 1472 0780 0DF24711 		addw	r1, sp, #327
+ 1473 0784 2846     		mov	r0, r5
+ 1474 0786 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1475              	.LVL151:
+ 285:Core/Src/control.c ****             USART_IN;
+ 1476              		.loc 1 285 13 view .LVU328
+ 1477 078a 3220     		movs	r0, #50
+ 1478 078c FFF7FEFF 		bl	HAL_Delay
+ 1479              	.LVL152:
+ 286:Core/Src/control.c ****             // log info
+ 1480              		.loc 1 286 13 view .LVU329
+ 1481 0790 0022     		movs	r2, #0
+ 1482 0792 1021     		movs	r1, #16
+ 1483 0794 2046     		mov	r0, r4
+ 1484 0796 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1485              	.LVL153:
+ 288:Core/Src/control.c ****             {
+ 1486              		.loc 1 288 13 view .LVU330
+ 290:Core/Src/control.c ****                     m_printf("[info] pump is working%c", '\n');
+ 1487              		.loc 1 290 17 view .LVU331
+ 290:Core/Src/control.c ****                     m_printf("[info] pump is working%c", '\n');
+ 1488              		.loc 1 290 28 is_stmt 0 view .LVU332
+ 1489 079a 9DF8D830 		ldrb	r3, [sp, #216]	@ zero_extendqisi2
+ 290:Core/Src/control.c ****                     m_printf("[info] pump is working%c", '\n');
+ 1490              		.loc 1 290 20 view .LVU333
+ 1491 079e 012B     		cmp	r3, #1
+ 1492 07a0 7DD0     		beq	.L78
+ 293:Core/Src/control.c ****             }
+ 1493              		.loc 1 293 21 is_stmt 1 view .LVU334
+ 293:Core/Src/control.c ****             }
+ 1494              		.loc 1 293 21 view .LVU335
+ 1495 07a2 864C     		ldr	r4, .L84
+ 1496 07a4 0122     		movs	r2, #1
+ 1497 07a6 1021     		movs	r1, #16
+ 1498 07a8 2046     		mov	r0, r4
+ 1499 07aa FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1500              	.LVL154:
+ 293:Core/Src/control.c ****             }
+ 1501              		.loc 1 293 21 view .LVU336
+ 1502 07ae 0A21     		movs	r1, #10
+ 1503 07b0 8A48     		ldr	r0, .L84+32
+ 1504 07b2 FFF7FEFF 		bl	printf
+ 1505              	.LVL155:
+ 293:Core/Src/control.c ****             }
+ 1506              		.loc 1 293 21 view .LVU337
+ 1507 07b6 3220     		movs	r0, #50
+ 1508 07b8 FFF7FEFF 		bl	HAL_Delay
+ 1509              	.LVL156:
+ 293:Core/Src/control.c ****             }
+ 1510              		.loc 1 293 21 view .LVU338
+ 1511 07bc 0022     		movs	r2, #0
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 39
+
+
+ 1512 07be 1021     		movs	r1, #16
+ 1513 07c0 2046     		mov	r0, r4
+ 1514 07c2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1515              	.LVL157:
+ 1516              	.L59:
+ 293:Core/Src/control.c ****             }
+ 1517              		.loc 1 293 21 discriminator 1 view .LVU339
+ 1518              	.LBE14:
+ 1519              		.loc 1 330 12 is_stmt 0 discriminator 1 view .LVU340
+ 1520 07c6 0127     		movs	r7, #1
+ 1521 07c8 F1E0     		b	.L21
+ 1522              	.LVL158:
+ 1523              	.L76:
+ 1524              	.LBB15:
+ 251:Core/Src/control.c **** 
+ 1525              		.loc 1 251 13 is_stmt 1 view .LVU341
+ 251:Core/Src/control.c **** 
+ 1526              		.loc 1 251 30 is_stmt 0 view .LVU342
+ 1527 07ca FFF7FEFF 		bl	pump_on
+ 1528              	.LVL159:
+ 251:Core/Src/control.c **** 
+ 1529              		.loc 1 251 21 view .LVU343
+ 1530 07ce 8DF8D800 		strb	r0, [sp, #216]
+ 253:Core/Src/control.c ****             // print result
+ 1531              		.loc 1 253 13 is_stmt 1 view .LVU344
+ 1532 07d2 7A4C     		ldr	r4, .L84
+ 1533 07d4 0122     		movs	r2, #1
+ 1534 07d6 1021     		movs	r1, #16
+ 1535 07d8 2046     		mov	r0, r4
+ 1536 07da FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1537              	.LVL160:
+ 255:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1538              		.loc 1 255 13 view .LVU345
+ 1539 07de 784D     		ldr	r5, .L84+4
+ 1540              	.LVL161:
+ 255:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1541              		.loc 1 255 13 is_stmt 0 view .LVU346
+ 1542 07e0 4FF6FF73 		movw	r3, #65535
+ 1543 07e4 0122     		movs	r2, #1
+ 1544 07e6 36A9     		add	r1, sp, #216
+ 1545 07e8 2846     		mov	r0, r5
+ 1546 07ea FFF7FEFF 		bl	HAL_UART_Transmit
+ 1547              	.LVL162:
+ 256:Core/Src/control.c ****             HAL_Delay(50);
+ 1548              		.loc 1 256 13 is_stmt 1 view .LVU347
+ 1549 07ee 4FF6FF73 		movw	r3, #65535
+ 1550 07f2 0122     		movs	r2, #1
+ 1551 07f4 0DF24711 		addw	r1, sp, #327
+ 1552 07f8 2846     		mov	r0, r5
+ 1553 07fa FFF7FEFF 		bl	HAL_UART_Transmit
+ 1554              	.LVL163:
+ 257:Core/Src/control.c ****             USART_IN;
+ 1555              		.loc 1 257 13 view .LVU348
+ 1556 07fe 3220     		movs	r0, #50
+ 1557 0800 FFF7FEFF 		bl	HAL_Delay
+ 1558              	.LVL164:
+ 258:Core/Src/control.c ****             // log info
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 40
+
+
+ 1559              		.loc 1 258 13 view .LVU349
+ 1560 0804 0022     		movs	r2, #0
+ 1561 0806 1021     		movs	r1, #16
+ 1562 0808 2046     		mov	r0, r4
+ 1563 080a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1564              	.LVL165:
+ 260:Core/Src/control.c ****                 m_printf("[info] pump on%c", '\n');
+ 1565              		.loc 1 260 13 view .LVU350
+ 261:Core/Src/control.c ****         }
+ 1566              		.loc 1 261 17 view .LVU351
+ 261:Core/Src/control.c ****         }
+ 1567              		.loc 1 261 17 view .LVU352
+ 1568 080e 0122     		movs	r2, #1
+ 1569 0810 1021     		movs	r1, #16
+ 1570 0812 2046     		mov	r0, r4
+ 1571 0814 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1572              	.LVL166:
+ 261:Core/Src/control.c ****         }
+ 1573              		.loc 1 261 17 view .LVU353
+ 1574 0818 0A21     		movs	r1, #10
+ 1575 081a 7148     		ldr	r0, .L84+36
+ 1576 081c FFF7FEFF 		bl	printf
+ 1577              	.LVL167:
+ 261:Core/Src/control.c ****         }
+ 1578              		.loc 1 261 17 view .LVU354
+ 1579 0820 3220     		movs	r0, #50
+ 1580 0822 FFF7FEFF 		bl	HAL_Delay
+ 1581              	.LVL168:
+ 261:Core/Src/control.c ****         }
+ 1582              		.loc 1 261 17 view .LVU355
+ 1583 0826 0022     		movs	r2, #0
+ 1584 0828 1021     		movs	r1, #16
+ 1585 082a 2046     		mov	r0, r4
+ 1586 082c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1587              	.LVL169:
+ 261:Core/Src/control.c ****         }
+ 1588              		.loc 1 261 17 view .LVU356
+ 1589              	.LBE15:
+ 1590              		.loc 1 330 12 is_stmt 0 view .LVU357
+ 1591 0830 0127     		movs	r7, #1
+ 1592 0832 BCE0     		b	.L21
+ 1593              	.LVL170:
+ 1594              	.L77:
+ 1595              	.LBB16:
+ 265:Core/Src/control.c **** 
+ 1596              		.loc 1 265 13 is_stmt 1 view .LVU358
+ 265:Core/Src/control.c **** 
+ 1597              		.loc 1 265 30 is_stmt 0 view .LVU359
+ 1598 0834 FFF7FEFF 		bl	pump_off
+ 1599              	.LVL171:
+ 265:Core/Src/control.c **** 
+ 1600              		.loc 1 265 21 view .LVU360
+ 1601 0838 8DF8D800 		strb	r0, [sp, #216]
+ 267:Core/Src/control.c ****             // print result
+ 1602              		.loc 1 267 13 is_stmt 1 view .LVU361
+ 1603 083c 5F4C     		ldr	r4, .L84
+ 1604 083e 0122     		movs	r2, #1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 41
+
+
+ 1605 0840 1021     		movs	r1, #16
+ 1606 0842 2046     		mov	r0, r4
+ 1607 0844 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1608              	.LVL172:
+ 269:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1609              		.loc 1 269 13 view .LVU362
+ 1610 0848 5D4D     		ldr	r5, .L84+4
+ 1611              	.LVL173:
+ 269:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(endline), 0xffff);
+ 1612              		.loc 1 269 13 is_stmt 0 view .LVU363
+ 1613 084a 4FF6FF73 		movw	r3, #65535
+ 1614 084e 0122     		movs	r2, #1
+ 1615 0850 36A9     		add	r1, sp, #216
+ 1616 0852 2846     		mov	r0, r5
+ 1617 0854 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1618              	.LVL174:
+ 270:Core/Src/control.c ****             HAL_Delay(50);
+ 1619              		.loc 1 270 13 is_stmt 1 view .LVU364
+ 1620 0858 4FF6FF73 		movw	r3, #65535
+ 1621 085c 0122     		movs	r2, #1
+ 1622 085e 0DF24711 		addw	r1, sp, #327
+ 1623 0862 2846     		mov	r0, r5
+ 1624 0864 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1625              	.LVL175:
+ 271:Core/Src/control.c ****             USART_IN;
+ 1626              		.loc 1 271 13 view .LVU365
+ 1627 0868 3220     		movs	r0, #50
+ 1628 086a FFF7FEFF 		bl	HAL_Delay
+ 1629              	.LVL176:
+ 272:Core/Src/control.c ****             // log info
+ 1630              		.loc 1 272 13 view .LVU366
+ 1631 086e 0022     		movs	r2, #0
+ 1632 0870 1021     		movs	r1, #16
+ 1633 0872 2046     		mov	r0, r4
+ 1634 0874 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1635              	.LVL177:
+ 274:Core/Src/control.c ****                 m_printf("[info] pump off%c", '\n');
+ 1636              		.loc 1 274 13 view .LVU367
+ 275:Core/Src/control.c ****         }
+ 1637              		.loc 1 275 17 view .LVU368
+ 275:Core/Src/control.c ****         }
+ 1638              		.loc 1 275 17 view .LVU369
+ 1639 0878 0122     		movs	r2, #1
+ 1640 087a 1021     		movs	r1, #16
+ 1641 087c 2046     		mov	r0, r4
+ 1642 087e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1643              	.LVL178:
+ 275:Core/Src/control.c ****         }
+ 1644              		.loc 1 275 17 view .LVU370
+ 1645 0882 0A21     		movs	r1, #10
+ 1646 0884 5748     		ldr	r0, .L84+40
+ 1647 0886 FFF7FEFF 		bl	printf
+ 1648              	.LVL179:
+ 275:Core/Src/control.c ****         }
+ 1649              		.loc 1 275 17 view .LVU371
+ 1650 088a 3220     		movs	r0, #50
+ 1651 088c FFF7FEFF 		bl	HAL_Delay
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 42
+
+
+ 1652              	.LVL180:
+ 275:Core/Src/control.c ****         }
+ 1653              		.loc 1 275 17 view .LVU372
+ 1654 0890 0022     		movs	r2, #0
+ 1655 0892 1021     		movs	r1, #16
+ 1656 0894 2046     		mov	r0, r4
+ 1657 0896 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1658              	.LVL181:
+ 275:Core/Src/control.c ****         }
+ 1659              		.loc 1 275 17 view .LVU373
+ 1660              	.LBE16:
+ 1661              		.loc 1 330 12 is_stmt 0 view .LVU374
+ 1662 089a 0127     		movs	r7, #1
+ 1663 089c 87E0     		b	.L21
+ 1664              	.L78:
+ 1665              	.LBB17:
+ 291:Core/Src/control.c ****                 else
+ 1666              		.loc 1 291 21 is_stmt 1 view .LVU375
+ 291:Core/Src/control.c ****                 else
+ 1667              		.loc 1 291 21 view .LVU376
+ 1668 089e 0122     		movs	r2, #1
+ 1669 08a0 1021     		movs	r1, #16
+ 1670 08a2 2046     		mov	r0, r4
+ 1671 08a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1672              	.LVL182:
+ 291:Core/Src/control.c ****                 else
+ 1673              		.loc 1 291 21 view .LVU377
+ 1674 08a8 0A21     		movs	r1, #10
+ 1675 08aa 4F48     		ldr	r0, .L84+44
+ 1676 08ac FFF7FEFF 		bl	printf
+ 1677              	.LVL183:
+ 291:Core/Src/control.c ****                 else
+ 1678              		.loc 1 291 21 view .LVU378
+ 1679 08b0 3220     		movs	r0, #50
+ 1680 08b2 FFF7FEFF 		bl	HAL_Delay
+ 1681              	.LVL184:
+ 291:Core/Src/control.c ****                 else
+ 1682              		.loc 1 291 21 view .LVU379
+ 1683 08b6 0022     		movs	r2, #0
+ 1684 08b8 1021     		movs	r1, #16
+ 1685 08ba 2046     		mov	r0, r4
+ 1686 08bc FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1687              	.LVL185:
+ 291:Core/Src/control.c ****                 else
+ 1688              		.loc 1 291 21 view .LVU380
+ 1689 08c0 81E7     		b	.L59
+ 1690              	.LVL186:
+ 1691              	.L55:
+ 291:Core/Src/control.c ****                 else
+ 1692              		.loc 1 291 21 is_stmt 0 view .LVU381
+ 1693              	.LBE17:
+ 299:Core/Src/control.c ****     {
+ 1694              		.loc 1 299 10 is_stmt 1 view .LVU382
+ 299:Core/Src/control.c ****     {
+ 1695              		.loc 1 299 14 is_stmt 0 view .LVU383
+ 1696 08c2 4A49     		ldr	r1, .L84+48
+ 1697 08c4 2846     		mov	r0, r5
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 43
+
+
+ 1698 08c6 FFF7FEFF 		bl	strcmp
+ 1699              	.LVL187:
+ 299:Core/Src/control.c ****     {
+ 1700              		.loc 1 299 13 view .LVU384
+ 1701 08ca 0746     		mov	r7, r0
+ 1702 08cc 0028     		cmp	r0, #0
+ 1703 08ce 72D1     		bne	.L65
+ 301:Core/Src/control.c ****         {
+ 1704              		.loc 1 301 9 is_stmt 1 view .LVU385
+ 301:Core/Src/control.c ****         {
+ 1705              		.loc 1 301 24 is_stmt 0 view .LVU386
+ 1706 08d0 2C44     		add	r4, r4, r5
+ 1707              	.LVL188:
+ 301:Core/Src/control.c ****         {
+ 1708              		.loc 1 301 13 view .LVU387
+ 1709 08d2 4749     		ldr	r1, .L84+52
+ 1710 08d4 2046     		mov	r0, r4
+ 1711 08d6 FFF7FEFF 		bl	strcmp
+ 1712              	.LVL189:
+ 301:Core/Src/control.c ****         {
+ 1713              		.loc 1 301 12 view .LVU388
+ 1714 08da B0B3     		cbz	r0, .L79
+ 313:Core/Src/control.c ****         {
+ 1715              		.loc 1 313 14 is_stmt 1 view .LVU389
+ 313:Core/Src/control.c ****         {
+ 1716              		.loc 1 313 18 is_stmt 0 view .LVU390
+ 1717 08dc 4549     		ldr	r1, .L84+56
+ 1718 08de 2046     		mov	r0, r4
+ 1719 08e0 FFF7FEFF 		bl	strcmp
+ 1720              	.LVL190:
+ 313:Core/Src/control.c ****         {
+ 1721              		.loc 1 313 17 view .LVU391
+ 1722 08e4 0028     		cmp	r0, #0
+ 1723 08e6 62D1     		bne	.L21
+ 315:Core/Src/control.c ****             // print result
+ 1724              		.loc 1 315 13 is_stmt 1 view .LVU392
+ 1725 08e8 344C     		ldr	r4, .L84
+ 1726 08ea 0122     		movs	r2, #1
+ 1727 08ec 1021     		movs	r1, #16
+ 1728 08ee 2046     		mov	r0, r4
+ 1729 08f0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1730              	.LVL191:
+ 317:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 1731              		.loc 1 317 13 view .LVU393
+ 1732 08f4 324D     		ldr	r5, .L84+4
+ 1733              	.LVL192:
+ 317:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 1734              		.loc 1 317 13 is_stmt 0 view .LVU394
+ 1735 08f6 4FF6FF73 		movw	r3, #65535
+ 1736 08fa 1822     		movs	r2, #24
+ 1737 08fc 3249     		ldr	r1, .L84+12
+ 1738 08fe 2846     		mov	r0, r5
+ 1739 0900 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1740              	.LVL193:
+ 318:Core/Src/control.c ****             HAL_Delay(50);
+ 1741              		.loc 1 318 13 is_stmt 1 view .LVU395
+ 1742 0904 4FF6FF73 		movw	r3, #65535
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 44
+
+
+ 1743 0908 0122     		movs	r2, #1
+ 1744 090a 0DF24711 		addw	r1, sp, #327
+ 1745 090e 2846     		mov	r0, r5
+ 1746 0910 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1747              	.LVL194:
+ 319:Core/Src/control.c ****             USART_IN;
+ 1748              		.loc 1 319 13 view .LVU396
+ 1749 0914 3220     		movs	r0, #50
+ 1750 0916 FFF7FEFF 		bl	HAL_Delay
+ 1751              	.LVL195:
+ 320:Core/Src/control.c ****             // log info
+ 1752              		.loc 1 320 13 view .LVU397
+ 1753 091a 0022     		movs	r2, #0
+ 1754 091c 1021     		movs	r1, #16
+ 1755 091e 2046     		mov	r0, r4
+ 1756 0920 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1757              	.LVL196:
+ 322:Core/Src/control.c ****                 m_printf("[info] get angle%c", '\n');
+ 1758              		.loc 1 322 13 view .LVU398
+ 323:Core/Src/control.c ****         }
+ 1759              		.loc 1 323 17 view .LVU399
+ 323:Core/Src/control.c ****         }
+ 1760              		.loc 1 323 17 view .LVU400
+ 1761 0924 0122     		movs	r2, #1
+ 1762 0926 1021     		movs	r1, #16
+ 1763 0928 2046     		mov	r0, r4
+ 1764 092a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1765              	.LVL197:
+ 323:Core/Src/control.c ****         }
+ 1766              		.loc 1 323 17 view .LVU401
+ 1767 092e 0A21     		movs	r1, #10
+ 1768 0930 3148     		ldr	r0, .L84+60
+ 1769 0932 FFF7FEFF 		bl	printf
+ 1770              	.LVL198:
+ 323:Core/Src/control.c ****         }
+ 1771              		.loc 1 323 17 view .LVU402
+ 1772 0936 3220     		movs	r0, #50
+ 1773 0938 FFF7FEFF 		bl	HAL_Delay
+ 1774              	.LVL199:
+ 323:Core/Src/control.c ****         }
+ 1775              		.loc 1 323 17 view .LVU403
+ 1776 093c 0022     		movs	r2, #0
+ 1777 093e 1021     		movs	r1, #16
+ 1778 0940 2046     		mov	r0, r4
+ 1779 0942 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1780              	.LVL200:
+ 1781              		.loc 1 330 12 is_stmt 0 view .LVU404
+ 1782 0946 0127     		movs	r7, #1
+ 1783 0948 31E0     		b	.L21
+ 1784              	.LVL201:
+ 1785              	.L79:
+ 303:Core/Src/control.c ****             // print result
+ 1786              		.loc 1 303 13 is_stmt 1 view .LVU405
+ 1787 094a 1C4C     		ldr	r4, .L84
+ 1788 094c 0122     		movs	r2, #1
+ 1789 094e 1021     		movs	r1, #16
+ 1790 0950 2046     		mov	r0, r4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 45
+
+
+ 1791 0952 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1792              	.LVL202:
+ 305:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 1793              		.loc 1 305 13 view .LVU406
+ 1794 0956 1A4D     		ldr	r5, .L84+4
+ 1795              	.LVL203:
+ 305:Core/Src/control.c ****             HAL_UART_Transmit(&huart2, &endline, sizeof(uint8_t), 0xffff);
+ 1796              		.loc 1 305 13 is_stmt 0 view .LVU407
+ 1797 0958 4FF6FF73 		movw	r3, #65535
+ 1798 095c 1822     		movs	r2, #24
+ 1799 095e 1949     		ldr	r1, .L84+8
+ 1800 0960 2846     		mov	r0, r5
+ 1801 0962 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1802              	.LVL204:
+ 306:Core/Src/control.c ****             HAL_Delay(50);
+ 1803              		.loc 1 306 13 is_stmt 1 view .LVU408
+ 1804 0966 4FF6FF73 		movw	r3, #65535
+ 1805 096a 0122     		movs	r2, #1
+ 1806 096c 0DF24711 		addw	r1, sp, #327
+ 1807 0970 2846     		mov	r0, r5
+ 1808 0972 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1809              	.LVL205:
+ 307:Core/Src/control.c ****             USART_IN;
+ 1810              		.loc 1 307 13 view .LVU409
+ 1811 0976 3220     		movs	r0, #50
+ 1812 0978 FFF7FEFF 		bl	HAL_Delay
+ 1813              	.LVL206:
+ 308:Core/Src/control.c ****             // log info
+ 1814              		.loc 1 308 13 view .LVU410
+ 1815 097c 0022     		movs	r2, #0
+ 1816 097e 1021     		movs	r1, #16
+ 1817 0980 2046     		mov	r0, r4
+ 1818 0982 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1819              	.LVL207:
+ 310:Core/Src/control.c ****                 m_printf("[info] get position%c", '\n');
+ 1820              		.loc 1 310 13 view .LVU411
+ 311:Core/Src/control.c ****         }
+ 1821              		.loc 1 311 17 view .LVU412
+ 311:Core/Src/control.c ****         }
+ 1822              		.loc 1 311 17 view .LVU413
+ 1823 0986 0122     		movs	r2, #1
+ 1824 0988 1021     		movs	r1, #16
+ 1825 098a 2046     		mov	r0, r4
+ 1826 098c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1827              	.LVL208:
+ 311:Core/Src/control.c ****         }
+ 1828              		.loc 1 311 17 view .LVU414
+ 1829 0990 0A21     		movs	r1, #10
+ 1830 0992 1A48     		ldr	r0, .L84+64
+ 1831 0994 FFF7FEFF 		bl	printf
+ 1832              	.LVL209:
+ 311:Core/Src/control.c ****         }
+ 1833              		.loc 1 311 17 view .LVU415
+ 1834 0998 3220     		movs	r0, #50
+ 1835 099a FFF7FEFF 		bl	HAL_Delay
+ 1836              	.LVL210:
+ 311:Core/Src/control.c ****         }
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 46
+
+
+ 1837              		.loc 1 311 17 view .LVU416
+ 1838 099e 0022     		movs	r2, #0
+ 1839 09a0 1021     		movs	r1, #16
+ 1840 09a2 2046     		mov	r0, r4
+ 1841 09a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1842              	.LVL211:
+ 1843              		.loc 1 330 12 is_stmt 0 view .LVU417
+ 1844 09a8 0127     		movs	r7, #1
+ 1845 09aa 00E0     		b	.L21
+ 1846              	.LVL212:
+ 1847              	.L61:
+  60:Core/Src/control.c ****     str[i++] = '\0';
+ 1848              		.loc 1 60 16 view .LVU418
+ 1849 09ac 0027     		movs	r7, #0
+ 1850              	.LVL213:
+ 1851              	.L21:
+ 331:Core/Src/control.c **** }
+ 1852              		.loc 1 331 1 view .LVU419
+ 1853 09ae 3846     		mov	r0, r7
+ 1854 09b0 52B0     		add	sp, sp, #328
+ 1855              		.cfi_remember_state
+ 1856              		.cfi_def_cfa_offset 24
+ 1857              		@ sp needed
+ 1858 09b2 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1859              	.LVL214:
+ 1860              	.L65:
+ 1861              		.cfi_restore_state
+ 329:Core/Src/control.c ****     return 1;
+ 1862              		.loc 1 329 16 view .LVU420
+ 1863 09b6 0027     		movs	r7, #0
+ 1864 09b8 F9E7     		b	.L21
+ 1865              	.L85:
+ 1866 09ba 00BF     		.align	2
+ 1867              	.L84:
+ 1868 09bc 00080140 		.word	1073809408
+ 1869 09c0 00000000 		.word	huart2
+ 1870 09c4 00000000 		.word	endpos
+ 1871 09c8 00000000 		.word	endagl
+ 1872 09cc C0000000 		.word	.LC15
+ 1873 09d0 C8000000 		.word	.LC16
+ 1874 09d4 E0000000 		.word	.LC18
+ 1875 09d8 F8000000 		.word	.LC20
+ 1876 09dc 18010000 		.word	.LC22
+ 1877 09e0 CC000000 		.word	.LC17
+ 1878 09e4 E4000000 		.word	.LC19
+ 1879 09e8 FC000000 		.word	.LC21
+ 1880 09ec 34010000 		.word	.LC23
+ 1881 09f0 38010000 		.word	.LC24
+ 1882 09f4 54010000 		.word	.LC26
+ 1883 09f8 58010000 		.word	.LC27
+ 1884 09fc 3C010000 		.word	.LC25
+ 1885              		.cfi_endproc
+ 1886              	.LFE69:
+ 1888              		.global	endagl
+ 1889              		.section	.bss.endagl,"aw",%nobits
+ 1890              		.align	3
+ 1893              	endagl:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 47
+
+
+ 1894 0000 00000000 		.space	24
+ 1894      00000000 
+ 1894      00000000 
+ 1894      00000000 
+ 1894      00000000 
+ 1895              		.global	endpos
+ 1896              		.section	.bss.endpos,"aw",%nobits
+ 1897              		.align	3
+ 1900              	endpos:
+ 1901 0000 00000000 		.space	24
+ 1901      00000000 
+ 1901      00000000 
+ 1901      00000000 
+ 1901      00000000 
+ 1902              		.text
+ 1903              	.Letext0:
+ 1904              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1905              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1906              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1907              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1908              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1909              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1910              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 1911              		.file 9 "Core/Inc/servo.h"
+ 1912              		.file 10 "Core/Inc/usart.h"
+ 1913              		.file 11 "Core/Inc/pump.h"
+ 1914              		.file 12 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\stdio.h"
+ 1915              		.file 13 "Core/Inc/serial.h"
+ 1916              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1917              		.file 15 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\string.h"
+ 1918              		.file 16 "<built-in>"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s 			page 48
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 control.c
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:23     .text.m_atof:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:29     .text.m_atof:00000000 m_atof
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:238    .text.m_atof:00000100 $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:248    .rodata.parexc.str1.4:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:333    .text.parexc:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:339    .text.parexc:00000000 parexc
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:770    .text.parexc:000002a0 $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1900   .bss.endpos:00000000 endpos
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1893   .bss.endagl:00000000 endagl
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:788    .text.parexc:000002dc $t
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1198   .text.parexc:00000584 $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1216   .text.parexc:000005b8 $t
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1868   .text.parexc:000009bc $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1890   .bss.endagl:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\cccbM0Ng.s:1897   .bss.endpos:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dmul
+__aeabi_i2d
+__aeabi_dadd
+__aeabi_dsub
+strcmp
+print_info
+move
+HAL_GPIO_WritePin
+HAL_UART_Transmit
+HAL_Delay
+pointToAngle
+movea_s
+huart2
+angleToPoint
+memset
+printf
+print_float
+puts
+curve
+pump_status
+pump_on
+pump_off

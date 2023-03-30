@@ -1,0 +1,198 @@
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"pump.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/pump.c"
+  18              		.section	.text.pump_on,"ax",%progbits
+  19              		.align	1
+  20              		.global	pump_on
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	pump_on:
+  26              	.LFB65:
+   1:Core/Src/pump.c **** #include "pump.h"
+   2:Core/Src/pump.c **** 
+   3:Core/Src/pump.c **** uint8_t pumpStatus = 0;
+   4:Core/Src/pump.c **** 
+   5:Core/Src/pump.c **** /**
+   6:Core/Src/pump.c ****  * @brief switch on pump
+   7:Core/Src/pump.c ****  */
+   8:Core/Src/pump.c **** uint8_t pump_on(void)
+   9:Core/Src/pump.c **** {
+  27              		.loc 1 9 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 4, -8
+  34              		.cfi_offset 14, -4
+  10:Core/Src/pump.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+  35              		.loc 1 10 5 view .LVU1
+  36 0002 074C     		ldr	r4, .L3
+  37 0004 0122     		movs	r2, #1
+  38 0006 2021     		movs	r1, #32
+  39 0008 2046     		mov	r0, r4
+  40 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  41              	.LVL0:
+  11:Core/Src/pump.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+  42              		.loc 1 11 5 view .LVU2
+  43 000e 0122     		movs	r2, #1
+  44 0010 4021     		movs	r1, #64
+  45 0012 2046     		mov	r0, r4
+  46 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  47              	.LVL1:
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s 			page 2
+
+
+  12:Core/Src/pump.c ****     pumpStatus = 1;
+  48              		.loc 1 12 5 view .LVU3
+  49              		.loc 1 12 16 is_stmt 0 view .LVU4
+  50 0018 0120     		movs	r0, #1
+  51 001a 024B     		ldr	r3, .L3+4
+  52 001c 1870     		strb	r0, [r3]
+  13:Core/Src/pump.c ****     return 1;
+  53              		.loc 1 13 5 is_stmt 1 view .LVU5
+  14:Core/Src/pump.c **** }
+  54              		.loc 1 14 1 is_stmt 0 view .LVU6
+  55 001e 10BD     		pop	{r4, pc}
+  56              	.L4:
+  57              		.align	2
+  58              	.L3:
+  59 0020 00080140 		.word	1073809408
+  60 0024 00000000 		.word	pumpStatus
+  61              		.cfi_endproc
+  62              	.LFE65:
+  64              		.section	.text.pump_off,"ax",%progbits
+  65              		.align	1
+  66              		.global	pump_off
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  71              	pump_off:
+  72              	.LFB66:
+  15:Core/Src/pump.c **** /**/
+  16:Core/Src/pump.c **** 
+  17:Core/Src/pump.c **** /**
+  18:Core/Src/pump.c ****  * @brief switch off pump
+  19:Core/Src/pump.c ****  */
+  20:Core/Src/pump.c **** uint8_t pump_off(void)
+  21:Core/Src/pump.c **** {
+  73              		.loc 1 21 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 10B5     		push	{r4, lr}
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 4, -8
+  80              		.cfi_offset 14, -4
+  22:Core/Src/pump.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+  81              		.loc 1 22 5 view .LVU8
+  82 0002 074C     		ldr	r4, .L7
+  83 0004 0022     		movs	r2, #0
+  84 0006 2021     		movs	r1, #32
+  85 0008 2046     		mov	r0, r4
+  86 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  87              	.LVL2:
+  23:Core/Src/pump.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+  88              		.loc 1 23 5 view .LVU9
+  89 000e 0022     		movs	r2, #0
+  90 0010 4021     		movs	r1, #64
+  91 0012 2046     		mov	r0, r4
+  92 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  93              	.LVL3:
+  24:Core/Src/pump.c ****     pumpStatus = 0;
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s 			page 3
+
+
+  94              		.loc 1 24 5 view .LVU10
+  95              		.loc 1 24 16 is_stmt 0 view .LVU11
+  96 0018 0020     		movs	r0, #0
+  97 001a 024B     		ldr	r3, .L7+4
+  98 001c 1870     		strb	r0, [r3]
+  25:Core/Src/pump.c ****     return 0;
+  99              		.loc 1 25 5 is_stmt 1 view .LVU12
+  26:Core/Src/pump.c **** }
+ 100              		.loc 1 26 1 is_stmt 0 view .LVU13
+ 101 001e 10BD     		pop	{r4, pc}
+ 102              	.L8:
+ 103              		.align	2
+ 104              	.L7:
+ 105 0020 00080140 		.word	1073809408
+ 106 0024 00000000 		.word	pumpStatus
+ 107              		.cfi_endproc
+ 108              	.LFE66:
+ 110              		.section	.text.pump_status,"ax",%progbits
+ 111              		.align	1
+ 112              		.global	pump_status
+ 113              		.syntax unified
+ 114              		.thumb
+ 115              		.thumb_func
+ 117              	pump_status:
+ 118              	.LFB67:
+  27:Core/Src/pump.c **** 
+  28:Core/Src/pump.c **** uint8_t pump_status(void)
+  29:Core/Src/pump.c **** {
+ 119              		.loc 1 29 1 is_stmt 1 view -0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+  30:Core/Src/pump.c ****     return pumpStatus;
+ 124              		.loc 1 30 5 view .LVU15
+  31:Core/Src/pump.c **** }
+ 125              		.loc 1 31 1 is_stmt 0 view .LVU16
+ 126 0000 014B     		ldr	r3, .L10
+ 127 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 128 0004 7047     		bx	lr
+ 129              	.L11:
+ 130 0006 00BF     		.align	2
+ 131              	.L10:
+ 132 0008 00000000 		.word	pumpStatus
+ 133              		.cfi_endproc
+ 134              	.LFE67:
+ 136              		.global	pumpStatus
+ 137              		.section	.bss.pumpStatus,"aw",%nobits
+ 140              	pumpStatus:
+ 141 0000 00       		.space	1
+ 142              		.text
+ 143              	.Letext0:
+ 144              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 145              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 146              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 147              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 pump.c
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:19     .text.pump_on:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:25     .text.pump_on:00000000 pump_on
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:59     .text.pump_on:00000020 $d
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:140    .bss.pumpStatus:00000000 pumpStatus
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:65     .text.pump_off:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:71     .text.pump_off:00000000 pump_off
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:105    .text.pump_off:00000020 $d
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:111    .text.pump_status:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:117    .text.pump_status:00000000 pump_status
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:132    .text.pump_status:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\ccPTAFUE.s:141    .bss.pumpStatus:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
