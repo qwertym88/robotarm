@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
   45              	.LFE66:
   46              		.cantunwind
   47              		.fnend
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 2
 
 
   49              		.section	.text._close,"ax",%progbits
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
   97 0004 4FF6FF73 		movw	r3, #65535
   98 0008 92B2     		uxth	r2, r2
   99              	.LVL3:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 3
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 3
 
 
  100              		.loc 1 20 26 view .LVU13
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
  150              		.syntax unified
  151              		.thumb
  152              		.thumb_func
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 4
 
 
  154              	_lseek:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
  201              		.loc 1 36 25 view .LVU30
  202 000c FFF7FEFF 		bl	HAL_UART_Receive
  203              	.LVL12:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 5
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 5
 
 
   37:Core/Src/syscalls.cpp ****         return size;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
  246              		.loc 1 50 9 is_stmt 1 view .LVU42
  247              		.loc 1 50 24 is_stmt 0 view .LVU43
  248 0008 074A     		ldr	r2, .L18
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 6
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 6
 
 
  249 000a 1068     		ldr	r0, [r2]
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
  297              		.text
  298              	.Letext0:
  299              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 7
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 7
 
 
  300              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_types.h"
@@ -373,37 +373,37 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 1
  309              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  310              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
  311              		.file 14 "Core/Inc/usart.h"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s 			page 8
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s 			page 8
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 syscalls.cpp
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:19     .text._fstat:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:25     .text._fstat:00000000 _fstat
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:19     .text._fstat:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:25     .text._fstat:00000000 _fstat
            .ARM.exidx.text._fstat:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:50     .text._close:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:56     .text._close:00000000 _close
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:50     .text._close:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:56     .text._close:00000000 _close
            .ARM.exidx.text._close:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:74     .text._write:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:80     .text._write:00000000 _write
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:115    .text._write:00000014 $d
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:74     .text._write:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:80     .text._write:00000000 _write
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:115    .text._write:00000014 $d
            .ARM.exidx.text._write:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:121    .text._isatty:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:127    .text._isatty:00000000 _isatty
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:121    .text._isatty:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:127    .text._isatty:00000000 _isatty
           .ARM.exidx.text._isatty:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:148    .text._lseek:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:154    .text._lseek:00000000 _lseek
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:148    .text._lseek:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:154    .text._lseek:00000000 _lseek
            .ARM.exidx.text._lseek:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:172    .text._read:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:178    .text._read:00000000 _read
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:213    .text._read:00000014 $d
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:172    .text._read:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:178    .text._read:00000000 _read
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:213    .text._read:00000014 $d
             .ARM.exidx.text._read:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:219    .text._sbrk:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:225    .text._sbrk:00000000 _sbrk
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:284    .text._sbrk:00000028 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:295    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 _ZZ5_sbrkE10s_pHeapEnd
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:219    .text._sbrk:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:225    .text._sbrk:00000000 _sbrk
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:284    .text._sbrk:00000028 $d
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:295    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 _ZZ5_sbrkE10s_pHeapEnd
             .ARM.exidx.text._sbrk:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccRsKT5D.s:292    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\ccXsrRAt.s:292    .bss._ZZ5_sbrkE10s_pHeapEnd:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Transmit

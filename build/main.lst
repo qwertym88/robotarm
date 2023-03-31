@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
   30:Core/Src/main.c **** /* USER CODE END Includes */
   31:Core/Src/main.c **** 
   32:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 2
 
 
   33:Core/Src/main.c **** /* USER CODE BEGIN PTD */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
   87:Core/Src/main.c **** 
   88:Core/Src/main.c ****   /* USER CODE END SysInit */
   89:Core/Src/main.c **** 
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 3
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 3
 
 
   90:Core/Src/main.c ****   /* Initialize all configured peripherals */
@@ -137,7 +137,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  103:Core/Src/main.c ****   USART_IN;
  104:Core/Src/main.c **** 
  105:Core/Src/main.c ****   // 转到默认角度
- 106:Core/Src/main.c ****   endagl.j1 = 0, endagl.j2 = 90, endagl.j3 = 0;
+ 106:Core/Src/main.c ****   endagl.j1 = 0, endagl.j2 = 80, endagl.j3 = 20;
  107:Core/Src/main.c ****   endpos = angleToPoint(endagl);
  108:Core/Src/main.c ****   movea(endagl);
  109:Core/Src/main.c ****   /* USER CODE END 2 */
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  144:Core/Src/main.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
  145:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
  146:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 4
 
 
  147:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
   12:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
   13:Drivers/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
   14:Drivers/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 5
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 5
 
 
   15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
   69:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   70:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
   71:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 6
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 6
 
 
   72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  126:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
  127:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  128:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 7
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 7
 
 
  129:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  135:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   74              		.loc 1 135 3 view .LVU8
  135:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 8
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 8
 
 
   75              		.loc 1 135 22 is_stmt 0 view .LVU9
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  148:Core/Src/main.c ****   {
  113              		.loc 1 148 7 is_stmt 0 view .LVU26
  114 0032 06A8     		add	r0, sp, #24
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 9
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 9
 
 
  115 0034 FFF7FEFF 		bl	HAL_RCC_OscConfig
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  153              		.loc 1 150 5 is_stmt 1 view .LVU42
  154 005c FFF7FEFF 		bl	Error_Handler
  155              	.LVL3:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 10
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 10
 
 
  156              	.L8:
@@ -594,11 +594,11 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  200              	.LVL10:
   98:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
  201              		.loc 1 98 3 view .LVU51
- 202 001c 254C     		ldr	r4, .L13
+ 202 001c 264C     		ldr	r4, .L13
  203 001e 0421     		movs	r1, #4
  204 0020 2046     		mov	r0, r4
  205 0022 FFF7FEFF 		bl	HAL_TIM_PWM_Start
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 11
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 11
 
 
  206              	.LVL11:
@@ -611,151 +611,154 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 1
  100:Core/Src/main.c ****   // �???启串口中�???
  212              		.loc 1 100 3 view .LVU53
  213 002e 0021     		movs	r1, #0
- 214 0030 2148     		ldr	r0, .L13+4
+ 214 0030 2248     		ldr	r0, .L13+4
  215 0032 FFF7FEFF 		bl	HAL_TIM_PWM_Start
  216              	.LVL13:
  102:Core/Src/main.c ****   USART_IN;
  217              		.loc 1 102 3 view .LVU54
  218 0036 0122     		movs	r2, #1
- 219 0038 2049     		ldr	r1, .L13+8
- 220 003a 2148     		ldr	r0, .L13+12
+ 219 0038 2149     		ldr	r1, .L13+8
+ 220 003a 2248     		ldr	r0, .L13+12
  221 003c FFF7FEFF 		bl	HAL_UART_Receive_IT
  222              	.LVL14:
  103:Core/Src/main.c **** 
  223              		.loc 1 103 3 view .LVU55
  224 0040 0022     		movs	r2, #0
  225 0042 1021     		movs	r1, #16
- 226 0044 1F48     		ldr	r0, .L13+16
+ 226 0044 2048     		ldr	r0, .L13+16
  227 0046 FFF7FEFF 		bl	HAL_GPIO_WritePin
  228              	.LVL15:
  106:Core/Src/main.c ****   endpos = angleToPoint(endagl);
  229              		.loc 1 106 3 view .LVU56
  106:Core/Src/main.c ****   endpos = angleToPoint(endagl);
  230              		.loc 1 106 13 is_stmt 0 view .LVU57
- 231 004a 1F4C     		ldr	r4, .L13+20
+ 231 004a 204C     		ldr	r4, .L13+20
  232 004c 0022     		movs	r2, #0
  233 004e 0023     		movs	r3, #0
  234 0050 C4E90023 		strd	r2, [r4]
  106:Core/Src/main.c ****   endpos = angleToPoint(endagl);
  235              		.loc 1 106 28 view .LVU58
- 236 0054 0020     		movs	r0, #0
- 237 0056 1D49     		ldr	r1, .L13+24
- 238 0058 C4E90201 		strd	r0, [r4, #8]
+ 236 0054 0022     		movs	r2, #0
+ 237 0056 1E4B     		ldr	r3, .L13+24
+ 238 0058 C4E90223 		strd	r2, [r4, #8]
  106:Core/Src/main.c ****   endpos = angleToPoint(endagl);
  239              		.loc 1 106 44 view .LVU59
- 240 005c C4E90423 		strd	r2, [r4, #16]
+ 240 005c 0022     		movs	r2, #0
+ 241 005e 1D4B     		ldr	r3, .L13+28
+ 242 0060 C4E90423 		strd	r2, [r4, #16]
  107:Core/Src/main.c ****   movea(endagl);
- 241              		.loc 1 107 3 is_stmt 1 view .LVU60
+ 243              		.loc 1 107 3 is_stmt 1 view .LVU60
  107:Core/Src/main.c ****   movea(endagl);
- 242              		.loc 1 107 12 is_stmt 0 view .LVU61
- 243 0060 04F10803 		add	r3, r4, #8
- 244 0064 0FCB     		ldm	r3, {r0, r1, r2, r3}
- 245 0066 8DE80F00 		stm	sp, {r0, r1, r2, r3}
- 246 006a 94E80C00 		ldm	r4, {r2, r3}
- 247 006e 04A8     		add	r0, sp, #16
- 248 0070 FFF7FEFF 		bl	angleToPoint
- 249              	.LVL16:
- 250 0074 164D     		ldr	r5, .L13+28
- 251 0076 0DF1100C 		add	ip, sp, #16
- 252 007a BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 12
+ 244              		.loc 1 107 12 is_stmt 0 view .LVU61
+ 245 0064 04F10803 		add	r3, r4, #8
+ 246 0068 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 247 006a 8DE80F00 		stm	sp, {r0, r1, r2, r3}
+ 248 006e 94E80C00 		ldm	r4, {r2, r3}
+ 249 0072 04A8     		add	r0, sp, #16
+ 250 0074 FFF7FEFF 		bl	angleToPoint
+ 251              	.LVL16:
+ 252 0078 174D     		ldr	r5, .L13+32
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 12
 
 
- 253 007e 0FC5     		stmia	r5!, {r0, r1, r2, r3}
- 254 0080 9CE80300 		ldm	ip, {r0, r1}
- 255 0084 85E80300 		stm	r5, {r0, r1}
+ 253 007a 0DF1100C 		add	ip, sp, #16
+ 254 007e BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 255 0082 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 256 0084 9CE80300 		ldm	ip, {r0, r1}
+ 257 0088 85E80300 		stm	r5, {r0, r1}
  108:Core/Src/main.c ****   /* USER CODE END 2 */
- 256              		.loc 1 108 3 is_stmt 1 view .LVU62
- 257 0088 04F11003 		add	r3, r4, #16
- 258 008c 93E80300 		ldm	r3, {r0, r1}
- 259 0090 8DE80300 		stm	sp, {r0, r1}
- 260 0094 94E80F00 		ldm	r4, {r0, r1, r2, r3}
- 261 0098 FFF7FEFF 		bl	movea
- 262              	.LVL17:
- 263              	.L10:
+ 258              		.loc 1 108 3 is_stmt 1 view .LVU62
+ 259 008c 04F11003 		add	r3, r4, #16
+ 260 0090 93E80300 		ldm	r3, {r0, r1}
+ 261 0094 8DE80300 		stm	sp, {r0, r1}
+ 262 0098 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 263 009c FFF7FEFF 		bl	movea
+ 264              	.LVL17:
+ 265              	.L10:
  113:Core/Src/main.c ****   {
- 264              		.loc 1 113 3 view .LVU63
+ 266              		.loc 1 113 3 view .LVU63
  118:Core/Src/main.c ****     {
- 265              		.loc 1 118 5 view .LVU64
+ 267              		.loc 1 118 5 view .LVU64
  118:Core/Src/main.c ****     {
- 266              		.loc 1 118 9 is_stmt 0 view .LVU65
- 267 009c FFF7FEFF 		bl	UART_available
- 268              	.LVL18:
+ 268              		.loc 1 118 9 is_stmt 0 view .LVU65
+ 269 00a0 FFF7FEFF 		bl	UART_available
+ 270              	.LVL18:
  118:Core/Src/main.c ****     {
- 269              		.loc 1 118 8 view .LVU66
- 270 00a0 0028     		cmp	r0, #0
- 271 00a2 FBD0     		beq	.L10
- 272              	.LBB6:
+ 271              		.loc 1 118 8 view .LVU66
+ 272 00a4 0028     		cmp	r0, #0
+ 273 00a6 FBD0     		beq	.L10
+ 274              	.LBB6:
  120:Core/Src/main.c ****       int cnt;
- 273              		.loc 1 120 7 is_stmt 1 view .LVU67
+ 275              		.loc 1 120 7 is_stmt 1 view .LVU67
  121:Core/Src/main.c ****       cnt = readStr(cmd);
- 274              		.loc 1 121 7 view .LVU68
+ 276              		.loc 1 121 7 view .LVU68
  122:Core/Src/main.c ****       parexc(cmd, cnt);
- 275              		.loc 1 122 7 view .LVU69
+ 277              		.loc 1 122 7 view .LVU69
  122:Core/Src/main.c ****       parexc(cmd, cnt);
- 276              		.loc 1 122 13 is_stmt 0 view .LVU70
- 277 00a4 0BA8     		add	r0, sp, #44
- 278 00a6 FFF7FEFF 		bl	readStr
- 279              	.LVL19:
+ 278              		.loc 1 122 13 is_stmt 0 view .LVU70
+ 279 00a8 0BA8     		add	r0, sp, #44
+ 280 00aa FFF7FEFF 		bl	readStr
+ 281              	.LVL19:
  123:Core/Src/main.c ****     }
- 280              		.loc 1 123 7 is_stmt 1 view .LVU71
- 281 00aa 81B2     		uxth	r1, r0
- 282 00ac 0BA8     		add	r0, sp, #44
- 283              	.LVL20:
+ 282              		.loc 1 123 7 is_stmt 1 view .LVU71
+ 283 00ae 81B2     		uxth	r1, r0
+ 284 00b0 0BA8     		add	r0, sp, #44
+ 285              	.LVL20:
  123:Core/Src/main.c ****     }
- 284              		.loc 1 123 7 is_stmt 0 view .LVU72
- 285 00ae FFF7FEFF 		bl	parexc
- 286              	.LVL21:
- 287 00b2 F3E7     		b	.L10
- 288              	.L14:
- 289              		.align	2
- 290              	.L13:
- 291 00b4 00000000 		.word	htim1
- 292 00b8 00000000 		.word	htim4
- 293 00bc 00000000 		.word	mesg
- 294 00c0 00000000 		.word	huart2
- 295 00c4 00080140 		.word	1073809408
- 296 00c8 00000000 		.word	endagl
- 297 00cc 00805640 		.word	1079410688
- 298 00d0 00000000 		.word	endpos
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 13
+ 286              		.loc 1 123 7 is_stmt 0 view .LVU72
+ 287 00b2 FFF7FEFF 		bl	parexc
+ 288              	.LVL21:
+ 289 00b6 F3E7     		b	.L10
+ 290              	.L14:
+ 291              		.align	2
+ 292              	.L13:
+ 293 00b8 00000000 		.word	htim1
+ 294 00bc 00000000 		.word	htim4
+ 295 00c0 00000000 		.word	mesg
+ 296 00c4 00000000 		.word	huart2
+ 297 00c8 00080140 		.word	1073809408
+ 298 00cc 00000000 		.word	endagl
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 13
 
 
- 299              	.LBE6:
- 300              		.cfi_endproc
- 301              	.LFE68:
- 303              		.text
- 304              	.Letext0:
- 305              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
- 306              		.file 4 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
- 307              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 308              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 309              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
- 310              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
- 311              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
- 312              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 313              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h"
- 314              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 315              		.file 13 "Core/Inc/tim.h"
- 316              		.file 14 "Core/Inc/usart.h"
- 317              		.file 15 "Core/Inc/servo.h"
- 318              		.file 16 "Core/Inc/control.h"
- 319              		.file 17 "Core/Inc/serial.h"
- 320              		.file 18 "Core/Inc/gpio.h"
- 321              		.file 19 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 322              		.file 20 "<built-in>"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s 			page 14
+ 299 00d0 00005440 		.word	1079246848
+ 300 00d4 00003440 		.word	1077149696
+ 301 00d8 00000000 		.word	endpos
+ 302              	.LBE6:
+ 303              		.cfi_endproc
+ 304              	.LFE68:
+ 306              		.text
+ 307              	.Letext0:
+ 308              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 309              		.file 4 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 310              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 311              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 312              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 313              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 314              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 315              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 316              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h"
+ 317              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 318              		.file 13 "Core/Inc/tim.h"
+ 319              		.file 14 "Core/Inc/usart.h"
+ 320              		.file 15 "Core/Inc/servo.h"
+ 321              		.file 16 "Core/Inc/control.h"
+ 322              		.file 17 "Core/Inc/serial.h"
+ 323              		.file 18 "Core/Inc/gpio.h"
+ 324              		.file 19 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 325              		.file 20 "<built-in>"
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:19     .text.Error_Handler:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:25     .text.Error_Handler:00000000 Error_Handler
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:57     .text.SystemClock_Config:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:63     .text.SystemClock_Config:00000000 SystemClock_Config
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:164    .text.main:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:170    .text.main:00000000 main
-C:\Users\qwertym\AppData\Local\Temp\ccqEAwZe.s:291    .text.main:000000b4 $d
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:19     .text.Error_Handler:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:25     .text.Error_Handler:00000000 Error_Handler
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:57     .text.SystemClock_Config:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:63     .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:164    .text.main:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:170    .text.main:00000000 main
+C:\Users\qwertym\AppData\Local\Temp\ccVfY8Cx.s:293    .text.main:000000b8 $d
 
 UNDEFINED SYMBOLS
 memset

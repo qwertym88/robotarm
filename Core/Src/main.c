@@ -103,7 +103,7 @@ int main(void)
   USART_IN;
 
   // 转到默认角度
-  endagl.j1 = 0, endagl.j2 = 90, endagl.j3 = 0;
+  endagl.j1 = 0, endagl.j2 = 80, endagl.j3 = 20;
   endpos = angleToPoint(endagl);
   movea(endagl);
   /* USER CODE END 2 */

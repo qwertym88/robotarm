@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
   30:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *                        opensource.org/licenses/BSD-3-Clause
   31:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *
   32:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   ******************************************************************************
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 2
 
 
   33:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
   87:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
   88:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** /** @defgroup HAL_Exported_Functions HAL Exported Functions
   89:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @{
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 3
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 3
 
 
   90:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  144:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   /* Configure Flash prefetch */
  145:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** #if (PREFETCH_ENABLE != 0)
  146:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** #if defined(STM32F101x6) || defined(STM32F101xB) || defined(STM32F101xE) || defined(STM32F101xG) ||
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 4
 
 
  147:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****     defined(STM32F102x6) || defined(STM32F102xB) || \
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  201:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
   27              		.loc 1 201 1 view -0
   28              		.cfi_startproc
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 5
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 5
 
 
   29              		@ args = 0, pretend = 0, frame = 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
   71              		.cfi_offset 4, -8
   72              		.cfi_offset 14, -4
  178:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   __HAL_RCC_APB1_RELEASE_RESET();
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 6
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 6
 
 
   73              		.loc 1 178 3 view .LVU5
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  232:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @retval HAL status
  233:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
  234:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 7
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 7
 
 
  235:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  145 002a 4FF0FF30 		mov	r0, #-1
  146 002e FFF7FEFF 		bl	HAL_NVIC_SetPriority
  147              	.LVL4:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 8
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 8
 
 
  246:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  194 000a 1360     		str	r3, [r2]
  157:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
  195              		.loc 1 157 3 view .LVU32
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 9
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 9
 
 
  196 000c 0320     		movs	r0, #3
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  278:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****       (+) Enable/Disable Debug module during STANDBY mode
  279:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
  280:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** @endverbatim
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 10
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 10
 
 
  281:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @{
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  305:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
  258              		.loc 1 305 1 is_stmt 1 view -0
  259              		.cfi_startproc
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 11
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 11
 
 
  260              		@ args = 0, pretend = 0, frame = 0
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  306              		.thumb
  307              		.thumb_func
  309              	HAL_SetTickFreq:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 12
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 12
 
 
  310              	.LVL9:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  344:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****     }
  345:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   }
  346:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** 
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 13
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 13
 
 
  347:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   return status;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  350:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** /**
  351:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @brief Return tick frequency.
  352:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @retval tick period in Hz
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 14
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 14
 
 
  353:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  416              		.cfi_offset 14, -4
  417 0002 0446     		mov	r4, r0
  372:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   uint32_t tickstart = HAL_GetTick();
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 15
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 15
 
 
  418              		.loc 1 372 3 is_stmt 1 view .LVU74
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  456              		.cfi_endproc
  457              	.LFE75:
  459              		.section	.text.HAL_SuspendTick,"ax",%progbits
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 16
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 16
 
 
  460              		.align	1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  410:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @retval None
  411:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
  412:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** __weak void HAL_ResumeTick(void)
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 17
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 17
 
 
  413:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  536              		.thumb
  537              		.thumb_func
  539              	HAL_GetREVID:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 18
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 18
 
 
  540              	.LFB79:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  453:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   */
  454:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** uint32_t HAL_GetDEVID(void)
  455:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** {
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 19
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 19
 
 
  569              		.loc 1 455 1 is_stmt 1 view -0
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  615              		.align	1
  616              		.global	HAL_GetUIDw1
  617              		.syntax unified
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 20
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 20
 
 
  618              		.thumb
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  657 0002 D3F8F007 		ldr	r0, [r3, #2032]
  658 0006 7047     		bx	lr
  659              	.L63:
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 21
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 21
 
 
  660              		.align	2
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  500:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *                  STM32F10xx4 and STM32F10xx6
  501:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in
  502:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       debug mode (not accessible by the user software in normal mode).
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 22
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 22
 
 
  503:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       Refer to errata sheet of these devices for more details.
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  531:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       Workaround: To debug the Stop mode, disable the system tick timer
  532:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       interrupt.
  533:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   *       Refer to errata sheet of these devices for more details.
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 23
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 23
 
 
  534:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ****   * @retval None
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  766 0002 5368     		ldr	r3, [r2, #4]
  767 0004 23F00203 		bic	r3, r3, #2
  768 0008 5360     		str	r3, [r2, #4]
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 24
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 24
 
 
  555:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c **** }
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  809              		.syntax unified
  810              		.thumb
  811              		.thumb_func
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 25
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 25
 
 
  813              	HAL_DBGMCU_DisableDBGStandbyMode:
@@ -1498,96 +1498,96 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 1
  858              		.file 4 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
  859              		.file 5 "Drivers/CMSIS/Include/core_cm3.h"
  860              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 26
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 26
 
 
  861              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
  862              		.file 8 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
  863              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 27
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 27
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f1xx_hal.c
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:19     .text.HAL_MspInit:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:25     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:38     .text.HAL_MspDeInit:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:44     .text.HAL_MspDeInit:00000000 HAL_MspDeInit
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:57     .text.HAL_DeInit:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:63     .text.HAL_DeInit:00000000 HAL_DeInit
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:94     .text.HAL_DeInit:0000001c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:99     .text.HAL_InitTick:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:105    .text.HAL_InitTick:00000000 HAL_InitTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:167    .text.HAL_InitTick:00000040 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:838    .data.uwTickFreq:00000000 uwTickFreq
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:845    .data.uwTickPrio:00000000 uwTickPrio
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:174    .text.HAL_Init:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:180    .text.HAL_Init:00000000 HAL_Init
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:213    .text.HAL_Init:00000020 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:218    .text.HAL_IncTick:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:224    .text.HAL_IncTick:00000000 HAL_IncTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:244    .text.HAL_IncTick:00000010 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:852    .bss.uwTick:00000000 uwTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:250    .text.HAL_GetTick:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:256    .text.HAL_GetTick:00000000 HAL_GetTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:272    .text.HAL_GetTick:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:277    .text.HAL_GetTickPrio:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:283    .text.HAL_GetTickPrio:00000000 HAL_GetTickPrio
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:298    .text.HAL_GetTickPrio:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:303    .text.HAL_SetTickFreq:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:309    .text.HAL_SetTickFreq:00000000 HAL_SetTickFreq
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:365    .text.HAL_SetTickFreq:00000024 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:371    .text.HAL_GetTickFreq:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:377    .text.HAL_GetTickFreq:00000000 HAL_GetTickFreq
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:392    .text.HAL_GetTickFreq:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:397    .text.HAL_Delay:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:403    .text.HAL_Delay:00000000 HAL_Delay
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:455    .text.HAL_Delay:00000024 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:460    .text.HAL_SuspendTick:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:466    .text.HAL_SuspendTick:00000000 HAL_SuspendTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:484    .text.HAL_ResumeTick:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:490    .text.HAL_ResumeTick:00000000 HAL_ResumeTick
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:508    .text.HAL_GetHalVersion:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:514    .text.HAL_GetHalVersion:00000000 HAL_GetHalVersion
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:528    .text.HAL_GetHalVersion:00000004 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:533    .text.HAL_GetREVID:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:539    .text.HAL_GetREVID:00000000 HAL_GetREVID
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:556    .text.HAL_GetREVID:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:561    .text.HAL_GetDEVID:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:567    .text.HAL_GetDEVID:00000000 HAL_GetDEVID
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:584    .text.HAL_GetDEVID:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:589    .text.HAL_GetUIDw0:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:595    .text.HAL_GetUIDw0:00000000 HAL_GetUIDw0
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:610    .text.HAL_GetUIDw0:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:615    .text.HAL_GetUIDw1:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:621    .text.HAL_GetUIDw1:00000000 HAL_GetUIDw1
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:636    .text.HAL_GetUIDw1:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:641    .text.HAL_GetUIDw2:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:647    .text.HAL_GetUIDw2:00000000 HAL_GetUIDw2
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s 			page 28
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:19     .text.HAL_MspInit:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:25     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:38     .text.HAL_MspDeInit:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:44     .text.HAL_MspDeInit:00000000 HAL_MspDeInit
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:57     .text.HAL_DeInit:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:63     .text.HAL_DeInit:00000000 HAL_DeInit
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:94     .text.HAL_DeInit:0000001c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:99     .text.HAL_InitTick:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:105    .text.HAL_InitTick:00000000 HAL_InitTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:167    .text.HAL_InitTick:00000040 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:838    .data.uwTickFreq:00000000 uwTickFreq
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:845    .data.uwTickPrio:00000000 uwTickPrio
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:174    .text.HAL_Init:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:180    .text.HAL_Init:00000000 HAL_Init
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:213    .text.HAL_Init:00000020 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:218    .text.HAL_IncTick:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:224    .text.HAL_IncTick:00000000 HAL_IncTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:244    .text.HAL_IncTick:00000010 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:852    .bss.uwTick:00000000 uwTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:250    .text.HAL_GetTick:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:256    .text.HAL_GetTick:00000000 HAL_GetTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:272    .text.HAL_GetTick:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:277    .text.HAL_GetTickPrio:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:283    .text.HAL_GetTickPrio:00000000 HAL_GetTickPrio
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:298    .text.HAL_GetTickPrio:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:303    .text.HAL_SetTickFreq:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:309    .text.HAL_SetTickFreq:00000000 HAL_SetTickFreq
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:365    .text.HAL_SetTickFreq:00000024 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:371    .text.HAL_GetTickFreq:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:377    .text.HAL_GetTickFreq:00000000 HAL_GetTickFreq
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:392    .text.HAL_GetTickFreq:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:397    .text.HAL_Delay:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:403    .text.HAL_Delay:00000000 HAL_Delay
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:455    .text.HAL_Delay:00000024 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:460    .text.HAL_SuspendTick:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:466    .text.HAL_SuspendTick:00000000 HAL_SuspendTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:484    .text.HAL_ResumeTick:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:490    .text.HAL_ResumeTick:00000000 HAL_ResumeTick
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:508    .text.HAL_GetHalVersion:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:514    .text.HAL_GetHalVersion:00000000 HAL_GetHalVersion
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:528    .text.HAL_GetHalVersion:00000004 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:533    .text.HAL_GetREVID:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:539    .text.HAL_GetREVID:00000000 HAL_GetREVID
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:556    .text.HAL_GetREVID:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:561    .text.HAL_GetDEVID:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:567    .text.HAL_GetDEVID:00000000 HAL_GetDEVID
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:584    .text.HAL_GetDEVID:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:589    .text.HAL_GetUIDw0:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:595    .text.HAL_GetUIDw0:00000000 HAL_GetUIDw0
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:610    .text.HAL_GetUIDw0:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:615    .text.HAL_GetUIDw1:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:621    .text.HAL_GetUIDw1:00000000 HAL_GetUIDw1
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:636    .text.HAL_GetUIDw1:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:641    .text.HAL_GetUIDw2:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:647    .text.HAL_GetUIDw2:00000000 HAL_GetUIDw2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s 			page 28
 
 
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:662    .text.HAL_GetUIDw2:00000008 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:667    .text.HAL_DBGMCU_EnableDBGSleepMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:673    .text.HAL_DBGMCU_EnableDBGSleepMode:00000000 HAL_DBGMCU_EnableDBGSleepMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:690    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:695    .text.HAL_DBGMCU_DisableDBGSleepMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:701    .text.HAL_DBGMCU_DisableDBGSleepMode:00000000 HAL_DBGMCU_DisableDBGSleepMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:718    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:723    .text.HAL_DBGMCU_EnableDBGStopMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:729    .text.HAL_DBGMCU_EnableDBGStopMode:00000000 HAL_DBGMCU_EnableDBGStopMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:746    .text.HAL_DBGMCU_EnableDBGStopMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:751    .text.HAL_DBGMCU_DisableDBGStopMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:757    .text.HAL_DBGMCU_DisableDBGStopMode:00000000 HAL_DBGMCU_DisableDBGStopMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:774    .text.HAL_DBGMCU_DisableDBGStopMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:779    .text.HAL_DBGMCU_EnableDBGStandbyMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:785    .text.HAL_DBGMCU_EnableDBGStandbyMode:00000000 HAL_DBGMCU_EnableDBGStandbyMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:802    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:807    .text.HAL_DBGMCU_DisableDBGStandbyMode:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:813    .text.HAL_DBGMCU_DisableDBGStandbyMode:00000000 HAL_DBGMCU_DisableDBGStandbyMode
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:830    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000c $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:842    .data.uwTickPrio:00000000 $d
-C:\Users\qwertym\AppData\Local\Temp\ccdCyyhZ.s:849    .bss.uwTick:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:662    .text.HAL_GetUIDw2:00000008 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:667    .text.HAL_DBGMCU_EnableDBGSleepMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:673    .text.HAL_DBGMCU_EnableDBGSleepMode:00000000 HAL_DBGMCU_EnableDBGSleepMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:690    .text.HAL_DBGMCU_EnableDBGSleepMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:695    .text.HAL_DBGMCU_DisableDBGSleepMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:701    .text.HAL_DBGMCU_DisableDBGSleepMode:00000000 HAL_DBGMCU_DisableDBGSleepMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:718    .text.HAL_DBGMCU_DisableDBGSleepMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:723    .text.HAL_DBGMCU_EnableDBGStopMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:729    .text.HAL_DBGMCU_EnableDBGStopMode:00000000 HAL_DBGMCU_EnableDBGStopMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:746    .text.HAL_DBGMCU_EnableDBGStopMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:751    .text.HAL_DBGMCU_DisableDBGStopMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:757    .text.HAL_DBGMCU_DisableDBGStopMode:00000000 HAL_DBGMCU_DisableDBGStopMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:774    .text.HAL_DBGMCU_DisableDBGStopMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:779    .text.HAL_DBGMCU_EnableDBGStandbyMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:785    .text.HAL_DBGMCU_EnableDBGStandbyMode:00000000 HAL_DBGMCU_EnableDBGStandbyMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:802    .text.HAL_DBGMCU_EnableDBGStandbyMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:807    .text.HAL_DBGMCU_DisableDBGStandbyMode:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:813    .text.HAL_DBGMCU_DisableDBGStandbyMode:00000000 HAL_DBGMCU_DisableDBGStandbyMode
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:830    .text.HAL_DBGMCU_DisableDBGStandbyMode:0000000c $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:842    .data.uwTickPrio:00000000 $d
+C:\Users\qwertym\AppData\Local\Temp\cc3TG2TV.s:849    .bss.uwTick:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_SYSTICK_Config

@@ -1,6 +1,6 @@
 #include "serial.h"
 
-uint8_t message[400]; // 接收字符串环形缓冲区
+uint8_t message[200]; // 接收字符串环形缓冲区
 uint8_t offset;       // 接收字符串缓冲区的下标及大小
 uint8_t mesg;         // 用于中断时，接收单个字符
 uint8_t RX_Flag;      // 发生中断的标志
@@ -12,7 +12,7 @@ uint8_t seekp = 0;
  */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-    if (offset == 400)
+    if (offset == 200)
         offset = 0;
     if (mesg != '\r' && mesg != '\n' && mesg != 255) // 忽略这些字符,反正本来也没用
         message[offset++] = mesg;
@@ -32,15 +32,18 @@ int readStr(uint8_t *buf)
     uint8_t flag = 0;
     while (message[tail++] != ';')
     {
-        if (tail == 400)
+        if (tail == 200)
         {
             tail = 0;
-            if (flag == 1) // 都没有;则直接返回空
+            if (flag == 1)
+            {
                 buf = NULL;
+                return 0;
+            }
             flag = 1;
         }
     }
-    tail--; // 形如123;的返回123'\0'，去掉;
+    tail = tail == 0 ? 0 : tail - 1; // 形如123;的返回123'\0'，去掉;
     if (flag == 0)
     {
         memcpy(buf, message + seekp, tail - seekp);
@@ -48,14 +51,14 @@ int readStr(uint8_t *buf)
     }
     else
     {
-        memcpy(buf, message + seekp, 400 - seekp);
-        memcpy(buf + (400 - seekp), message, tail);
+        memcpy(buf, message + seekp, 200 - seekp);
+        memcpy(buf + (200 - seekp - 1), message, tail);
         buf[tail] = '\0';
     }
     if (tail + 1 == offset) // 若已经读完缓冲区,清除GAIN_F标志
         GAIN_F = 0;
-    int len = tail - seekp + 1;
-    seekp = tail + 1;
+    int len = tail < seekp ? 200 - seekp + tail + 1 : tail - seekp + 1;
+    seekp = tail >= 199 ? 0 : tail + 1;
     return len;
 }
 

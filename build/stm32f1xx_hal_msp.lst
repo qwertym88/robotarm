@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 1
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 1
   30:Core/Src/stm32f1xx_hal_msp.c **** /* USER CODE END TD */
   31:Core/Src/stm32f1xx_hal_msp.c **** 
   32:Core/Src/stm32f1xx_hal_msp.c **** /* Private define ------------------------------------------------------------*/
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 2
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s 			page 2
 
 
   33:Core/Src/stm32f1xx_hal_msp.c **** /* USER CODE BEGIN Define */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 1
   44 000e 02F00102 		and	r2, r2, #1
   45 0012 0092     		str	r2, [sp]
   46              		.loc 1 69 3 view .LVU5
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 3
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s 			page 3
 
 
   47 0014 009A     		ldr	r2, [sp]
@@ -163,13 +163,13 @@ ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 1
   79              		.file 2 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\machine\\_default_types.h"
   80              		.file 3 "d:\\coding\\stc\\12.2 mpacbti-bet1\\arm-none-eabi\\include\\sys\\_stdint.h"
   81              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
-ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s 			page 4
+ARM GAS  C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f1xx_hal_msp.c
-C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s:19     .text.HAL_MspInit:00000000 $t
-C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s:25     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\qwertym\AppData\Local\Temp\ccXnuaAJ.s:73     .text.HAL_MspInit:0000002c $d
+C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s:19     .text.HAL_MspInit:00000000 $t
+C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s:25     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\qwertym\AppData\Local\Temp\ccjWWLfJ.s:73     .text.HAL_MspInit:0000002c $d
 
 NO UNDEFINED SYMBOLS
