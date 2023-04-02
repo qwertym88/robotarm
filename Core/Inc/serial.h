@@ -7,12 +7,13 @@
 #include <stdio.h>
 #include <string.h>
 
-enum LOG_LEVEL
-{
-    DEBUG_LEVEL,
-    INFO_LEVEL,
-    RELEASE_LEVEL
-};
+extern
+
+    enum LOG_LEVEL {
+        DEBUG_LEVEL,
+        INFO_LEVEL,
+        RELEASE_LEVEL
+    };
 #define CURRENT_LEVEL RELEASE_LEVEL
 
 // PA4控制着串口的收发
@@ -20,13 +21,15 @@ enum LOG_LEVEL
 // PA4控制着串口的收发
 #define USART_IN HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 // rs485专用，速度挺慢的
-#define m_printf(format, ...)        \
-    do                               \
-    {                                \
-        USART_OUT;                   \
-        printf(format, __VA_ARGS__); \
-        HAL_Delay(50);               \
-        USART_IN;                    \
+#define m_printf(format, ...)                                                    \
+    do                                                                           \
+    {                                                                            \
+        USART_OUT;                                                               \
+        uint8_t sendMsg[150];                                                    \
+        int send_str_count = sprintf(sendMsg, format, __VA_ARGS__);              \
+        HAL_UART_Transmit(&huart2, (uint8_t *)&sendMsg, send_str_count, 0xffff); \
+        HAL_Delay(50);                                                           \
+        USART_IN;                                                                \
     } while (0)
 
 int readStr(uint8_t *buf);

@@ -2,10 +2,11 @@
 
 uint8_t message[200]; // 接收字符串环形缓冲区
 uint8_t offset;       // 接收字符串缓冲区的下标及大小
-uint8_t mesg;         // 用于中断时，接收单个字符
 uint8_t RX_Flag;      // 发生中断的标志
 uint8_t GAIN_F;       // 接受完整语句的标志
 uint8_t seekp = 0;
+
+uint8_t recvMsg; // 用于中断时，接收单个字符
 
 /**
  * @brief 重写串口中断
@@ -14,12 +15,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (offset == 200)
         offset = 0;
-    if (mesg != '\r' && mesg != '\n' && mesg != 255) // 忽略这些字符,反正本来也没用
-        message[offset++] = mesg;
+    if (recvMsg != '\r' && recvMsg != '\n' && recvMsg != 255) // 忽略这些字符,反正本来也没用
+        message[offset++] = recvMsg;
     RX_Flag = 1;
-    if (mesg == ';') // 读到;说明已到达完整语句结尾
+    if (recvMsg == ';') // 读到;说明已到达完整语句结尾
         GAIN_F = 1;
-    HAL_UART_Receive_IT(huart, (uint8_t *)&mesg, 1);
+    HAL_UART_Receive_IT(huart, (uint8_t *)&recvMsg, 1);
 }
 /**
  * @brief 从缓冲区读取字符串
@@ -52,8 +53,8 @@ int readStr(uint8_t *buf)
     else
     {
         memcpy(buf, message + seekp, 200 - seekp);
-        memcpy(buf + (200 - seekp - 1), message, tail);
-        buf[tail] = '\0';
+        memcpy(buf + (200 - seekp), message, tail);
+        buf[200 - seekp + tail] = '\0';
     }
     if (tail + 1 == offset) // 若已经读完缓冲区,清除GAIN_F标志
         GAIN_F = 0;

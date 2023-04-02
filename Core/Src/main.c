@@ -46,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern int mesg;
+extern uint8_t recvMsg;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,7 +99,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
   // �???启串口中�???
-  HAL_UART_Receive_IT(&huart2, (uint8_t *)&mesg, 1);
+  HAL_UART_Receive_IT(&huart2, (uint8_t *)&recvMsg, 1);
   USART_IN;
 
   // 转到默认角度
@@ -115,11 +115,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
     if (UART_available() != 0)
     {
-      char cmd[100];
+      char cmd[200];
       int cnt;
       cnt = readStr(cmd);
+      // m_printf("%s\n", cmd);
       parexc(cmd, cnt);
     }
   }
